@@ -1,0 +1,36 @@
+
+CXX=i686-w64-mingw32-g++ -static-libgcc -static-libstdc++
+
+PRGS=xmolview
+EXT=.exe
+ARCH=.win32
+
+SCRS=$(PRGS).cxx fl_xmol_view.cxx fl_table.cxx fl_gl_mol_view.cxx fl_gl_atom.cxx \
+      cviewmol.cxx cmapmol.cxx cfragmol.cxx cfragment.cxx cfile.cxx ctopmol.cxx \
+      cposcar.cxx cpotcar.cxx cxyz.cxx cgau.cxx czmat.cxx cpdb.cxx cdlp.cxx \
+      sphere.cxx cpalette.cxx
+
+OBJS=$(SCRS:.cxx=.o)
+
+#RDIR=/home/etorres
+RDIR=$(shell echo $(HOME))
+MYINC=$(RDIR)/src/include
+FLTK=$(RDIR)/src/svn/fltk/fltk-1.3.x-win32
+
+MDIR=$(shell sh -c pwd)
+IDIR=$(MDIR)/../include
+SDIR=$(MDIR)/../src/
+XDIR=$(MDIR)/../bin/
+
+OPTIM= -O2 -Wall -Wunused -Wno-format-y2k -fno-exceptions -fno-strict-aliasing -fexceptions -static-libgcc -static-libstdc++ -static
+LX11R= -L/usr/i686-w64-mingw32/lib -lglu32 -lopengl32 -lole32 -luuid -lcomctl32 -mwindows
+LFLTK= -L $(FLTK)/lib -lfltk -lfltk_gl -lfltk_forms -lfltk_images
+IFLAGS= -I ../ -I $(RDIR)/src/include -I $(FLTK) -I $(IDIR) -I $(MYINC)
+
+CFLAGS= $(OPTIM) -c -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -mwindows -DWIN32 -DUSE_OPENGL32
+LFLAGS= $(OPTIM) $(LFLTK) $(LX11R)
+
+.SUFFIXES:	.cxx .o .h
+
+.cxx.o:
+	$(CXX) $(CFLAGS) $< -o $@ $(IFLAGS)

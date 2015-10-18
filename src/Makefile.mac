@@ -1,0 +1,8 @@
+
+include ../makeinclude.mac
+
+all: $(OBJS)
+	$(CXX) -o $(XDIR)$(PRGS)$(EXT) $(SDIR)$(OBJS) $(LFLAGS)
+
+clean:
+	rm -rf *o $(OBJS)

@@ -1,0 +1,937 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0303 
+header_name {../include/fl_xmol_view.h} 
+code_name {../src/fl_xmol_view.cxx}
+decl {//\#define __FL_MOL_VIEW__} {private local
+} 
+
+decl {\#include <version.h>} {public local
+} 
+
+decl {\#include <fl_gl_mol_view.h>} {public local
+} 
+
+class help_xmol {open
+} {
+  Function {help_xmol()} {open
+  } {
+    Fl_Window help_win {
+      label {About XMolView} open
+      xywh {1377 599 455 160} type Double
+      code3 {o->resizable(NULL);} modal visible
+    } {
+      Fl_Box {} {
+        label {Feel free to use XMolView a freeware based on the FLTK library. For support contact:
+support@@xmol.org and bugs@@xmol.org
+Copyright 2002-2015 by Edmanuel Torres
+www.xmol.org}
+        xywh {10 41 330 80} color 55 selection_color 55 align 176
+      }
+      Fl_Box {} {
+        label {Get FLTK from www.fltk.org.}
+        xywh {88 127 185 22} align 149
+      }
+      Fl_Button {} {
+        label {&Close}
+        callback {//
+  help_win->hide();}
+        xywh {360 117 70 28} box GLEAM_UP_BOX color 41 selection_color 41 labelcolor 57
+      }
+      Fl_Box {} {
+        image {../img/logo_xmol_header.png} xywh {340 10 99 100}
+      }
+      Fl_Box version {
+        label {xmolview (alpha)}
+        xywh {45 10 265 25} labelfont 1
+      }
+    }
+  }
+  Function {show()} {open
+  } {
+    code {//
+  //create_mol->position(5,102);
+  static char buff[64];
+  sprintf(buff,"XMolView %s%s(%s) Build %s",AutoVersion::STATUS,AutoVersion::UBUNTU_VERSION_STYLE,AutoVersion::DATE,AutoVersion::FULLVERSION_STRING);
+  version->label((const char*) buff);
+  help_win->show();} {}
+  }
+} 
+
+class message_xmol {} {
+  Function {message_xmol()} {open
+  } {
+    Fl_Window message_win {
+      label {XMolView Warning Message} open
+      xywh {1192 352 375 90} type Double hide
+      code3 {o->resizable(NULL);} modal
+    } {
+      Fl_Box {} {
+        label {Wrong file format: Consider check the file, extension or the input format!}
+        xywh {10 6 355 54} color 55 selection_color 55 labelfont 1 align 176
+      }
+      Fl_Button {} {
+        label {&Close}
+        callback {//
+  message_win->hide();}
+        xywh {160 63 70 19} box GLEAM_UP_BOX color 41 selection_color 41 labelcolor 57
+      }
+    }
+  }
+  Function {show()} {open
+  } {
+    code {//
+  //create_mol->position(5,102);
+  message_win->show();} {}
+  }
+} 
+
+class fl_xmol_view {open
+} {
+  decl {TVector<int> _vdef;} {public local
+  }
+  decl {TVector<real> _rdef;} {public local
+  }
+  decl {bool update_coordinates;} {private local
+  }
+  decl {bool next_play;} {private local
+  }
+  decl {char file_name[256];} {private local
+  }
+  decl {char dir_name[256];} {private local
+  }
+  decl {char title_bar[256];} {private local
+  }
+  decl {char str_cmd[1024];} {private local
+  }
+  decl {const char * p_path_filename;} {public local
+  }
+  decl {const char * p_filename;} {public local
+  }
+  decl {const char * p_dir;} {public local
+  }
+  decl {const char * p_user;} {public local
+  }
+  decl {uint ffmt;} {public local
+  }
+  Function {fl_xmol_view()} {open
+  } {
+    code {//
+  int ans=0;
+  char chpt[1024];
+  
+  p_user=getenv("USER");
+\#ifdef __FL_MOL_VIEW__
+  printf("%s\\n",p_user);
+\#endif
+  sprintf(str_cmd,"/home/%s/.xmolview/string.def",p_user);
+\#ifdef __FL_MOL_VIEW__
+  printf("%s\\n",str_cmd);
+\#endif
+  std::ifstream infile(str_cmd);
+  
+  if(infile.is_open()){
+    infile.getline(chpt,1024); 
+    strcpy(dir_name,chpt);
+    infile.close();
+  }else{
+    sprintf(str_cmd,"mkdir -p /home/%s/.xmolview/",p_user);
+    ans = system(str_cmd);
+    sprintf(str_cmd,"/home/%s",p_user);
+    strcpy(dir_name,str_cmd);
+  }
+  
+  update_coordinates=false;} {}
+    Fl_Window main_window {
+      label {Molecular eXplorer Viewer (XMolView)} open
+      xywh {2186 337 948 676} type Double color 8 selection_color 8 labelsize 12 labelcolor 7 align 80 resizable visible
+    } {
+      Fl_Group {} {open
+        xywh {-5 -1 955 678} box FLAT_BOX color 8 selection_color 8 labelsize 12
+      } {
+        Fl_Box mol3d {
+          label {There is not OpenGL available... :P}
+          callback {//
+  uint a=mol3d->get_action();
+  std::cout<<" Action: "<<a<<std::endl;
+  
+  //
+  //position_panel->deactivate();}
+          xywh {205 1 742 674} box BORDER_BOX color 0 selection_color 0 labelsize 12 labelcolor 15 resizable
+          class Fl_Gl_Mol_View
+        }
+        Fl_Group control_panel {open
+          xywh {0 -1 205 675} box FLAT_BOX color 39 selection_color 39 labelsize 12
+          code0 {control_panel->resizable(0);}
+        } {
+          Fl_Menu_Bar main_menu {
+            xywh {0 -1 205 20} box FLAT_BOX color 34 selection_color 7 labelfont 1 labelsize 12 labelcolor 34 textfont 1 textcolor 7
+          } {
+            Submenu {} {
+              label File open
+              xywh {5 5 59 20} labelsize 12
+            } {
+              MenuItem {} {
+                label Open
+                callback {//
+  open_file();}
+                xywh {15 15 30 20} labelsize 12
+              }
+              MenuItem {} {
+                label {Load file}
+                callback {//
+  load_file();}
+                xywh {25 25 30 20} labelsize 12
+              }
+              MenuItem {} {
+                label Reload
+                xywh {45 45 30 20} labelsize 12
+              }
+              MenuItem {} {
+                label Save
+                xywh {55 55 30 20} labelsize 12
+              }
+              MenuItem {} {
+                label {Save as...}
+                xywh {65 65 30 20} labelsize 12
+              }
+              MenuItem {} {
+                label Close
+                callback {main_window->hide();
+exit(0);}
+                xywh {5 5 30 20} labelsize 12
+              }
+            }
+            Submenu {} {
+              label Help open
+              xywh {5 5 59 20} labelsize 12
+            } {
+              MenuItem {} {
+                label About
+                callback {//
+  help_xmol * about = new help_xmol();
+  about->show();}
+                xywh {85 85 30 20} labelsize 12
+              }
+            }
+          }
+          Fl_Group file_tools {open
+            xywh {2 24 201 33} box FLAT_BOX color 8 selection_color 7 labelsize 12 labelcolor 7
+          } {
+            Fl_Button vernum {
+              label {xmv 1.0.3}
+              callback {//
+  help_xmol * about = new help_xmol();
+  about->show();}
+              xywh {115 28 80 25} box NO_BOX color 16 selection_color 16 labelfont 1
+            }
+            Fl_Button file_open_button {
+              label {@fileopen}
+              callback {//
+  open_file();}
+              xywh {5 27 35 25} box GLEAM_UP_BOX color 25 selection_color 25 labelsize 10 labelcolor 27
+              code0 {\#include<msmvtl/tmatrix.h>}
+              code1 {\#include<string.h>}
+              code2 {\#include<FL/Fl_File_Chooser.H>}
+            }
+            Fl_Button load_file_button {
+              label {@->}
+              callback {//
+  load_file();
+  //work_control->activate();}
+              xywh {40 27 36 25} box GLEAM_UP_BOX color 25 selection_color 25 labelsize 10 labelcolor 27 deactivate
+            }
+            Fl_Button save_as_file_button {
+              label {@filesaveas}
+              callback {//
+  save_as_file();}
+              xywh {76 27 35 25} box GLEAM_UP_BOX color 25 selection_color 25 labelsize 10 labelcolor 27 deactivate
+            }
+            Fl_Button reload_file_button {
+              label {@reload}
+              callback {// Save a copy of the POSCAR file
+// void apiSavePoscar(string fname)\{
+//   apiReload();
+//   vredraw();}
+              xywh {92 29 35 25} box GLEAM_UP_BOX color 25 selection_color 25 labelsize 10 labelcolor 27 hide deactivate
+            }
+            Fl_Button save_file_button {
+              label {@filesave}
+              callback {// Save the file
+  
+  //save_input_file();}
+              xywh {128 29 35 25} box GLEAM_UP_BOX color 25 selection_color 25 labelsize 10 labelcolor 27 hide deactivate
+            }
+            Fl_Choice output_program {open
+              xywh {203 56 0 1} box GTK_THIN_UP_BOX down_box BORDER_BOX color 22 selection_color 22 labelsize 10 textsize 10 hide deactivate
+              code0 {o->add("standard|fragments|topmol|full");}
+              code3 {o->value(0);}
+            } {}
+          }
+          Fl_Box {} {
+            xywh {0 673 205 1} resizable
+          }
+          Fl_Group {} {
+            label {Input file format} open
+            xywh {10 70 186 65} box FLAT_BOX color 8 selection_color 38 labelsize 10 align 5
+          } {
+            Fl_Choice input_file_type {
+              label {Input:}
+              callback {//
+  ffmt = (uint)input_file_type->value();
+  //std::cout<<" unknow input: "<<INPUT_FILE_TYPE_UNKNOWN<<std::endl;
+  if(ffmt != 6){
+    load_file_button->activate();  
+    input_file_type->value(ffmt);
+    output_file_type->value(ffmt);
+    //std::cout<<" input: "<<ffmt<<std::endl;
+    if(ffmt==1){ // XYZ only
+      input_file_units->activate();
+    }else{
+      input_file_units->deactivate();
+    }
+  }else{
+    load_file_button->deactivate();
+    ffmt = INPUT_FILE_TYPE_UNKNOWN;
+    input_file_units->deactivate();
+  }} open
+              xywh {56 79 108 16} box GTK_THIN_UP_BOX down_box BORDER_BOX color 22 selection_color 22 labelsize 12 labelcolor 7 textsize 10
+              code0 {o->add("POSCAR|XYZ|Gaussian|PDB|DL_POLY|Z-Matrix|UNKNOWN");}
+              code3 {o->value(6);}
+            } {}
+            Fl_Choice input_file_units {
+              label {Units:}
+              callback {//} open
+              xywh {56 99 108 16} box GTK_THIN_UP_BOX down_box BORDER_BOX color 22 selection_color 22 labelsize 12 labelcolor 7 textsize 10
+              code0 {o->add("Angstrom|Bohr");}
+              code3 {o->value(0);}
+            } {}
+          }
+          Fl_Group {} {
+            label {Output file format} open
+            xywh {10 147 186 101} box FLAT_BOX color 8 selection_color 38 labelsize 10 align 5
+          } {
+            Fl_Choice output_file_type {
+              label {Output:}
+              callback {//
+  if((unsigned int)output_file_type->value() == OUTPUT_FILE_TYPE_XYZ){
+    output_file_atoms->activate();
+    output_file_frags->activate();
+  }else if((unsigned int)output_file_type->value() == OUTPUT_FILE_TYPE_GAU){
+    output_file_atoms->activate();
+    output_file_frags->activate();
+  }else if((unsigned int)output_file_type->value() == OUTPUT_FILE_TYPE_PDB){
+    output_file_atoms->activate();
+    output_file_frags->activate();
+  }else if((unsigned int)output_file_type->value() == OUTPUT_FILE_TYPE_DLP){
+    output_file_atoms->activate();
+  }else{
+    output_file_atoms->deactivate();
+    output_file_frags->deactivate();
+  }}
+              xywh {56 159 108 16} box GTK_THIN_UP_BOX down_box BORDER_BOX color 22 selection_color 22 labelsize 12 labelcolor 7 textsize 10
+              code0 {o->add("POSCAR|XYZ|Gaussian|PDB|DL_POLY|Z-Matrix|UNKNOWN");}
+              code3 {o->value(6);}
+            } {}
+            Fl_Check_Button output_file_atoms {
+              label structure
+              callback {//}
+              xywh {57 185 60 20} down_box DOWN_BOX labelsize 12 labelcolor 7
+            }
+            Fl_Check_Button output_file_frags {
+              label fragments
+              callback {//}
+              xywh {57 225 63 20} down_box DOWN_BOX labelsize 12 labelcolor 7 deactivate
+            }
+            Fl_Check_Button output_topology {
+              label topology
+              callback {//}
+              xywh {57 205 63 20} down_box DOWN_BOX labelsize 12 labelcolor 7
+            }
+          }
+          Fl_Group {} {
+            label View open
+            xywh {10 262 186 113} box FLAT_BOX color 8 selection_color 38 labelsize 10 align 5
+          } {
+            Fl_Choice sphere_resolution {
+              label sphere
+              callback {//
+  mol3d->set_sphere_resolution((int)sphere_resolution->value());
+  view_redraw();} open
+              xywh {56 269 108 18} down_box BORDER_BOX selection_color 49 labelsize 12 labelcolor 7 textsize 12
+              code0 {o->add("0 preview|1 fast|2 normal|3 medium|4 high");}
+              code1 {o->value(2);}
+            } {}
+            Fl_Group {} {
+              label {periodic images}
+              xywh {19 310 101 65} box FLAT_BOX color 8 selection_color 38 labelsize 12 labelcolor 7 align 5
+            } {
+              Fl_Value_Input xcells {
+                label x
+                callback {//}
+                xywh {36 317 40 15} box THIN_DOWN_BOX color 1 selection_color 1 labelsize 12 labelcolor 7 maximum 1000 step 1 textsize 12
+              }
+              Fl_Button {} {
+                label {@<-}
+                callback {//
+  int val = (int)xcells->value();
+  xcells->value(val-1);
+  mol3d->set_x_cells((int)xcells->value());
+  view_redraw();}
+                xywh {79 317 20 15} box GTK_THIN_UP_BOX color 27 selection_color 27 labelsize 12 labelcolor 7
+              }
+              Fl_Button {} {
+                label {@->}
+                callback {//
+  int val = (int)xcells->value();
+  xcells->value(val+1);
+  mol3d->set_x_cells((int)xcells->value());
+  view_redraw();}
+                xywh {100 317 20 15} box GTK_THIN_UP_BOX color 27 selection_color 27 labelsize 12 labelcolor 7
+              }
+              Fl_Value_Input ycells {
+                label y
+                callback {//}
+                xywh {36 335 40 15} box THIN_DOWN_BOX color 111 selection_color 111 labelsize 12 labelcolor 7 maximum 1000 step 1 textsize 12
+              }
+              Fl_Button {} {
+                label {@<-}
+                callback {//
+  int val = (int)ycells->value();
+  ycells->value(val-1);
+  mol3d->set_y_cells((int)ycells->value());
+  view_redraw();}
+                xywh {79 335 20 15} box GTK_THIN_UP_BOX color 27 selection_color 27 labelsize 12 labelcolor 7
+              }
+              Fl_Button {} {
+                label {@->}
+                callback {//
+  int val = (int)ycells->value();
+  ycells->value(val+1);
+  mol3d->set_y_cells((int)ycells->value());
+  view_redraw();}
+                xywh {100 335 20 15} box GTK_THIN_UP_BOX color 27 selection_color 27 labelsize 12 labelcolor 7
+              }
+              Fl_Value_Input zcells {
+                label z
+                callback {//}
+                xywh {36 354 40 13} box THIN_DOWN_BOX color 223 selection_color 223 labelsize 12 labelcolor 7 maximum 1000 step 1 textsize 12
+              }
+              Fl_Button {} {
+                label {@<-}
+                callback {//
+  int val = (int)zcells->value();
+  zcells->value(val-1);
+  mol3d->set_z_cells((int)zcells->value());
+  view_redraw();}
+                xywh {79 354 20 13} box GTK_THIN_UP_BOX color 27 selection_color 27 labelsize 12 labelcolor 7
+              }
+              Fl_Button {} {
+                label {@->}
+                callback {//
+  int val = (int)zcells->value();
+  zcells->value(val+1);
+  mol3d->set_z_cells((int)zcells->value());
+  view_redraw();}
+                xywh {100 354 20 13} box GTK_THIN_UP_BOX color 27 selection_color 27 labelsize 12 labelcolor 7
+              }
+            }
+          }
+        }
+      }
+    }
+    code {//} {}
+  }
+  Function {open_file()} {} {
+    code {//
+  ffmt=0;
+  save_as_file_button->deactivate();
+  
+  Fl_File_Chooser * p;
+  p = new Fl_File_Chooser(dir_name,"*",0,"Open file");
+  p->directory(dir_name);
+  //p->filter(filter1.c_str());
+  p->show();
+  while( p->visible()) Fl::wait();
+  //
+  if(p->value()){
+    p_path_filename = (char*)p->value();
+    p_dir  = (char*)p->directory();
+    p_filename = fl_filename_name(p->value());
+\#ifdef __FL_MOL_VIEW__
+    std::cout<<" path_filename: "<<p_path_filename<<std::endl;
+    std::cout<<" dir: "<<p_dir<<std::endl;
+    std::cout<<" filename: "<<p_filename<<std::endl;
+\#endif
+    //
+    mol3d->cell.set_input_file(p_filename);
+    ffmt = mol3d->get_view_file_type(p_filename);
+    if(ffmt !=INPUT_FILE_TYPE_UNKNOWN ){
+      //input_file_type->deactivate();
+      input_file_type->value(ffmt);
+      output_file_type->value(ffmt);
+      if(ffmt==1){ // XYZ only
+        input_file_units->activate();
+      }else{
+        input_file_units->deactivate();
+      }
+    }else{
+      //choice_format->value(choice_format->size()-1);
+      input_file_type->value(6);
+      output_file_type->value(6);
+      //input_file_type->activate();
+      input_file_units->deactivate();
+    }
+    //mol3d->clear();
+    //mol3d->set_dir(p_dir);
+    //mol3d->topmol_dir(p_dir);
+    //
+    strcpy(dir_name,p_dir);
+    strcpy(file_name,p_filename);
+    //    
+\#ifdef __FL_MOL_VIEW__
+    std::cout<<"======================================================================"<<std::endl;
+    std::cout<<" File Name = "<<p_filename<<std::endl;
+    std::cout<<" Dir Name = "<<p_dir<<std::endl;
+    std::cout<<"======================================================================"<<std::endl;
+\#endif
+    //fn->value(file_name);
+    //filename_box->value(p_filename);
+    // Name bar
+    sprintf(title_bar, "XMV - %s", p_path_filename);
+    main_window->label(title_bar);
+    if(ffmt != INPUT_FILE_TYPE_UNKNOWN){
+      load_file_button->activate();
+      load_file_button->color((Fl_Color)5);
+      load_file_button->redraw();
+    }else{
+      load_file_button->deactivate();
+    }
+    //fragment_button->deactivate();
+    sprintf(str_cmd,"/home/%s/.xmolview/string.def",p_user);
+\#ifdef __FL_MOL_VIEW__
+    printf("%s\\n",str_cmd);
+\#endif
+    std::ofstream offile(str_cmd, std::ofstream::trunc | std::ofstream::out | std::ofstream::in);
+    if (offile.is_open() && offile.good()){
+      offile<<p_dir;
+      offile.close();
+    }
+  }} {}
+  }
+  Function {open_file(const char *df)} {} {
+    code {//
+  ffmt=0;
+  save_as_file_button->deactivate();
+  
+  Fl_File_Chooser * p;
+  p = new Fl_File_Chooser(dir_name,"*",0,"Open file");
+  p->value(df);
+  //p->directory(dir_name);
+  //p->filter(filter1.c_str());
+  //p->show();
+  //while( p->visible()) Fl::wait();
+  //
+  //if(p->value()){
+    p_path_filename = (char*)p->value();
+    p_dir  = (char*)p->directory();
+    p_filename = fl_filename_name(p->value());
+    std::cout<<" path_filename: "<<p_path_filename<<std::endl;
+    std::cout<<" dir: "<<p_dir<<std::endl;
+    std::cout<<" filename: "<<p_filename<<std::endl;
+    //
+    mol3d->cell.set_input_file(p_filename);
+    ffmt = mol3d->get_view_file_type(p_filename);
+    if(ffmt !=INPUT_FILE_TYPE_UNKNOWN ){
+      input_file_type->value(ffmt);
+      output_file_type->value(ffmt);
+    }else{
+      //choice_format->value(choice_format->size()-1);
+      input_file_type->value(6);
+      output_file_type->value(6);
+    }
+    //mol3d->clear();
+    //mol3d->set_dir(p_dir);
+    //mol3d->topmol_dir(p_dir);
+    //
+    strcpy(dir_name,p_dir);
+    strcpy(file_name,p_filename);
+    //    
+\#ifdef __FL_MOL_VIEW__
+    std::cout<<"======================================================================"<<std::endl;
+    std::cout<<" File Name = "<<p_filename<<std::endl;
+    std::cout<<" Dir Name = "<<p_dir<<std::endl;
+    std::cout<<"======================================================================"<<std::endl;
+\#endif
+    //fn->value(file_name);
+    //filename_box->value(p_filename);
+    // Name bar
+    sprintf(title_bar, "XMV - %s", p_path_filename);
+    main_window->label(title_bar);
+    if(ffmt != INPUT_FILE_TYPE_UNKNOWN){
+      load_file_button->activate();
+    }else{
+       load_file_button->deactivate();
+    }
+    //fragment_button->deactivate();
+    sprintf(str_cmd,"/home/%s/.xmolview/string.def",p_user);
+\#ifdef __FL_MOL_VIEW__
+    printf("%s\\n",str_cmd);
+\#endif
+    std::ofstream offile(str_cmd, std::ofstream::trunc | std::ofstream::out | std::ofstream::in);
+    if (offile.is_open() && offile.good()){
+      offile<<p_dir;
+      offile.close();
+    }
+  //}
+  load_file();
+  mol3d->handle(FL_KEYDOWN);
+  mol3d->is_graphics(true);
+  view_redraw();
+  mol3d->set_view(0,90,-90);
+  mol3d->draw();
+  
+  //} {}
+  }
+  Function {initialise_select()} {} {
+    code {//
+  //select_fragment->clear();
+  //select_fragment->add("NONE");
+  //select_fragment->value(0);} {}
+  }
+  Function {readDefault()} {} {
+    code {//
+    //if(_vdef.read_file("/home/etorres/.posmap/iposmap.def",3)){
+    	////cout<<_vdef;
+    	//_tr_li->value(_vdef[0]);
+    	//_tr_lf->value(_vdef[1]);
+    	//_tr2d_lf->value(_vdef[2]);
+    //}else
+       //_vdef.resize(3);
+       
+    ///if(_rdef.read_file("/home/etorres/.posmap/fposmap.def",12)){
+    	////cout<<_vdef;
+    	//_tr_xi->value(_rdef[0]);
+    	//_tr_yi->value(_rdef[1]);
+    	//_tr_zi->value(_rdef[2]);
+    	//_tr_xf->value(_rdef[3]);
+    	//_tr_yf->value(_rdef[4]);
+    	//_tr_zf->value(_rdef[5]);
+    	//_tr2d_xf->value(_rdef[6]);
+    	//_tr2d_yf->value(_rdef[7]);
+    	//_tr2d_zf->value(_rdef[8]);
+    	//_d_m_s_1->value(_rdef[9]);
+    	//_d_m_s_2->value(_rdef[10]);
+    	//_d_m_s_3->value(_rdef[11]);
+    //}else
+        //_rdef.resize(12);} {}
+  }
+  Function {readDefault(char* p)} {} {
+    code {//
+  //char _str_name[1024];
+  //sprintf(_str_name,"%s/iposmap.def",p);
+  //if(_vdef.read_file(_str_name,3)){
+    //cout<<_vdef;
+    //_tr_li->value(_vdef[0]);
+    //_tr_lf->value(_vdef[1]);
+    //_tr2d_lf->value(_vdef[2]);
+  //}else
+    //_vdef.resize(3);
+  
+  //sprintf(_str_name,"%s/fposmap.def",p);     
+  //if(_rdef.read_file(_str_name,12)){
+    //cout<<_vdef;
+    //_tr_xi->value(_rdef[0]);
+    //_tr_yi->value(_rdef[1]);
+    //_tr_zi->value(_rdef[2]);
+    //_tr_xf->value(_rdef[3]);
+    //_tr_yf->value(_rdef[4]);
+    //_tr_zf->value(_rdef[5]);
+    //_tr2d_xf->value(_rdef[6]);
+    //_tr2d_yf->value(_rdef[7]);
+    //_tr2d_zf->value(_rdef[8]);
+    //_d_m_s_1->value(_rdef[9]);
+    //_d_m_s_2->value(_rdef[10]);
+    //_d_m_s_3->value(_rdef[11]);
+  //}else
+    //_rdef.resize(12);} {}
+  }
+  Function {load_file()} {} {
+    code {//
+  //unsigned int fmt, _n;
+  unsigned int _n;
+  bool res;
+  //char _buff[3];
+  TVector<real> _v;
+  TMatrix<real> _m;
+  
+  mol3d->clear();
+  mol3d->cell.set_dir(p_dir);
+  mol3d->cell.set_topmol_directory(p_dir);
+
+  if(ffmt == INPUT_FILE_TYPE_UNKNOWN){
+    std::cout<<"!!! UNKNOWN FILE TYPE !!!"<<std::endl;
+  }else{
+    mol3d->cell.set_input_file_type((unsigned int)input_file_type->value());
+    mol3d->cell.set_input_file_units((unsigned int)input_file_units->value());
+\#ifdef __FL_MOL_VIEW__
+    std::cout<<" VIEW: load structure"<<std::endl;
+\#endif
+    // setting up the visualization mode
+    res = mol3d->initialize();                                                 //
+    ///////////////////////////////////////////////////////////////
+    if(res){
+\#ifdef __FL_MOL_VIEW__
+      std::cout<<" VIEW: setting up the visualization"<<std::endl;
+\#endif
+      // this code will be moved to show the data in a new window
+      //_m = mol3d->get_view_bounding_box();                                     //
+      ///load_lattice_vectors(2*_m);                                              //
+      _n=  mol3d->get_view_total_fragments();
+      //number_of_fragments->value(_n);
+      //initialise_select();
+\#ifdef __FL_MOL_VIEW__
+      std::cout<<" VIEW: visualization ready"<<std::endl;
+\#endif
+      ///////////////////////////////////////////////////////////////
+      // Widget set up and information
+\#ifdef __FL_MOL_VIEW__
+      std::cout<<" VIEW: Widget set up and information"<<std::endl;
+      _v = mol3d->get_view_basis_direct();
+      std::cout<<" VIEW: basis direct="<<_v<<std::endl;
+\#endif
+\#ifdef __FL_MOL_VIEW__
+      std::cout<<" VIEW: position bounds"<<std::endl;
+\#endif
+      //
+      // fill up tables
+      // this code will be moved to show the data in a new window
+      //load_table_data_cartesian(mol3d->get_view_atomic_symbols(),mol3d->get_view_cartesian());
+      //load_table_data_direct(mol3d->get_view_atomic_symbols(),mol3d->get_view_direct());
+\#ifdef __FL_MOL_VIEW__
+      std::cout<<" VIEW: tables loaded"<<std::endl;
+\#endif
+      // allow to display the structure
+      //mol3d->is_graphics(true);
+\#ifdef __FL_MOL_VIEW__
+      std::cout<<" VIEW: graphic on"<<std::endl;
+\#endif
+      view_update_coordinates();
+\#ifdef __FL_MOL_VIEW__
+      std::cout<<" VIEW: update coordinates"<<std::endl;
+\#endif
+      view_redraw();
+\#ifdef __FL_MOL_VIEW__
+      std::cout<<" VIEW: structure displayed"<<std::endl;
+\#endif
+      save_as_file_button->activate();
+      save_file_button->activate();
+\#ifdef __FL_MOL_VIEW__
+      std::cout<<" VIEW: structure loaded"<<std::endl;
+\#endif
+      // GUI reaction
+      output_file_atoms->activate();
+      output_file_frags->activate();
+      save_as_file_button->activate();
+      load_file_button->color((Fl_Color)25);
+      load_file_button->redraw();
+      //file_options->activate();
+      //edit_frag->activate();
+      //scan_pes->activate();
+      //
+      _v = mol3d->get_view_basis_direct();
+      //u_position_slide->bounds(0,_v[0]);
+      //v_position_slide->bounds(0,_v[1]);
+      //w_position_slide->bounds(0,_v[2]);
+      //output_file_atoms->value(1);
+      //output_file_frags->value(1);
+    //}else{
+      //message_xmol * message = new message_xmol();
+      //message->show();
+    }
+  }} {}
+  }
+  Function {save_as_file()} {} {
+    code {//
+  //char path_buffer[1024];
+  //char * pchr;
+  uint ofmt=0, otyp, atm=0, frg=0, top=0;
+  //
+  //char fname[256];
+  otyp = (uint)output_file_type->value();
+
+  Fl_File_Chooser *p = new Fl_File_Chooser(p_path_filename,"*",2,"Save file as");
+  p->directory(dir_name);
+  p->show();
+  //
+  while( p->visible())
+    Fl::wait();
+    //
+  if(p->value())\{
+    p_path_filename = (char*)p->value();
+    p_dir  = (char*)p->directory();
+    p_filename = fl_filename_name(p->value());
+    //mol3d->set_output_file_name(p_filename);
+    //mol3d->set_output_file_format(ofmt);
+    mol3d->cell.set_dir(p_dir);
+    mol3d->cell.set_topmol_directory(p_dir);
+    //mol3d->save_as_file(p_path_filename);
+    atm=(int)output_file_atoms->value();
+    frg=(int)output_file_frags->value();
+    top=(int)output_topology->value();
+    if(atm==1 && frg==0)\{           // atoms but no fragments
+      ofmt=OUTPUT_FORMAT_ATM_NFR;
+    \}else if(atm==1 && frg==1)\{     // atoms and fragments
+      ofmt=OUTPUT_FORMAT_ATM_FRG;
+    \}else if(atm==0 && frg==1)\{     // no atoms but fragments
+      ofmt=OUTPUT_FORMAT_NAT_FRG;
+    \}else if(atm==0 && frg==0)\{     // no atoms and no fragments
+      ofmt=OUTPUT_FORMAT_NAT_NFR;
+    \}else\{                          // standard format
+      ofmt=OUTPUT_FORMAT_STD;
+    \}
+    mol3d->cell.set_output_file_format(ofmt);
+    mol3d->cell.set_output_file_type(otyp);
+    
+    mol3d->save_wysiwyg_as(p_dir,p_filename);
+    if(top) mol3d->cell.save_topmol_file(p_dir,p_filename);
+
+    strcpy(dir_name,p_dir);
+    strcpy(file_name,p_filename);
+    //filename_box->value(p_filename);
+    // Name bar
+    //sprintf(title_bar, "MMB - %s", file_name);
+    sprintf(title_bar, "XMV - %s", p_path_filename);
+    main_window->label(title_bar);
+  \}
+\#ifdef __FL_MOL_VIEW__
+  std::cout<<"======================================================================"<<std::endl;
+  std::cout<<" File Name = "<<p_filename<<std::endl;
+  std::cout<<" Dir Name = "<<p_dir<<std::endl;
+  std::cout<<" Format = "<<ofmt<<std::endl;
+  std::cout<<"======================================================================"<<std::endl;
+\#endif
+//  \}} {}
+  }
+  Function {saveDefault()} {} {
+    code {//
+
+   //saveDefault(0,(int)_tr_li->value());
+   //saveDefault(1,(int)_tr_lf->value());
+   //saveDefault(2,(int)_tr2d_lf->value());
+   
+   //saveValDefault(0,(real)_tr_xi->value());
+   //saveValDefault(1,(real)_tr_yi->value());
+   //saveValDefault(2,(real)_tr_zi->value());
+   
+   //saveValDefault(3,(real)_tr_xf->value());
+   //saveValDefault(4,(real)_tr_yf->value());
+   //saveValDefault(5,(real)_tr_zf->value());
+   
+   //saveValDefault(6,(real)_tr2d_xf->value());
+   //saveValDefault(7,(real)_tr2d_yf->value());
+   //saveValDefault(8,(real)_tr2d_zf->value());
+   
+   //saveValDefault(9,(real)_d_m_s_1->value());
+   //saveValDefault(10,(real)_d_m_s_2->value());
+   //saveValDefault(11,(real)_d_m_s_3->value());} {}
+  }
+  Function {saveDefault(char* p)} {} {
+    code {//
+  //char _str_name[1024];
+  //_vdef.save_file(p);
+  //sprintf(_str_name,"%s/iposmap.def",p);
+  //_vdef.save_file(_str_name);
+  //sprintf(_str_name,"%s/fposmap.def",p);
+  //_rdef.save_file(_str_name);} {}
+  }
+  Function {saveDefault(int _i, int _val)} {} {
+    code {//
+    //_vdef[_i] = _val;
+    //_vdef.save_file("/home/etorres/.posmap/iposmap.def");} {}
+  }
+  Function {saveValDefault(int _i, real _val)} {} {
+    code {//
+    //_rdef[_i] = _val;
+    //_rdef.save_file("/home/etorres/.posmap/fposmap.def");} {}
+  }
+  Function {view_update_coordinates(void)} {return_type {virtual void}
+  } {
+    code {//
+  update_coordinates=true;} {}
+  }
+  Function {update_information(void)} {} {
+    code {//
+    
+    TVector<real> _v1;
+    // Cartesian coordinate position
+    _v1 = mol3d->get_view_position_cartesian();
+    //cartesian_x_coordinate->value(_v1[0]);
+    //cartesian_y_coordinate->value(_v1[1]);
+    //cartesian_z_coordinate->value(_v1[2]);
+    // Reduced direct coordinate position
+    _v1 =  mol3d->get_view_position_direct();
+    //direct_ru_coordinate->value(_v1[0]);
+    //direct_rv_coordinate->value(_v1[1]);
+    //direct_rw_coordinate->value(_v1[2]);
+    // Direct coordinate position
+    _v1 = mol3d->get_view_position_uvw();
+    //direct_u_coordinate->value(_v1[0]);
+    //direct_v_coordinate->value(_v1[1]);
+    //direct_w_coordinate->value(_v1[2]);
+    // set the slider positions
+    //u_position_slide->value(_v1[0]);
+    //v_position_slide->value(_v1[1]);
+    //w_position_slide->value(_v1[2]);
+    // Angles Rads
+    _v1 = mol3d->get_view_axis_angles();
+    //theta_angle_rad->value(_v1[0]);
+    //psi_angle_rad->value(_v1[1]);
+    //phi_angle_rad->value(_v1[2]);
+    // Angles Degs
+    _v1 = RAD_DEG*_v1;
+    //theta_angle_deg->value(_v1[0]);
+    //psi_angle_deg->value(_v1[1]);
+    //phi_angle_deg->value(_v1[2]);
+    // Dials
+    //theta_angle_dial->value(_v1[0]);
+    //psi_angle_dial->value(_v1[1]);
+    //phi_angle_dial->value(_v1[2]); 
+    //view_redraw();} {}
+  }
+  Function {view_redraw(void)} {open return_type {virtual void}
+  } {
+    code {//
+
+  mol3d->map_update_active_fragment();
+  if(update_coordinates){
+      //mol3d->update_atomic_coordinates(mol3d->get_view_cartesian());
+      //mol3d->set_axis_position(mol3d->get_view_centered_position_cartesian());
+      //mol3d->set_axis_precession(mol3d->get_view_axis_precession());
+      //mol3d->set_axis_tilt(mol3d->get_view_axis_tilt());
+      //mol3d->set_backbone_precession(mol3d->get_view_backbone_precession());
+      //mol3d->set_backbone_tilt(mol3d->get_view_backbone_tilt());
+      ////////////////////////////////////
+      mol3d->set_update_coordinates(true);
+      mol3d->update_data();
+      //update_coordinates=false;
+  }
+
+  //
+  Fl::wait(0.1);
+  //_tab->activate();
+  mol3d->redraw();} {}
+  }
+  Function {show()} {open
+  } {
+    code {//
+  static char verbuff[16];
+  sprintf(verbuff,"XMV %s",AutoVersion::UBUNTU_VERSION_STYLE);
+  vernum->label((const char*) verbuff);
+  main_window->show();} {selected
+    }
+  }
+  Function {resize(int x, int y, int w, int h)} {} {
+    code {//
+  resize(x, y, w, h);} {}
+  }
+} 

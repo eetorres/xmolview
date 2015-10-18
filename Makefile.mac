@@ -1,0 +1,26 @@
+
+include makeinclude.mac
+
+DIRS = src bin
+
+all:   makeinclude.mac
+#	if [ -f bin/$(PRGS) ] ; then
+#	  rm bin/$(PRGS)
+#	fi
+	@for dir in $(DIRS); do\
+	    echo "==== Compiling in $$dir ====";\
+	    (cd $$dir; make -f Makefile.mac || break);\
+	done
+	
+clean: makeinclude.mac
+	@for dir in $(DIRS); do\
+	    echo "==== Cleaning in $$dir ====";\
+	    (cd $$dir; make -f Makefile.mac clean || break);\
+	done
+
+install:
+	#rm -f ~/bin/$(PRGS)
+	cp bin/$(PRGS) ./xmolview.app/Contents/MacOS
+
+run:
+	./bin/$(PRGS)

@@ -1,0 +1,3 @@
+New	Adding number of atoms to the new implemented extended xyz file that already include alat and cell dimensions.
+Fixed	problem with new periodic xyz files.
+Fixed	problems with OpenGL text in windows.

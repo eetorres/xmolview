@@ -1,0 +1,8 @@
+
+include ../makeinclude.linux64
+
+all: $(OBJS)
+	$(CXX) -o $(XDIR)$(PRGS)$(EXT) $(SDIR)$(OBJS) $(LFLAGS)
+
+clean:
+	rm -rf *o $(OBJS)

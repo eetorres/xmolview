@@ -1,0 +1,26 @@
+
+include makeinclude.linux64
+
+DIRS = src bin
+
+all:   makeinclude.linux64
+#	if [ -f bin/$(PRGS) ] ; then
+#	  rm bin/$(PRGS)
+#	fi
+	@for dir in $(DIRS); do\
+	    echo "==== Compiling in $$dir ====";\
+	    (cd $$dir; make -f Makefile.linux64 || break);\
+	done
+	
+clean: makeinclude
+	@for dir in $(DIRS); do\
+	    echo "==== Cleaning in $$dir ====";\
+	    (cd $$dir; make clean || break);\
+	done
+
+install:
+	#rm -f ~/bin/$(PRGS)
+	cp bin/$(PRGS) ~/bin
+
+run:
+	./bin/$(PRGS)

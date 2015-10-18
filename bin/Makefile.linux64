@@ -1,0 +1,10 @@
+# Edmanuel Torres 21/10/2004
+
+include ../makeinclude.linux64
+
+all:
+	ls
+	@echo bye bye
+
+clean:
+	rm -rf *o $(PRGS)

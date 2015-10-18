@@ -1,0 +1,33 @@
+
+CXX = g++
+
+PRGS=xmolview
+
+
+SCRS=$(PRGS).cxx fl_xmol_view.cxx fl_table.cxx fl_gl_mol_view.cxx fl_gl_atom.cxx \
+      cviewmol.cxx cmapcell.cxx csupercell.cxx cfragment.cxx cfile.cxx ctopmol.cxx \
+      cposcar.cxx cpotcar.cxx cxyz.cxx cgau.cxx czmat.cxx cpdb.cxx cdlp.cxx \
+      sphere.cxx cpalette.cxx
+
+OBJS=$(SCRS:.cxx=.o)
+
+RDIR=/Users/etorres
+FLTK=$(RDIR)/src/fltk-1.3-x
+
+MDIR=$(shell sh -c pwd)
+IDIR=$(MDIR)/../include
+SDIR=$(MDIR)/../src/
+XDIR=$(MDIR)/../bin/
+
+OPTIM = -O2 -Wall
+LX11R = 
+LFLTK = $(shell fltk-config --ldstaticflags --use-gl ) -framework GLKit
+IFLAGS = -I ../ -I$(RDIR)/src/include -I $(FLTK) -I $(IDIR)
+
+CFLAGS = $(OPTIM) -c
+LFLAGS = $(OPTIM) $(LFLTK) $(LX11R)
+
+.SUFFIXES:	.cxx .o .h
+
+.cxx.o:
+	$(CXX) $(CFLAGS) $< -o $@ $(IFLAGS)
