@@ -9,4 +9,4 @@ msmvtl from: https://github.com/eetorres/msmvtl
 
 FLTK from: http://www.fltk.org
 
-You may need to edit the makeinclude flie.
+You may need to edit the makeinclude file.
