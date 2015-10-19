@@ -13,7 +13,7 @@ You may need to edit the makeinclude file.
 
 =====
 
-Molecular Explorer is a powerful WYSIWYG OpenGL graphical editor with several unique features to visualize structures for atomistic calculations. We are very close to a stable beta release!. The above binary is for Ubuntu 12.10 (64 Bits).
+Molecular Explorer is a powerful WYSIWYG OpenGL graphical editor with several unique features to visualize structures for atomistic calculations. We are very close to a stable beta release.
 
 Get the source code from:
 
