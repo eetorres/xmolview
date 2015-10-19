@@ -23,8 +23,6 @@ Here a short list of features:
 
 + Load file from CLI.
 
-+ VASP Materials Project format.
-
 + Generate DL_FIELD molecular structure with DL_POLY format.
 
 + Periodic and non-periodic systems.
