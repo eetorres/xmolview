@@ -3,7 +3,7 @@ A graphical editor for molecular dynamics and ab-initio simulations
 
 http://www.molecular-explorer.com
 
-To compile xmolview the following dependencies are needed:
+To compile xmolview the following two dependencies are needed:
 
 The GPL open source MSMVTL template library from: https://github.com/eetorres/msmvtl
 
