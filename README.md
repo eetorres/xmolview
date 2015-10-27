@@ -5,7 +5,7 @@ http://www.molecular-explorer.com
 
 To compile xmolview the following dependencies are needed:
 
-The GPL open source msmvtl template library from: https://github.com/eetorres/msmvtl
+The GPL open source MSMVTL template library from: https://github.com/eetorres/msmvtl
 
 GPL open source FLTK library from: http://www.fltk.org
 
