@@ -3,11 +3,11 @@ A graphical editor for molecular dynamics and ab-initio simulations
 
 http://www.molecular-explorer.com
 
-To compile xmolview the following packages are needed:
+To compile xmolview the following dependencies are needed:
 
-msmvtl from: https://github.com/eetorres/msmvtl
+The GPL open source msmvtl template library from: https://github.com/eetorres/msmvtl
 
-FLTK from: http://www.fltk.org
+GPL open source FLTK library from: http://www.fltk.org
 
 You may need to edit the makeinclude file.
 
