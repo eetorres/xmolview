@@ -20,7 +20,7 @@ clean: makeinclude
 
 install:
 	#rm -f ~/bin/$(PRGS)
-	cp bin/$(PRGS) ~/bin
+	cp bin/$(PRGS)$(EXT) ~/bin
 
 run:
 	./bin/$(PRGS)
