@@ -3641,6 +3641,9 @@ void Fl_Gl_Mol_View::clear_scene(void){
   is_draw_pie_menu=false;
   is_draw_line=false;
   is_draw_point=false;
+  x_shift=0;
+  y_shift=0;
+  z_shift=0;
   u_active_menu=NOT_MENU;
   if(!is_lock_controls)
     is_draw_controls=false;
