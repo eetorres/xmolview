@@ -286,8 +286,10 @@ bool CZmat::read_file(std::string d, std::string f){
   //real data, a, b, c;
   real a, b, c;
   //uint unum;
-  //int res1, l, h, i, j, k, config;
-  int res1, h, i, j, k, config;
+#ifdef _ZMAT_DEBUG_MESSAGES_
+  int res1;
+#endif
+  int h, i, j, k, config;
   TVector<real> v1(3), v2(3), v3(3), vij, vjk;
   std::string symbol, text_line;
   char str[2], sa[16], sb[16], sc[16];
@@ -329,30 +331,62 @@ bool CZmat::read_file(std::string d, std::string f){
       std::cout<<" text line: "<<text_line<<" config="<<config<<std::endl;
 #endif
       if(config==0){
+#ifdef _ZMAT_DEBUG_MESSAGES_
         res1 = std::sscanf((const char*)text_line.c_str(),"%s %i %lf %i %lf %i %lf %i",str,&i,&a,&j,&b,&k,&c,&h);
+#else
+        std::sscanf((const char*)text_line.c_str(),"%s %i %lf %i %lf %i %lf %i",str,&i,&a,&j,&b,&k,&c,&h);
+#endif
       }else if(config==1){
+#ifdef _ZMAT_DEBUG_MESSAGES_
         res1 = std::sscanf((const char*)text_line.c_str(),"%s %i %s %i %lf %i %lf %i",str,&i,sa,&j,&b,&k,&c,&h);
+#else
+        std::sscanf((const char*)text_line.c_str(),"%s %i %s %i %lf %i %lf %i",str,&i,sa,&j,&b,&k,&c,&h);
+#endif
         a=get_variable(sa);
       }else if(config==2){
+#ifdef _ZMAT_DEBUG_MESSAGES_
         res1 = std::sscanf((const char*)text_line.c_str(),"%s %i %lf %i %s %i %lf %i",str,&i,&a,&j,sb,&k,&c,&h);
+#else
+        std::sscanf((const char*)text_line.c_str(),"%s %i %lf %i %s %i %lf %i",str,&i,&a,&j,sb,&k,&c,&h);
+#endif
         b=get_variable(sb);
       }else if(config==4){
+#ifdef _ZMAT_DEBUG_MESSAGES_
         res1 = std::sscanf((const char*)text_line.c_str(),"%s %i %lf %i %lf %i %s %i",str,&i,&a,&j,&b,&k,sc,&h);
+#else
+        std::sscanf((const char*)text_line.c_str(),"%s %i %lf %i %lf %i %s %i",str,&i,&a,&j,&b,&k,sc,&h);
+#endif
         c=get_variable(sc);
       }else if(config==3){
+#ifdef _ZMAT_DEBUG_MESSAGES_
         res1 = std::sscanf((const char*)text_line.c_str(),"%s %i %s %i %s %i %lf %i",str,&i,sa,&j,sb,&k,&c,&h);
+#else
+        std::sscanf((const char*)text_line.c_str(),"%s %i %s %i %s %i %lf %i",str,&i,sa,&j,sb,&k,&c,&h);
+#endif
         a=get_variable(sa);
         b=get_variable(sb);
       }else if(config==5){
+#ifdef _ZMAT_DEBUG_MESSAGES_
         res1 = std::sscanf((const char*)text_line.c_str(),"%s %i %s %i %lf %i %s %i",str,&i,sa,&j,&b,&k,sc,&h);
+#else
+        std::sscanf((const char*)text_line.c_str(),"%s %i %s %i %lf %i %s %i",str,&i,sa,&j,&b,&k,sc,&h);
+#endif
         a=get_variable(sa);
         c=get_variable(sc);
       }else if(config==6){
+#ifdef _ZMAT_DEBUG_MESSAGES_
         res1 = std::sscanf((const char*)text_line.c_str(),"%s %i %lf %i %s %i %s %i",str,&i,&a,&j,sb,&k,sc,&h);
+#else
+        std::sscanf((const char*)text_line.c_str(),"%s %i %lf %i %s %i %s %i",str,&i,&a,&j,sb,&k,sc,&h);
+#endif
         b=get_variable(sb);
         c=get_variable(sc);
       }else if(config==7){
+#ifdef _ZMAT_DEBUG_MESSAGES_
         res1 = std::sscanf((const char*)text_line.c_str(),"%s %i %s %i %s %i %s %i",str,&i,sa,&j,sb,&k,sc,&h);
+#else
+        std::sscanf((const char*)text_line.c_str(),"%s %i %s %i %s %i %s %i",str,&i,sa,&j,sb,&k,sc,&h);
+#endif
         a=get_variable(sa);
         b=get_variable(sb);
         c=get_variable(sc);

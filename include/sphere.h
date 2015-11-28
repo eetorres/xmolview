@@ -55,7 +55,7 @@ typedef struct {
 #define IH_Im5     {   0.0,    0.0, -1.0  }
 
 // vertices of a unit icosahedron
-static triangle icosahedron[20]= {
+static const triangle icosahedron[20]= {
         // front pole
         { {IH_Ip0, IH_Ip1, IH_Ip2}, },
         { {IH_Ip0, IH_Ip5, IH_Ip1}, },

@@ -14,7 +14,6 @@
 #include <fl_gl_mol_view.h>
 #include <config_xmv.h>
 
-
 // Selection Buffer
 #define SelBufferSize 512
 
@@ -399,7 +398,7 @@ void Fl_Gl_Mol_View::eval_mask_rcolor(void){
 #endif
   update_bonds_color=true;
   if(update_bonds_color){
-    for(int i=0; i<i_number_of_bonds; i++){
+    for(uint i=0; i<i_number_of_bonds; i++){
       int idx0 = m_bond_indices[i][0];
       int idx1 = m_bond_indices[i][1];
       if(is_mode_atom){
@@ -692,7 +691,7 @@ void Fl_Gl_Mol_View::draw_bonds(void){
   for(int x=neg_x_cells; x<pos_x_cells+1; x++){ // repetition in x
     for(int y=neg_y_cells; y<pos_y_cells+1; y++){ // repetition in y
       for(int z=neg_z_cells; z<pos_z_cells+1; z++){ // repetition in z
-        for(int i=0; i<i_number_of_bonds; i++){
+        for(uint i=0; i<i_number_of_bonds; i++){
           _ang = m_bond_angles[i];
           _xyz = m_bond_position[i];
           _xyz=_xyz+2.0*(x*_vu+y*_vv+z*_vw);

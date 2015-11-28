@@ -12,7 +12,6 @@
 #include <config_debug.h>
 #include <cposcar.h>
 
-
 //#define _POSCAR_INFO_MESSAGES_  1
 //#define _POSCAR_DEBUG_MESSAGES_    1
 //#define _POSCAR_SHOW_DATA_          1
@@ -66,11 +65,12 @@ void CPoscar::clear(void){
 }
 
 bool CPoscar::get_poscar_format(void){
-  int res1, res2, res3, res4;
-  int k, l;
-  //float a, b, c, d;
-  float a, b, c, e;
-  float alpha, beta, gamma;
+  //int res2;
+  int res1;
+  //int k, l;
+  //float a, b, c, d, e;
+  float a, b, c;
+  //float alpha, beta, gamma;
   char tmp_buffer[256], str1[16], str2[16], str3[16];
   std::string text_line;
   std::ifstream poscar;
@@ -90,7 +90,7 @@ bool CPoscar::get_poscar_format(void){
     printf("<--        Analysing the POSCAR      -->\n");
 #endif
     res1=0;
-    res2=0;
+    //res2=0;
     __head_lines=0;
     while((res1<3 || __head_lines<8) && !poscar.eof()){
       //poscar.ignore(256,'\n');
@@ -166,7 +166,7 @@ bool CPoscar::get_poscar_format(void){
     }else{
       __total_atoms=0;
     }
-    int last_res;
+    int last_res=3;
     while(res1>=3 && !poscar.eof()){
       //poscar.ignore(256,'\n');
       std::getline(poscar,text_line);

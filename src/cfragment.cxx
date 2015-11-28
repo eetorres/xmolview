@@ -9,7 +9,6 @@
 // Latest update: 2013
 //========================================================================
 
-
 #include<cfragment.h>
 
 bool CFragment::__is_pbc=true;
@@ -457,7 +456,7 @@ void CFragment::eval_radial_integrity(uint _o, real _r){
 #endif
   uint __length=__size-1, __origin;
   uint _p, _c, _f;
-  real _r1, _r2, _rr, _n;
+  real _rr, _n;
   bool _is_pbc=false;
   TVector<real> _v3, _u1, _u2, _u3;
   TVector<uint> v_i(__size);
@@ -482,7 +481,7 @@ void CFragment::eval_radial_integrity(uint _o, real _r){
   for(uint k=0;k<__size;k++){
     _p=v_i[k];
     _u1 = m_uvw[_p];
-    _r1 = atom_rrgb[v_atomic_number[_p]][0];
+    //_r1 = atom_rrgb[v_atomic_number[_p]][0];
 #ifdef _FRAGMENT_DEBUG_INTEGRITY_
     std::cout<<" FRAGMENT: atomic number="<<v_atomic_number;
 #endif
@@ -497,7 +496,7 @@ void CFragment::eval_radial_integrity(uint _o, real _r){
       if(_f!=_p){
         _is_pbc=false;
         _u2 = m_uvw[_f];
-        _r2 = atom_rrgb[v_atomic_number[_f]][0];
+        //_r2 = atom_rrgb[v_atomic_number[_f]][0];
         _u3 = _u2-_u1;
 #ifdef _FRAGMENT_DEBUG_INTEGRITY_DATA_
         std::cout<<" FRAGMENT: for - "<<_p<<" - _u2="<<_u2;
@@ -567,7 +566,7 @@ TVector<uint> CFragment::compute_vdw_fragment(uint u, real _s){
   uint __length=__size, atom_seed;
   uint _p, _c, _f;
   real _r1, _r2, _rr, _norm;
-  bool _is_pbc=false;
+  //bool _is_pbc=false;
   TVector<real> _v3, _u1, _u2, _u3;
   //TVector<uint> v_i(__size);
   // New fragment atom list
@@ -618,7 +617,7 @@ TVector<uint> CFragment::compute_vdw_fragment(uint u, real _s){
       std::cout<<std::endl<<" FRAGMENT: check "<<_f<<" - ";
 #endif
       if( (_f!=_p) && (_f!=atom_seed) ){
-        _is_pbc=false;
+        //_is_pbc=false;
         _u2 = m_uvw[_f];
         _r2 = atom_rrgb[v_atomic_number[_f]][0];
         _u3 = _u2-_u1;
@@ -669,8 +668,8 @@ TVector<uint> CFragment::compute_vdw_fragment(uint u, real _s){
 TVector<uint> CFragment::compute_radial_fragment(uint _u, real _r){
   uint __length=__size, atom_seed;
   uint _p, _c, _f;
-  real _r1, _r2, _rr, _norm;
-  bool _is_pbc=false;
+  real _rr, _norm;
+  //bool _is_pbc=false;
   TVector<real> _v3, _u1, _u2, _u3;
   // New fragment atom list
   TVector<uint> v_i;
@@ -685,13 +684,13 @@ TVector<uint> CFragment::compute_radial_fragment(uint _u, real _r){
     _rr=(_r*_r);
     _p=v_i[0];
     _u1 = m_uvw[_p];
-    _r1 = atom_rrgb[v_atomic_number[_p]][0];
+    //_r1 = atom_rrgb[v_atomic_number[_p]][0];
     for(uint l=0;l<__size;l++){
       _f=v_l[l];
       if( (_f!=_p) && (_f!=atom_seed) ){
-        _is_pbc=false;
+        //_is_pbc=false;
         _u2 = m_uvw[_f];
-        _r2 = atom_rrgb[v_atomic_number[_f]][0];
+        //_r2 = atom_rrgb[v_atomic_number[_f]][0];
         _u3 = _u2-_u1;
         _v3 = m_unit_uvwTxyz*_u3;
         _norm = _v3.norm();

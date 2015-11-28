@@ -11,7 +11,6 @@
 // #include<const.h>
 #include <config_debug.h>
 #include <ctopmol.h>
-
 //#define _debugging_messages_
 
 CTopmol::CTopmol(void){

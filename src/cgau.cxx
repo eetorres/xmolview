@@ -141,8 +141,9 @@ bool CGau::get_gau_format(void){
 bool CGau::read_file(std::string d, std::string f){
   std::string atomic_symbol;
   real data;
-  uint unum;
-  int res1, g;
+  //uint unum;
+  //int res1
+  int g;
   float a, b, c;
   char str[20];
   TVector<real> v1, v2, v3;
@@ -174,14 +175,25 @@ bool CGau::read_file(std::string d, std::string f){
 #ifdef _GAU_INFO_MESSAGES_
     std::cout<<"CGAU: loading atomic coordinates"<<std::endl;
 #endif
+#ifdef _GAU_DEBUG_MESSAGES_
+    int res1
+#endif
     for(uint f=0;f<__total_atoms;f++){
       std::getline(gau,text_line);
       std::replace(text_line.begin(),text_line.end(), ',', ' ');
       if(__file_format==2){   // read fragments
+#ifdef _GAU_DEBUG_MESSAGES_
         res1 = std::sscanf((const char*)text_line.c_str(),"%s %f %f %f %i",str,&a,&b,&c,&g);
+#else
+        std::sscanf((const char*)text_line.c_str(),"%s %f %f %f %i",str,&a,&b,&c,&g);
+#endif
         v_fragment_table[f]=g;
       }else{
+#ifdef _GAU_DEBUG_MESSAGES_
         res1 = std::sscanf((const char*)text_line.c_str(),"%s %f %f %f %*s",str,&a,&b,&c);
+#else
+        std::sscanf((const char*)text_line.c_str(),"%s %f %f %f %*s",str,&a,&b,&c);
+#endif
       }
       //gau>>symbol;
       if(__is_symbol){
@@ -339,7 +351,7 @@ void CGau::write_file(std::string _fn){
   }
   //ogau<<"0 1"<<std::endl;
   ogau.precision(16);
-  for(int cell=0; cell<__total_cells; cell++){ // repetition cells
+  for(uint cell=0; cell<__total_cells; cell++){ // repetition cells
     for(uint f=0;f<__total_atoms;f++){
       symbol=v_atomic_symbols[f];
       if(strcmp(symbol.c_str(),"X") || __is_dummy){
@@ -603,7 +615,6 @@ void CGau::center_coordinates(void){
   std::cout<<" CXYZ: min_xyz = "<<min_xyz;
   std::cout<<" CXYZ: max_xyz = "<<max_xyz;
 #endif
-
   //std::cout<<" xyz = "<<m_xyz; 
   //uvwTxyz[0][0]=1.1*max_xyz[0];
   //uvwTxyz[1][1]=1.1*max_xyz[1];

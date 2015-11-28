@@ -11,13 +11,12 @@ decl {\#include <version.h>} {public local
 decl {\#include <fl_gl_mol_view.h>} {public local
 } 
 
-class help_xmol {open
-} {
+class help_xmol {} {
   Function {help_xmol()} {open
   } {
     Fl_Window help_win {
       label {About XMolView} open
-      xywh {1377 599 455 160} type Double
+      xywh {1224 627 455 160} type Double
       code3 {o->resizable(NULL);} modal visible
     } {
       Fl_Box {} {
@@ -116,7 +115,7 @@ class fl_xmol_view {open
   Function {fl_xmol_view()} {open
   } {
     code {//
-  int ans=0;
+  //int ans=0;
   char chpt[1024];
   
   p_user=getenv("USER");
@@ -135,15 +134,16 @@ class fl_xmol_view {open
     infile.close();
   }else{
     sprintf(str_cmd,"mkdir -p /home/%s/.xmolview/",p_user);
-    ans = system(str_cmd);
+    //ans = system(str_cmd);
     sprintf(str_cmd,"/home/%s",p_user);
     strcpy(dir_name,str_cmd);
   }
   
-  update_coordinates=false;} {}
+  update_coordinates=false;} {selected
+    }
     Fl_Window main_window {
       label {Molecular eXplorer Viewer (XMolView)} open
-      xywh {2186 337 948 676} type Double color 8 selection_color 8 labelsize 12 labelcolor 7 align 80 resizable visible
+      xywh {731 365 948 676} type Double color 8 selection_color 8 labelsize 12 labelcolor 7 align 80 resizable visible
     } {
       Fl_Group {} {open
         xywh {-5 -1 955 678} box FLAT_BOX color 8 selection_color 8 labelsize 12
@@ -293,7 +293,7 @@ exit(0);}
     load_file_button->deactivate();
     ffmt = INPUT_FILE_TYPE_UNKNOWN;
     input_file_units->deactivate();
-  }} open
+  }}
               xywh {56 79 108 16} box GTK_THIN_UP_BOX down_box BORDER_BOX color 22 selection_color 22 labelsize 12 labelcolor 7 textsize 10
               code0 {o->add("POSCAR|XYZ|Gaussian|PDB|DL_POLY|Z-Matrix|UNKNOWN");}
               code3 {o->value(6);}
@@ -655,10 +655,11 @@ exit(0);}
   //}else
     //_rdef.resize(12);} {}
   }
-  Function {load_file()} {} {
+  Function {load_file()} {open
+  } {
     code {//
   //unsigned int fmt, _n;
-  unsigned int _n;
+  //unsigned int _n;
   bool res;
   //char _buff[3];
   TVector<real> _v;
@@ -686,7 +687,7 @@ exit(0);}
       // this code will be moved to show the data in a new window
       //_m = mol3d->get_view_bounding_box();                                     //
       ///load_lattice_vectors(2*_m);                                              //
-      _n=  mol3d->get_view_total_fragments();
+      //_n=  mol3d->get_view_total_fragments();
       //number_of_fragments->value(_n);
       //initialise_select();
 \#ifdef __FL_MOL_VIEW__
@@ -927,8 +928,7 @@ exit(0);}
   static char verbuff[16];
   sprintf(verbuff,"XMV %s",AutoVersion::UBUNTU_VERSION_STYLE);
   vernum->label((const char*) verbuff);
-  main_window->show();} {selected
-    }
+  main_window->show();} {}
   }
   Function {resize(int x, int y, int w, int h)} {} {
     code {//

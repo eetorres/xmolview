@@ -170,7 +170,7 @@ bool CXyz::get_xyz_format(void){
       //symb = std::sscanf((const char*)text_line,"%i",&k);
 #ifdef _XYZ_DEBUG_MESSAGES_
       std::cout<<"CXYZ: symb: "<<symb<<std::endl;
-#endif >
+#endif
       if(res2 < 4) __head_lines++;
 #ifdef _XYZ_DEBUG_MESSAGES_
       std::cout<<"CXYZ: res2: "<<res2<<std::endl;
@@ -489,7 +489,7 @@ void CXyz::write_file(std::string _fn){
 #ifdef _XYZ_INFO_MESSAGES_
         std::cout<<"CXYZ: v_fragment_table "<<v_fragment_table<<std::endl;
 #endif
-  for(int cell=0; cell<__total_cells; cell++){ // repetition cells
+  for(uint cell=0; cell<__total_cells; cell++){ // repetition cells
     for(uint f=0;f<__total_atoms;f++){
       symbol=v_atomic_symbols[f];
       if(strcmp(symbol.c_str(),"X") || __is_dummy){

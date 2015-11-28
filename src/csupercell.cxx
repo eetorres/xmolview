@@ -12,7 +12,6 @@
 // Lastest update: Tue Jul 14 16:22:34 EDT 2015
 //========================================================================
 
-
 #include <config_debug.h>
 #include <csupercell.h>
 

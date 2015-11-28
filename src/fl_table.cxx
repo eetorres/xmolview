@@ -19,7 +19,6 @@
 
 using namespace std;
 
-
 /*
  * ======================================
  *  void CTable.drawHeader(int x, int y);

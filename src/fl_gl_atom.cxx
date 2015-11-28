@@ -28,7 +28,6 @@
 //int render_mode = MODE_RENDER;
 //int cursorX, cursorY;
 
-
 //#define ALPHA 0.5
 //#define HAVE_GL 1
 
@@ -204,11 +203,13 @@ void Fl_Gl_Atom::update_atomic_bonds(void){
 #ifdef _ATOM_DEBUG_MESSAGES_
   std::cout<<" ATOM: start - update_atomic_bonds(void)"<<std::endl;
 #endif
-  bool use_pbc;
-  uint i, j,  nbonds;
+  //bool use_pbc;
+  uint i, j;//,  nbonds;
   //real rl, r, r2, rr, ri, rj, rlz, rlxy;
-  real r, r2;
-  real ri, rj, rlz, rlxy;
+  //real r, r2;
+  //real ri, rj, rlz, rlxy;
+  //real ri, rlz, rlxy;
+  real rlz, rlxy;
   //TVector<uint> vidx(2);
   TVector<real> vi, vj, vij, vang(2);
   TVector<real> vi_uvw, vj_uvw, vij_uvw;
@@ -240,10 +241,10 @@ void Fl_Gl_Atom::update_atomic_bonds(void){
     //
     vi = m_atom_coordinates[i];
     //vi_uvw = (vi*u_inv_bbox);
-    ri = m_radius_color[i][0];
+    //ri = m_radius_color[i][0];
     vj = m_atom_coordinates[j];
     //vj_uvw = (vj*u_inv_bbox);
-    rj = m_radius_color[i][1];
+    //rj = m_radius_color[i][1];
     // Sun Feb 24 16:35:37 MST 2013
     // should check boundaries only if the atoms were moved
     // right now is checking all, low efficiency
@@ -296,7 +297,7 @@ void Fl_Gl_Atom::update_atomic_bonds(void){
     //
     vi = m_atom_coordinates[i];
     vi_uvw = (vi*u_inv_bbox);
-    ri = m_radius_color[i][0];
+    //ri = m_radius_color[i][0];
     vj = m_atom_coordinates[j];
     for(uint coord=0; coord<3; coord++){
       //vj[coord]+=(neighbor_cells[_m][coord]*v_box_size[coord]);                    // PBC
@@ -306,7 +307,7 @@ void Fl_Gl_Atom::update_atomic_bonds(void){
       //v_pbc[coord] = neighbor_cells[_m][coord];
     }
     vj_uvw = (vj*u_inv_bbox);
-    rj = m_radius_color[i][1];
+    //rj = m_radius_color[i][1];
     //
     //r = sqrt(r2);
     vij = (vj-vi);
@@ -1119,7 +1120,7 @@ void Fl_Gl_Atom::compute_vdw_fragment(const uint _u){
 }
 
 void Fl_Gl_Atom::compute_atom_fragments(void){
-  unsigned int _n;
+  //unsigned int _n;
   cell.eval_scaled_fragments(0.1);
   // Use fragment number
   update_fragments(1,false);
@@ -1131,7 +1132,7 @@ void Fl_Gl_Atom::compute_atom_fragments(void){
 }
 
 void Fl_Gl_Atom::compute_vdw_fragments(void){
-  unsigned int _n;
+  //unsigned int _n;
   cell.eval_scaled_fragments(1.1);
   // Use fragment number
   update_fragments(1,false);
@@ -1200,7 +1201,7 @@ void Fl_Gl_Atom::eval_sphere(uint maxlevel){
     /* iterate over the 20 sides of the icosahedron */
     for(s = 0; s < 20; s++) {
         int i;
-        triangle *t = &icosahedron[s];
+        triangle *t = (triangle *)&icosahedron[s];
         for(i = 0; i < u_sphere_rows; i++) {
             /* create a tstrip for each row */
             /* number of triangles in this row is number in previous +2 */

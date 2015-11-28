@@ -219,7 +219,7 @@ protected:
   bool update_coordinates;
   //
   int  __number_of_atoms;
-  int  i_number_of_bonds;
+  uint  i_number_of_bonds;
   uint i_number_of_bonds_pbc;
   uint u_sphere_resolution;
   int  u_sphere_rows;
