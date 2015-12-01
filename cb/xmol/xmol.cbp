@@ -25,9 +25,9 @@
 					<Add option="-DVC_EXTRA_LEAN" />
 					<Add option="-DWIN32_EXTRA_LEAN" />
 					<Add directory="../../include" />
-					<Add directory="../../../include" />
-					<Add directory="../../../../Library/fltk-1.3.3" />
-					<Add directory="../../../../Library/fltk-1.3.3/lib" />
+					<Add directory="C:/Users/torrese/Documents/Programing/include" />
+					<Add directory="C:/Users/torrese/Documents/Programing/lib/fltk-1.3.3" />
+					<Add directory="C:/Users/torrese/Documents/Programing/lib/fltk-1.3.3/lib" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -42,6 +42,7 @@
 					<Add library="advapi32" />
 					<Add library="gdi32" />
 					<Add library="comctl32" />
+					<Add directory="C:/Users/torrese/Documents/Programing/lib/fltk-1.3.3/lib" />
 				</Linker>
 			</Target>
 		</Build>
