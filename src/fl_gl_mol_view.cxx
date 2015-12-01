@@ -959,7 +959,7 @@ void Fl_Gl_Mol_View::draw_scene(void){
     draw_atoms();
     // draw atomics bonds using the van der Waals radius
     // bond selection not implemented yet
-    // usgin render_mode!=MODE_SELECT to avoid picking
+    // using render_mode!=MODE_SELECT to avoid picking
     if(is_draw_bonds_ && render_mode!=MODE_SELECT)
       draw_bonds();
     glNormal3f(0,0,1);
@@ -975,12 +975,12 @@ void Fl_Gl_Mol_View::draw_scene(void){
     draw_symbols();
   }
   // draw the bounding box using the lattice vectors
-  if(is_draw_bbox_)
+  if(is_draw_bbox_ && render_mode!=MODE_SELECT)
     draw_box();
   // Molecular axis
   // 1) rotate y axis, second angle, tilt
   // 2) rotate z axis, first angle, precession
-  if(is_draw_world_axes_){
+  if(is_draw_world_axes_ && render_mode!=MODE_SELECT){
     // world coordinate axes
     glPushMatrix();
     glLoadIdentity();
@@ -993,10 +993,24 @@ void Fl_Gl_Mol_View::draw_scene(void){
   // draw the pie menu
   glPushMatrix();
   glLoadIdentity();
-
-  // draw the control panel
-  if(is_draw_controls)
-  {
+  // draw the pie menue
+  if(is_draw_pie_menu){
+    //if(render_mode==MODE_SELECT)
+      //glPushName(1); // the first 100 names are reseverd for the menues
+    draw_pie_menu(cursorX,cursorY, 792,base_view/4.0,100);
+    //if(render_mode==MODE_SELECT)
+      //glPopName();
+  }
+  // draw the subpie
+  if(is_draw_pie_submenu){
+    draw_pie_submenu(792,base_view/4.0,100);
+  }
+  if(is_draw_tools_){
+    draw_tools(790);
+    draw_selected_numbers();
+  }
+  // draw the slide controls
+  if(is_draw_controls){
     draw_settings(790);
     draw_information(790);
     if(render_mode==MODE_SELECT)
@@ -1005,20 +1019,7 @@ void Fl_Gl_Mol_View::draw_scene(void){
     if(render_mode==MODE_SELECT)
       glPopName();    // the first 100 names are reserved for the menues
   }
-  if(is_draw_pie_menu){
-    //if(render_mode==MODE_SELECT)
-      //glPushName(1); // the first 100 names are reseverd for the menues
-    draw_pie_menu(cursorX,cursorY, 792,base_view/4.0,100);
-    //if(render_mode==MODE_SELECT)
-      //glPopName();
-  }
-  if(is_draw_pie_submenu){
-    draw_pie_submenu(792,base_view/4.0,100);
-  }
-  if(is_draw_tools_){
-    draw_tools(790);
-    draw_selected_numbers();
-  }
+  // draw the processing message
   if(is_draw_processing)
     draw_message(794);
   glPopMatrix();
