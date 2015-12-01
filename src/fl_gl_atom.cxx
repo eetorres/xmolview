@@ -81,12 +81,12 @@ void Fl_Gl_Atom::eval_initial_properties(void){
   real _radius;
   TVector<real> _atom_xyz;
   TVector<real> _rcolor(4);
-  //m_text_position.resize(0,3);
   m_radius_color.resize(__number_of_atoms,4);
-  // [Thu May 17 16:49:56 MDT 2012] deprecated becuase the symbols are comming from FRAGMOL
-  //v_atom_symbols.clear();
-  // [Thu May 17 16:49:56 MDT 2012] deprecated becuase the symbols are comming from FRAGMOL
-  //const char *p;
+  index_palette.set(__number_of_atoms+MENU_RESERVED_IDS);
+  //index_palette.set(__number_of_atoms);
+  index_palette.set_color(0);
+  index_palette.initialize(0,__number_of_atoms,__number_of_atoms);
+  index_palette.update_palette_index();
   int i_z=0;
 #ifdef _ATOM_DEBUG_MESSAGES_
   std::cout<<" ATOM: Number of atoms: "<<__number_of_atoms<<std::endl;
@@ -97,24 +97,12 @@ void Fl_Gl_Atom::eval_initial_properties(void){
     is_eval_sphere=false;
   }
   if(is_draw_atoms_){
-    //if(__number_of_atoms > 1000){
-      //eval_sphere(1);
-    //}else if(__number_of_atoms > 500){
-      //eval_sphere(2);
-    //}else{
-      //eval_sphere(3);
-    //}
     for(int i=0; i<__number_of_atoms; i++){
       i_z=v_atom_numbers[i];
       _radius=atom_rrgb[i_z][0];
       _rcolor[0]=_radius;
       _atom_xyz = m_atom_coordinates[i];
       //m_text_position.add_row(_atom_xyz); // text position
-      // [Thu May 17 16:49:56 MDT 2012] deprecated becuase the symbols are comming from FRAGMOL
-      //p = symbol[i_z].c_str();            // get the atomic symbol
-      //v_atom_symbols.push_back(p);
-      // [Thu May 17 16:49:56 MDT 2012] deprecated becuase the symbols are comming from FRAGMOL
-      //
       _rcolor[1] = atom_rrgb[i_z][1];
       _rcolor[2] = atom_rrgb[i_z][2];
       _rcolor[3] = atom_rrgb[i_z][3];
@@ -1030,40 +1018,9 @@ void Fl_Gl_Atom::eval_atomic_bonds(void){
   gl_atom_clock.stop();
   gl_atom_clock.show();
 #endif
-  /* This code was moved.
-  if(i_number_of_bonds > 1000){
-    eval_cylinder(10);
-  }else if(i_number_of_bonds > 500){
-    eval_cylinder(20);
-  }else if(i_number_of_bonds > 100){
-    eval_cylinder(40);
-  }else{
-    eval_cylinder(60);
-  }*/
   // send update color flag
   //update_bonds_color=true;
 }
-
-/* this function is deprecated, it was merged with function below.
-   NOTE: this code will be removed
-void Fl_Gl_Atom::compute_vdw_fragment(uint u){
-  unsigned int _n;
-  //int _f = 0;
-  //std::cout<<" active fragment: "<<_f<<std::endl;
-  cell.eval_new_fragment(u,-1);
-  _n= get_view_total_fragments();
-#ifdef _ATOM_DEBUG_MESSAGES_
-  std::cout<<" total fragment: "<<_n<<std::endl;
-#endif
-  set_fragment_total(_n);
-  set_fragment_table(get_view_fragment_table());
-  //if(_f>=0){
-    //std::cout<<" Fragment :"<<_f<<std::endl;
-    //set_map_active_fragment(_f);
-    //set_fragment_active(1); // the same as zero above.
-    // the fragment table start the counter from 1
-  //}
-}*/
 
 void Fl_Gl_Atom::set_fragment_total(uint u){
   __fragment_total=u;

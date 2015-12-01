@@ -606,72 +606,35 @@ void Fl_Gl_Mol_View::draw_atoms(void){
   if(is_draw_atoms_){
     for(int c=0; c<get_total_cells(); c++){ // repetition in z
       for(int i=0; i<__number_of_atoms; i++){
-        if(render_mode==MODE_SELECT)
+        if(render_mode==MODE_SELECT){
           glPushName(i+100); // the first 100 names are reserved for the menues
-        //glColor3f(m_atom_rcolor[i][1],m_atom_rcolor[i][2],m_atom_rcolor[i][3]);
-        //if(is_mode_atom)
-
-        //else
-          //glColor3f(m_atom_rcolor[i][1],m_atom_rcolor[i][2],m_atom_rcolor[i][3]);
+          ui_rgb color;
+          color = index_palette.get_index(i);
+          //std::cout<<" color["<<i<<"]: "<<color.r<<" "<<color.g<<" "<<color.b<<std::endl;
+          glColor3ub(color.r,color.g,color.b);
+        }else{
+          glColor3f(m_atom_rcolor[i][1],m_atom_rcolor[i][2],m_atom_rcolor[i][3]);
+          // testing the selection palette ==================================
+          //ui_rgb color;
+          //color = index_palette.get_index(i);
+          //glColor3ub(color.r,color.g,color.b);
+          ///std::cout<<" color["<<i<<"]: "<<color.r<<" "<<color.g<<" "<<color.b<<std::endl;
+          // testing the selection palette ==================================
+        }
         _xyz=m_atom_position[i+c*__number_of_atoms];
-        //_xyz=_xyz+2.0*(x*_vu+y*_vv+z*_vw);
         glPushMatrix();
         glTranslatef(_xyz[0],_xyz[1],_xyz[2]);
-          glColor3f(m_atom_rcolor[i][1],m_atom_rcolor[i][2],m_atom_rcolor[i][3]);
-          glCallList(v_sphere_list[v_atom_table[i]]);
-          /*
-          TVector<real> _xyz;
-          glColor3f(0.0F,0.0F,0.0F); // text color
-          gl_font(FL_COURIER|FL_BOLD,font_size_symbol); // text font
-          //gl_font(1,GLint(f_atom_radius_scale*24)); // text font
-          GLboolean boolval;
-          char buff[10];
-          _xyz=m_atom_coordinates[i];
-          sprintf(buff,"%s-%i",v_atom_symbols[i].c_str(),i+1);
-          glRasterPos3f(0,0,0);
-          // check raster position validity
-          glGetBooleanv(GL_CURRENT_RASTER_POSITION_VALID, &boolval);
-          if(boolval == GL_TRUE) {
-              gl_draw(buff, strlen(buff));
-          }
-          */
-          //
+        //glColor3f(m_atom_rcolor[i][1],m_atom_rcolor[i][2],m_atom_rcolor[i][3]);
+        glCallList(v_sphere_list[v_atom_table[i]]);
         glPopMatrix();
+        // to be removed
         if(render_mode==MODE_SELECT)
           glPopName();
+        // to be removed
       }
     }
   }
 }
-
-/* deprecated code on Jul 23 12:32:43 MDT 2012
-void Fl_Gl_Mol_View::draw_atoms(void){
-  TVector<real> _x(3);
-  TVector<real> _xyz;
-  TVector<real> e(3),p(3);
-  if(is_draw_atoms_){
-    for(int x=neg_x_cells; x<pos_x_cells+1; x++){ // repetition in x
-      for(int y=neg_y_cells; y<pos_y_cells+1; y++){ // repetition in y
-        for(int z=neg_z_cells; z<pos_z_cells+1; z++){ // repetition in z
-          for(int i=0; i<__number_of_atoms; i++){
-            if(render_mode==MODE_SELECT)
-              glPushName(i+100); // the first 100 names are reserved for the menues
-            glColor3f(m_atom_rcolor[i][1],m_atom_rcolor[i][2],m_atom_rcolor[i][3]);
-            _xyz=m_atom_position[i];
-            _xyz=_xyz+2.0*(x*_vu+y*_vv+z*_vw);
-            glPushMatrix();
-            glTranslatef(_xyz[0],_xyz[1],_xyz[2]);
-            glCallList(v_sphere_list[v_atom_table[i]]);
-            glPopMatrix();
-            if(render_mode==MODE_SELECT)
-              glPopName();
-          }
-        }
-      }
-    }
-  }
-} deprected code on Jul 23 12:32:43 MDT 2012
-*/
 
 // draw bonds between atoms closer than the sum of their van der Waals radius
 void Fl_Gl_Mol_View::draw_bonds(void){
@@ -801,22 +764,6 @@ void Fl_Gl_Mol_View::draw_symbols(void){
   gl_font(FL_COURIER,14); // text font
   //gl_font(FL_COURIER,font_size_symbol); // text font
   glPushMatrix();
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //glMatrixMode(GL_PROJECTION);
-    /* Now update the projection matrix. */
-    //glLoadIdentity();
-    //glFrustum(-1, 1, -1, 1, 0.0, 40.0);
-    //glMatrixMode(GL_MODELVIEW);
-    //glEnable(GL_RESCALE_NORMAL);
-  //glDisable(GL_DEPTH_TEST);
-    //glDepthFunc(GL_LESS);
-    //glEnable(GL_DEPTH_TEST);
-    //glShadeModel(GL_FLAT);
-    //gl_texture_pile_height(1);
-    //glMatrixMode(GL_PROJECTION);
-    //glPopMatrix();
-    //glMatrixMode(GL_MODELVIEW);
-    //glFlush();
   GLboolean boolval;
   char buff[10];
   //GLfloat str_width;
@@ -843,29 +790,15 @@ void Fl_Gl_Mol_View::draw_symbols(void){
       else
         sprintf(buff,"%i-%i",v_fragment_table_gl[i],i+1);
     }
-    //str_width = 0.5*gl_width(buff);
-    //str_length = strlen(buff);
-    //glFlush();
-      //glPushMatrix();
-      //glTranslatef(_xyz[0],_xyz[1],_xyz[2]);
     glLoadIdentity();
     glTranslatef(x_shift, y_shift, z_shift);
-
     // zoom in and zoom out
     glScalef(zoom,zoom,zoom);
-    //glTranslatef(2.0*f_atom_radius_scale*m_radius_color[i][0],0,0);
-    //glTranslatef(0,2.0*f_atom_radius_scale*m_radius_color[i][0],0);
-    //glTranslatef(0,0,-2.0*f_atom_radius_scale*m_radius_color[i][0]);
     // set label text offset
-    //glTranslatef(0,0,2.0*f_atom_radius_scale*m_radius_color[i][0]);
-    //glTranslatef(0,0,-2.0*m_radius_color[i][0]);
-    //glTranslatef(f_atom_radius_scale*m_radius_color[i][0],f_atom_radius_scale*m_radius_color[i][0],f_atom_radius_scale*m_radius_color[i][0]);
     glTranslatef(0.5*f_atom_radius_scale*m_radius_color[i][0],0.5*f_atom_radius_scale*m_radius_color[i][0],4.1*f_atom_radius_scale*m_radius_color[i][0]);
-    //glTranslatef(0,1.1*f_atom_radius_scale*m_radius_color[i][0],1.1*f_atom_radius_scale*m_radius_color[i][0]);
     glMultMatrixf((GLfloat*)rot_matrix);
     //glNormal3f(0,0,1);
     // text position
-
     glRasterPos3f(_xyz[0],_xyz[1],_xyz[2]);
       //glRasterPos3f(0,0,0);
       // check raster position validity
@@ -873,18 +806,8 @@ void Fl_Gl_Mol_View::draw_symbols(void){
       if(boolval == GL_TRUE) {
           //printf("raster pos valid\n");
             gl_draw(buff, strlen(buff));
-      } //else {
-          //printf("raster pos invalid\n");
-      //}
-      //glPopMatrix();
-    // render the text
-    //glFlush();
-      //sprintf(buff,"%s","hola\n");
-        //gl_draw(buff, strlen(buff));
-      //gl_draw(buff, 4);
-
+      }
   }
-  //glEnable(GL_DEPTH_TEST);
   glPopMatrix();
 }
 
@@ -896,13 +819,9 @@ void Fl_Gl_Mol_View::draw_selected_numbers(void){
   //gl_font(1,GLint(f_atom_radius_scale*24)); // text font
   glPushMatrix();
   char buff[10];
-  //GLfloat str_width;
   for(uint i=0; i<u_selected_index; i++){
     _xyz=m_atom_position[v_selected_atoms[i]];
     sprintf(buff,"%i",i+1);
-    //}
-    //str_width = 0.5*gl_width(buff);
-    //str_length = strlen(buff);
     glLoadIdentity();
     glTranslatef(x_shift, y_shift, z_shift);
     // zoom in and zoom out
@@ -1039,10 +958,13 @@ void Fl_Gl_Mol_View::draw_scene(void){
     eval_system_properties();
     draw_atoms();
     // draw atomics bonds using the van der Waals radius
-    if(is_draw_bonds_)
+    // bond selection not implemented yet
+    // usgin render_mode!=MODE_SELECT to avoid picking
+    if(is_draw_bonds_ && render_mode!=MODE_SELECT)
       draw_bonds();
     glNormal3f(0,0,1);
-    if(is_draw_molecular_axis_){
+    // the same as above
+    if(is_draw_molecular_axis_ && render_mode!=MODE_SELECT){
       glColor3f(0.0,0.0,1.0);  // axis
       add_axis(v_axis_position, 5.0, 0.05, __axis_precession, __axis_tilt);
       glColor3f(1.0,0.0,0.0);  // backbone plane
@@ -1149,15 +1071,6 @@ void Fl_Gl_Mol_View::draw(){
   scaled_light_position[2]=view_far*light_position[2];
   scaled_light_position[3]=light_position[3];
   glLightfv(GL_LIGHT0, GL_POSITION, scaled_light_position);
-  //if(damage() !=0){
-    //is_menu_position=true;
-  //}
-  //glLoadIdentity();
-  //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  //glPushMatrix();
-  //draw_axes();
-  //glPopMatrix();
-  //glPushMatrix();
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glMatrixMode(GL_MODELVIEW);
   //
@@ -2235,31 +2148,6 @@ void Fl_Gl_Mol_View::draw_controls(GLfloat z){
   //glDisable(GL_BLEND);
   //glEnable(GL_DEPTH_TEST);           // Enable Depth testing
   //glDisable(GL_POLYGON_SMOOTH);
-/*
-  //////////////////// STROKE FONTS TEST ///////////////////////////
-    char *test1 = "A SPARE SERAPE APPEARS AS";
-    char *test2 = "APES PREPARE RARE PEPPERS";
-    //glPushMatrix();
-    //glScalef(2.0, 2.0, 2.0);
-    //glTranslatef(10.0, 30.0, 0.0);
-    //glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0.0, 1.0, 0.0);
-    glColor4f(0.0, 1.0, 0.0,1.0); // text color
-    //glColor4f(0.78,0.68,0.0,0.8);
-    printStrokedString(test1);
-    //glPopMatrix();
-    //glPushMatrix();
-    glScalef(2.0, 2.0, 2.0);
-    //glTranslatef(10.0, 13.0, 0.0);
-    //glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0.0, 1.0, 0.0);
-    glColor4f(0.0, 1.0, 0.0,1.0); // text color
-    //glColor4f(0.78,0.68,0.0,0.8);
-    printStrokedString(test2);
-    //glPopMatrix();
-    //glFlush();
-    //////////////////// STROKE FONTS TEST ///////////////////////////
-*/
 }
 
 void Fl_Gl_Mol_View::draw_message(GLfloat z){
@@ -2314,7 +2202,6 @@ void Fl_Gl_Mol_View::draw_tools(GLfloat z){
 #else
   GLfloat y_pos = 0.955*view_top;
 #endif
-  
   //GLfloat x_pos_end = x_pos+x_width;
   GLfloat y_pos_end = y_pos+y_hight;
   //glDisable(GL_DEPTH_TEST);           // Enable Depth testing
@@ -3731,31 +3618,7 @@ int Fl_Gl_Mol_View::WindowDump(void){
       }
    }
    fclose(fptr);
-/*
-   if (stereo) {
-      // Open the file
-      sprintf(fname,"R_%04d.raw",counter);
-      if ((fptr = fopen(fname,"w")) == NULL) {
-         fprintf(stderr,"Failed to open file for window dump\n");
-         return(false);
-      }
 
-      // Copy the image into our buffer
-      glReadBuffer(GL_BACK_RIGHT);
-      glReadPixels(0,0,width,height,GL_RGB,GL_UNSIGNED_BYTE,image);
-
-      // Write the raw file
-      // fprintf(fptr,"P6\n%d %d\n255\n",width,height); for ppm
-      for (j=height-1;j>=0;j--) {
-         for (i=0;i<width;i++) {
-            fputc(image[3*j*width+3*i+0],fptr);
-            fputc(image[3*j*width+3*i+1],fptr);
-            fputc(image[3*j*width+3*i+2],fptr);
-         }
-      }
-      fclose(fptr);
-   }
-*/
    //
    // Clean up
    counter++;
@@ -3764,59 +3627,6 @@ int Fl_Gl_Mol_View::WindowDump(void){
   return 1;
 }
 
-/// fonts, it may need to change the GUI, the OpenGL fonts in FLTK are broken.
 
-/*  drawLetter() interprets the instructions from the array
- *  for that letter and renders the letter with line segments.
- */
- /*
-void Fl_Gl_Mol_View::drawLetter(CPfont *l)
-{
-  glBegin(GL_LINE_STRIP);
-  //glShadeModel (GL_FLAT);
-  while (1) {
-    switch (l->type){
-      case PTFONT:
-        glVertex2fv(&l->x);
-        break;
-      case STROKE:
-        glVertex2fv(&l->x);
-        glEnd();
-        glColor3f(0.0, 1.0, 0.0);
-        glBegin(GL_LINE_STRIP);
-        break;
-      case ENDSTROKE:
-        glVertex2fv(&l->x);
-        glEnd();
-        glTranslatef(8.0, 0.0, 0.0);
-        return;
-    }
-    l++;
-  }
-  //glShadeModel(GL_SMOOTH);           // Use smooth shading
-}*/
-
-/*  Create a display list for each of 6 characters */
-/*
-void Fl_Gl_Mol_View::init_font(void)
-{
-   GLuint base;
-   //glShadeModel (GL_FLAT);
-   base = glGenLists (128);
-   glListBase(base);
-   glNewList(base+'A', GL_COMPILE); drawLetter(Adata); glEndList();
-   glNewList(base+'E', GL_COMPILE); drawLetter(Edata); glEndList();
-   glNewList(base+'P', GL_COMPILE); drawLetter(Pdata); glEndList();
-   glNewList(base+'R', GL_COMPILE); drawLetter(Rdata); glEndList();
-   glNewList(base+'X', GL_COMPILE); drawLetter(Sdata); glEndList();
-   glNewList(base+' ', GL_COMPILE); glTranslatef(8.0, 0.0, 0.0); glEndList();
-}*/
-/*
-void Fl_Gl_Mol_View::printStrokedString(char *s)
-{
-  GLsizei len = strlen(s);
-  glCallLists(len, GL_BYTE, (GLbyte *)s);
-}
-*/
 // END
 

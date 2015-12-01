@@ -75,12 +75,9 @@ void CPalette::update_palette_real(void){
 }
 
 void CPalette::update_palette_index(void){
-  //double lv;
   _index_palette.clear();
-  //dz=(zmax-zmin)/_lvls;
   set(zmax);
   _index_palette.resize(_lvls+1);
-  //m_color_palette.resize(_lvls+1,3);
 #ifdef _SHOW_MESSAGE_
   printf("_lvls = %i\n",_lvls);
   printf("dz = %f\n",dz);
@@ -89,7 +86,6 @@ void CPalette::update_palette_index(void){
   id_rgb.g=0;
   id_rgb.b=0;
   for(unsigned int _p=0; _p<(_lvls+1); _p++){
-    //lv = (_p);
     _index_palette[_p] = id_rgb;
     id_rgb.r++;
     if(id_rgb.r > 255)
@@ -101,17 +97,6 @@ void CPalette::update_palette_index(void){
           id_rgb.b++;
         }
     }
-    //rgb = palette_color_(lv);
-    //id_rgb.r = (uint)rgb.r;
-    //id_rgb.g = (uint)rgb.g;
-    //id_rgb.b = (uint)rgb.b;
-    //rgb.g/=255.0;
-    //rgb.b/=255.0;
-    //printf("r=%f, g=%f, b=%f\n",rgb.r,rgb.g,rgb.b);
-    //_index_palette[_p] = id_rgb;
-    //m_color_palette[_p][0] = rgb.r;
-    //m_color_palette[_p][1] = rgb.g;
-    //m_color_palette[_p][2] = rgb.b;
   }
 }
 

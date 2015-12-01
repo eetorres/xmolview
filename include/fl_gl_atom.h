@@ -96,6 +96,8 @@ static const GLfloat mat_diffuse[] = {0.5, 0.5, 0.5, 1};
                     m_sphere[n]=vt; \
                     }
 
+const uint MENU_RESERVED_IDS  = 100;
+
 class Fl_Gl_Atom: public Fl_Gl_Window, public CViewmol{
 
 public:
@@ -198,6 +200,7 @@ public:
 protected:
   //
   CPalette palette;
+  CPalette index_palette;
   //
   bool is_first_structure_;
   bool is_initialize_rot;
