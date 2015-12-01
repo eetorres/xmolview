@@ -122,7 +122,7 @@ private:
   bool is_direct;
   bool is_periodic;
   bool is_potcar;
-  bool is_input_fragment;
+  //bool is_input_fragment;
   bool is_bounding_box;
   bool is_labels;
   bool is_numbers;

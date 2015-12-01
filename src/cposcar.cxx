@@ -99,7 +99,7 @@ bool CPoscar::get_poscar_format(void){
 #ifdef _POSCAR_SHOW_DATA_
       std::cout<<"CPOSCAR: [header "<<__head_lines<<"] "<<text_line<<std::endl;
 #endif
-      res1 = std::sscanf((const char*)text_line.c_str(),"%f %f %f %s %s %s",&a,&b,&c,&str1,&str2,&str3);
+      res1 = std::sscanf((const char*)text_line.c_str(),"%f %f %f %s %s %s",&a,&b,&c,str1,str2,str3);
 #ifdef _POSCAR_DEBUG_MESSAGES_
       std::cout <<" res1 ="<<res1<<std::endl;
 #endif
@@ -156,7 +156,7 @@ bool CPoscar::get_poscar_format(void){
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////
     strcpy(tmp_buffer,poscar_head_buffer[__head_lines-1]);
-    res1 = std::sscanf((const char*)tmp_buffer,"%f %f %f %s %s %s",&a,&b,&c,&str1,&str2,&str3);
+    res1 = std::sscanf((const char*)tmp_buffer,"%f %f %f %s %s %s",&a,&b,&c,str1,str2,str3);
 #ifdef _POSCAR_DEBUG_MESSAGES_
     std::cout <<" tmp_buffer ="<<tmp_buffer<<std::endl;
     std::cout <<" res1 ="<<res1<<std::endl;
@@ -174,7 +174,7 @@ bool CPoscar::get_poscar_format(void){
       std::cout<<"CPOSCAR: "<<text_line<<std::endl;
 #endif
       last_res = res1;
-      res1 = std::sscanf((const char*)text_line.c_str(),"%f %f %f %s %s %s",&a,&b,&c,&str1,&str2,&str3);
+      res1 = std::sscanf((const char*)text_line.c_str(),"%f %f %f %s %s %s",&a,&b,&c,str1,str2,str3);
 #ifdef _POSCAR_DEBUG_MESSAGES_
       std::cout <<" res1 ="<<res1<<std::endl;
 #endif

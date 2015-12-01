@@ -746,7 +746,8 @@ void Fl_Gl_Atom::eval_atomic_bonds(void){
   TVector<uint> v_ft;
   v_ft = cell.get_fragmol_fragment_table();
   //
-  uint u_icell, k;
+  int u_icell;
+  uint k;
   TVector<real> v_positive_r;
   TVector<int>  v_integer_r;
   TVector<int>  v_neighbor_cell;
@@ -1251,8 +1252,12 @@ void Fl_Gl_Atom::eval_cylinder(uint n){
   m_cylinder.resize(0,3);
   __cylinder_strip_length=0;
   // check resolution
-  if(abs(n) < 4){ n = 4;
-  }else if(n < 0){ n = -n;}
+  if(n < 4){
+      n = 4;
+  }
+  //else if(n < 0){
+  //    n = -n;
+  //}
   __cylinder_strip_length=n;
   for (uint i=0;i<=n;i++){
     theta3 = i * C_2PI / n;

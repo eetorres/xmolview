@@ -168,11 +168,13 @@ bool CPdb::get_pdb_format(void){
 #ifdef _PDB_DEBUG_MESSAGES_
     std::cout<<" res3: "<<res3<<std::endl;
 #endif
-    res4 = std::sscanf((const char*)text_line.c_str(),"%*s %i %s %s %i %f %f %f %e",&k,str,strb,&l,&a,&b,&c,&e);res4 = std::sscanf((const char*)text_line.c_str(),"%*s %i %s %s %i %f %f %f %e",&k,str,strb,&l,&a,&b,&c,&e);
+    res4 = std::sscanf((const char*)text_line.c_str(),"%*s %i %s %s %i %f %f %f %e",&k,str,strb,&l,&a,&b,&c,&e);
+    //res5 = std::sscanf((const char*)text_line.c_str(),"%*s %i %s %s %i %f %f %f %e",&k,str,strb,&l,&a,&b,&c,&e);
 #ifdef _PDB_DEBUG_MESSAGES_
     std::cout<<" res4: "<<res4<<std::endl;
 #endif
-    res5 = std::sscanf((const char*)text_line.c_str(),"%*s %i %s %s %s %i %f %f %f %e",&k,str,stra,strb,&l,&a,&b,&c,&e);res4 = std::sscanf((const char*)text_line.c_str(),"%*s %i %s %s %i %f %f %f %e",&k,str,stra,strb,&l,&a,&b,&c,&e);
+    res5 = std::sscanf((const char*)text_line.c_str(),"%*s %i %s %s %s %i %f %f %f %e",&k,str,stra,strb,&l,&a,&b,&c,&e);
+    //res4 = std::sscanf((const char*)text_line.c_str(),"%*s %i %s %s %i %f %f %f %e",&k,str,stra,strb,&l,&a,&b,&c,&e);
     //__header_lines++;
 #ifdef _PDB_DEBUG_MESSAGES_
     std::cout<<" res5: "<<res5<<std::endl;

@@ -8,7 +8,7 @@
 //
 //========================================================================
 
-#ifndef _CFRAGMENT_H
+#ifndef _CFRAGMENT_H_
 #define _CFRAGMENT_H_
 
 #include<config_debug.h>

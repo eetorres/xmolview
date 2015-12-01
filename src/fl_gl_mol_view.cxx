@@ -27,10 +27,10 @@ GLint viewport[4];
 GLdouble modelview[16];
 GLdouble projection[16];
 
-const int font_size_symbol=12;
-const int font_size_panel_label=12;
-const int font_size_slider_label=8;
-const int font_size_pie_label=12;
+//const int font_size_symbol=12;
+//const int font_size_panel_label=12;
+//const int font_size_slider_label=8;
+//const int font_size_pie_label=12;
 
 #define ALPHA 0.5
 #define HAVE_GL 1
@@ -3700,7 +3700,7 @@ void Fl_Gl_Mol_View::set_view_zx_back(void){
    If the memory pixel order is the same as the destination file format.
 */
 int Fl_Gl_Mol_View::WindowDump(void){
-   uint i,j;
+   int i,j;
    FILE *fptr;
    static int counter = 0; /* This supports animation sequences */
    char fname[32];

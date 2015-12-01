@@ -24,14 +24,12 @@
 		4B82F9BB19AFAAF800A8810F /* fl_table.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fl_table.cxx; sourceTree = "<group>"; };
 		4B82F9BC19AFAAF800A8810F /* fl_xmol_view.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fl_xmol_view.cxx; sourceTree = "<group>"; };
 		4B82F9C119AFAAF800A8810F /* sphere.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sphere.cxx; sourceTree = "<group>"; };
-		4B82F9C219AFAAF800A8810F /* xmol.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xmol.cxx; sourceTree = "<group>"; };
 		4B82F9C319AFAAF800A8810F /* xmolview.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xmolview.cxx; sourceTree = "<group>"; };
 		4B8633BD1B5A965D00D5C7B9 /* config_xmv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config_xmv.h; sourceTree = "<group>"; };
 		4B9586FD1B549AC700CBED3E /* cmapcell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cmapcell.h; sourceTree = "<group>"; };
 		4B9586FE1B549AC700CBED3E /* csupercell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = csupercell.h; sourceTree = "<group>"; };
 		4B9586FF1B549ADC00CBED3E /* cmapcell.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cmapcell.cxx; sourceTree = "<group>"; };
 		4B9587001B549ADC00CBED3E /* csupercell.cxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = csupercell.cxx; sourceTree = "<group>"; };
-		4B9E63A619AFAB1B00C9569D /* AA.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AA.m; sourceTree = "<group>"; };
 		4B9E63A719AFAB1B00C9569D /* atom_color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = atom_color.h; sourceTree = "<group>"; };
 		4B9E63A819AFAB1B00C9569D /* atom_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = atom_name.h; sourceTree = "<group>"; };
 		4B9E63A919AFAB1B00C9569D /* atom_symbol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = atom_symbol.h; sourceTree = "<group>"; };
@@ -54,8 +52,6 @@
 		4B9E63BC19AFAB1B00C9569D /* fl_xmol_view.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fl_xmol_view.h; sourceTree = "<group>"; };
 		4B9E63BD19AFAB1B00C9569D /* global.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
 		4B9E63BE19AFAB1B00C9569D /* sphere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sphere.h; sourceTree = "<group>"; };
-		4B9E63BF19AFAB1B00C9569D /* stroke.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stroke.h; sourceTree = "<group>"; };
-		4B9E63C019AFAB1B00C9569D /* Xtal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Xtal.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -81,7 +77,6 @@
 				4B82F9BB19AFAAF800A8810F /* fl_table.cxx */,
 				4B82F9BC19AFAAF800A8810F /* fl_xmol_view.cxx */,
 				4B82F9C119AFAAF800A8810F /* sphere.cxx */,
-				4B82F9C219AFAAF800A8810F /* xmol.cxx */,
 				4B82F9C319AFAAF800A8810F /* xmolview.cxx */,
 			);
 			name = src;
@@ -102,7 +97,6 @@
 				4B8633BD1B5A965D00D5C7B9 /* config_xmv.h */,
 				4B9586FD1B549AC700CBED3E /* cmapcell.h */,
 				4B9586FE1B549AC700CBED3E /* csupercell.h */,
-				4B9E63A619AFAB1B00C9569D /* AA.m */,
 				4B9E63A719AFAB1B00C9569D /* atom_color.h */,
 				4B9E63A819AFAB1B00C9569D /* atom_name.h */,
 				4B9E63A919AFAB1B00C9569D /* atom_symbol.h */,
@@ -125,8 +119,6 @@
 				4B9E63BC19AFAB1B00C9569D /* fl_xmol_view.h */,
 				4B9E63BD19AFAB1B00C9569D /* global.h */,
 				4B9E63BE19AFAB1B00C9569D /* sphere.h */,
-				4B9E63BF19AFAB1B00C9569D /* stroke.h */,
-				4B9E63C019AFAB1B00C9569D /* Xtal.m */,
 			);
 			name = include;
 			path = ../include;
