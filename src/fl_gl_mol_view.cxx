@@ -3735,8 +3735,8 @@ int Fl_Gl_Mol_View::WindowDump(void){
 
    // Write the raw file
    fprintf(fptr,"P6\n%d %d\n255\n",width,height); //for ppm
-   for (j=height-1;j>=0;j--) {
-      for (i=0;i<width;i++) {
+   for (j=(int)height-1;j>=0;j--) {
+      for (i=0;i<(int)width;i++) {
          fputc(image[3*j*width+3*i+0],fptr);
          fputc(image[3*j*width+3*i+1],fptr);
          fputc(image[3*j*width+3*i+2],fptr);

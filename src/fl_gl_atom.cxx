@@ -835,7 +835,7 @@ void Fl_Gl_Atom::eval_atomic_bonds(void){
           /////////////////////////////////////////////////////////////////////////////////
           //if(use_pbc){
           u_icell = iVLinear(v_neighbor_cell,v_cell_side);    // head atom index in the the cell
-          if(u_icell>=0 && u_icell < u_cell_number){          // inside of a cells
+          if(u_icell>=0 && u_icell < (int)u_cell_number){          // inside of a cells
             j = v_cell_head[u_icell];                         // head atom in the actual cell
           }else{                                              // out of the box
             j = -1;                                           // outside of a cells
