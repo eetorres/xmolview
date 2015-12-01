@@ -622,7 +622,6 @@ void Fl_Gl_Mol_View::draw_atoms(void){
           /*
           TVector<real> _xyz;
           glColor3f(0.0F,0.0F,0.0F); // text color
-          gl_font(FL_SYMBOL,14);
           gl_font(FL_COURIER|FL_BOLD,font_size_symbol); // text font
           //gl_font(1,GLint(f_atom_radius_scale*24)); // text font
           GLboolean boolval;
@@ -797,11 +796,9 @@ void Fl_Gl_Mol_View::draw_bonds(void){
 void Fl_Gl_Mol_View::draw_symbols(void){
   TVector<real> _xyz;
   glColor3f(0.0F,1.0F,0.0F); // text color
-  //gl_font(FL_SYMBOL,14);
   //gl_font(FL_COURIER|FL_BOLD,font_size_symbol); // text font
   //gl_font(1,GLint(f_atom_radius_scale*24)); // text font
-  //gl_font(FL_COURIER,14); // text font
-  //gl_font(FL_SYMBOL,14);
+  gl_font(FL_COURIER,14); // text font
   //gl_font(FL_COURIER,font_size_symbol); // text font
   glPushMatrix();
     //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -894,7 +891,7 @@ void Fl_Gl_Mol_View::draw_symbols(void){
 void Fl_Gl_Mol_View::draw_selected_numbers(void){
   TVector<real> _xyz;
   glColor3f(0.0F,0.0F,0.0F); // text color
-  //gl_font(FL_SYMBOL,14);
+  gl_font(FL_COURIER,14);
   //gl_font(FL_COURIER,font_size_symbol); // text font
   //gl_font(1,GLint(f_atom_radius_scale*24)); // text font
   glPushMatrix();
@@ -1617,8 +1614,8 @@ void Fl_Gl_Mol_View::initialize_opengl(void){
     glLineWidth(1.1);
     //initialize_transform_matrix();
     glColor3f(0.0F,0.0F,0.0F); // text color
-    gl_font(FL_SYMBOL,14);
     //gl_font(FL_COURIER|FL_BOLD,font_size_symbol); // text font
+    gl_font(FL_COURIER,14); // text font
   //}
 }
 
@@ -2189,11 +2186,10 @@ void Fl_Gl_Mol_View::draw_controls(GLfloat z){
   glEnd();
   // draw the control box
   // solid border for the control menu
-  //gl_font(FL_SYMBOL,14);
   //
-  gl_font(FL_COURIER,12); // text font
-  gl_font(FL_SYMBOL,12);
-  gl_font(FL_COURIER,font_size_panel_label); // text font
+  gl_font(FL_COURIER,14); // text font
+  //gl_font(FL_SYMBOL,12);
+  //gl_font(FL_COURIER,font_size_panel_label); // text font
   glColor4f(0.0,1.0,0.0,1.0); // text color
   sprintf(buff,"%s","Controls");
   glRasterPos3f(x_pos, 0.638*view_bottom,z);
@@ -2287,8 +2283,8 @@ void Fl_Gl_Mol_View::draw_message(GLfloat z){
   glEnd();
   // draw the control box
   // solid border for the control menu
-  //gl_font(FL_SYMBOL,14);
   //gl_font(FL_COURIER,font_size_panel_label); // text font
+  gl_font(FL_COURIER,14); // text font
   glColor4f(0.0,1.0,0.0,1.0); // text color
   sprintf(buff,"%s","Processing...");
   glRasterPos3f(x_pos+0.3*x_width, 0.0,z);
@@ -2337,12 +2333,12 @@ void Fl_Gl_Mol_View::draw_tools(GLfloat z){
   //glEnd();
   // draw the tool box
   // solid border for the control menu
-  //gl_font(FL_SYMBOL,14);
+  gl_font(FL_COURIER,14); // text font
 #ifdef PLATFORM_MAC
-    gl_font(FL_SYMBOL,14);
     //gl_font(FL_HELVETICA,font_size_pie_label); // text font
     //gl_font(FL_HELVETICA,font_size_panel_label); // text font
-    gl_font(FL_HELVETICA,font_size_pie_label); // text font
+    //gl_font(FL_HELVETICA,font_size_pie_label); // text font
+    gl_font(FL_COURIER,14); // text font
 #endif
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   glColor4f(0.0,1.0,0.0,1.0); // text color
@@ -2410,10 +2406,9 @@ void Fl_Gl_Mol_View::draw_settings(GLfloat z){
   //glEnd();
   // draw the tool box
   // solid border for the control menu
-  //gl_font(FL_SYMBOL,14);
   //gl_font(FL_COURIER,font_size_panel_label); // text font
+  gl_font(FL_COURIER,14); // text font
 #ifdef PLATFORM_MAC
-    gl_font(FL_SYMBOL,14);
     //gl_font(FL_HELVETICA,font_size_pie_label); // text font
     //gl_font(FL_HELVETICA,font_size_panel_label); // text font
     gl_font(FL_HELVETICA,font_size_pie_label); // text font
@@ -2491,7 +2486,6 @@ void Fl_Gl_Mol_View::draw_information(GLfloat z){
   //glEnd();
   // draw the tool box
   // solid border for the control menu
-  //gl_font(FL_SYMBOL,14);
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   glColor4f(0.0,1.0,0.0,1.0); // text color
   sprintf(buff,"%s","Information");
@@ -2630,7 +2624,6 @@ void Fl_Gl_Mol_View::draw_switch_output(GLfloat x1, GLfloat y1, GLfloat y2, GLfl
   // radio label
   //font_size_pie_label
   //gl_font(FL_COURIER,font_size_slider_label); // text font
-  //gl_font(FL_SYMBOL,14);
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   if(val)
@@ -2671,7 +2664,6 @@ void Fl_Gl_Mol_View::widget_float_output(GLfloat x1, GLfloat y1, GLfloat y2, GLf
   // radio label
   //font_size_pie_label
   //gl_font(FL_COURIER,font_size_slider_label); // text font
-  //gl_font(FL_SYMBOL,14);
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   sprintf(buff,"%-15s %f",l,val);
@@ -2720,7 +2712,6 @@ void Fl_Gl_Mol_View::widget_float_output_xy(GLfloat x1, GLfloat y1, GLfloat y2, 
   // radio label
   //font_size_pie_label
   //gl_font(FL_COURIER,font_size_slider_label); // text font
-  //gl_font(FL_SYMBOL,14);
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   sprintf(buff,"%-15s %i %i %f",l,x,y,val);
@@ -2768,7 +2759,6 @@ void Fl_Gl_Mol_View::widget_text_output(GLfloat x1, GLfloat y1, GLfloat y2, GLfl
   // radio label
   //font_size_pie_label
   //gl_font(FL_COURIER,font_size_slider_label); // text font
-  //gl_font(FL_SYMBOL,14);
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   sprintf(buff,"%s %s",l,text);
@@ -3190,12 +3180,10 @@ void Fl_Gl_Mol_View::draw_pie_labels(GLfloat cx, GLfloat cy, GLfloat z, GLfloat 
   glNormal3f(0,0,1);
   glColor3f(1.0F,1.0F,1.0F); // text color
   //gl_font(FL_COURIER,14); // text font
-  //gl_font(FL_SYMBOL,14);
   //gl_font(FL_COURIER,14); // text font
   //glColor4f(0.0,1.0,0.0,1.0); // text color
   //gl_font(FL_ZAPF_DINGBATS,12); // text font
 #ifdef PLATFORM_MAC
-  //gl_font(FL_SYMBOL,14);
   gl_font(FL_HELVETICA,font_size_pie_label); // text font
 #endif
   for(int i=0; i<nl; i++){

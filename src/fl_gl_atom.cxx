@@ -1070,7 +1070,7 @@ void Fl_Gl_Atom::set_fragment_total(uint u){
   palette.set(u);
   palette.set_color(4);
   palette.initialize(0,u,u);
-  palette.update_palette_();
+  palette.update_palette_real();
 }
 
 void Fl_Gl_Atom::set_fragment_table(const TVector<uint>& v){

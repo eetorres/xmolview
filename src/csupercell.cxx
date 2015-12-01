@@ -318,7 +318,7 @@ bool CSupercell::eval_new_fragment(const TVector<uint>& _iv){
     std::cout<<" FRAGMOL: !!! No more atoms can be fragmented !!!"<<std::endl;;
   }
 #endif
-  std::cout<<" ******************************************"<<std::endl;
+  //std::cout<<" ******************************************"<<std::endl;
   return res;
 }
 

@@ -1,11 +1,18 @@
-// Last modification 21/03/2008
-// ========================================================================
+// Latest modification: Wed Sep  3 14:13:54 EDT 2014
 // version: 0.1
-// name:    fl_pallete.h
-//
-// Copyrigth 2008-2015 by Edmanuel Torres A. (eetorres@gmail.com)
-//
+// name:    cpalette.h
+// Copyrigth 2008 by Edmanuel Torres A. (eetorres@gmail.com)
 //========================================================================
+// FILE - cpalette.h                                                    //
+// For the Fast Light Tool Kit (FLTK) - www.fltk.org                    //
+//========================================================================
+//                                                                      //
+//                                                                      //
+//                                                                      //
+// Copyright 2008-2014 by Edmanuel Torres                               //
+// email: eetorres@gmail.com                                            //
+//                                                                      //
+//======================================================================//
 
 #ifndef _CPalette_H_
 #define _CPalette_H_
@@ -17,6 +24,10 @@ typedef struct {
   double r,g,b;
 } gm_rgb;
 
+typedef struct {
+  unsigned int r,g,b;
+} ui_rgb;
+
 class CPalette{
 
 public:
@@ -26,8 +37,10 @@ public:
     double y0, y1, x0, x1, x2, x3, x4, x5;
     double w0, dz, zmin, zmax;
     gm_rgb rgb, cf1, cf2;
+    ui_rgb id_rgb;
 
     std::vector<gm_rgb> _color_palette;
+    std::vector<ui_rgb> _index_palette;
     TMatrix<real> m_color_palette;
 
     CPalette();
@@ -35,9 +48,11 @@ public:
     // set
     void set_color(unsigned int);
     // get
-    gm_rgb get_color(double);
+    gm_rgb get_color(unsigned int);
+    ui_rgb get_index(unsigned int);
+    unsigned int get_index(ui_rgb);
     TVector<real> get_vcolor(double);
-	//
+    //
     void initialize(double mn, double mx, unsigned int l){
       zmin=mn;
       zmax=mx;
@@ -46,17 +61,19 @@ public:
 
 //private:
     //
+    gm_rgb  index_palette_(double val);
+    gm_rgb  linear_palette_(double val);
     gm_rgb  hsv_palette_(double val);
     gm_rgb  rgb_palette_(double val);
-    gm_rgb  linear_palette_(double val);
     gm_rgb  earth_palette_(double val);
     gm_rgb  terrain_palette_(double val);
     //
-    gm_rgb  palette_selection_(double val);
+    gm_rgb  palette_color_(double val);
     double color_interpolation_(double,double,double);
     //
     // Color functions
-    void update_palette_(void);
+    void update_palette_real(void);
+    void update_palette_index(void);
     void set(double w);
 };
 

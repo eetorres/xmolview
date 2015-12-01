@@ -1,21 +1,22 @@
-// Last modification 21/03/2008
+// Latest modification: Wed Sep  3 14:13:54 EDT 2014
 // version: 0.1
 // name:    cpalette.cxx
-// Copyrigth 2008-2015 by Edmanuel Torres A. (eetorres@gmail.com)
+// Copyrigth 2008 by Edmanuel Torres A. (eetorres@gmail.com)
 //========================================================================
-// FILE - fl_palette.cxx                                                //
+// FILE - cpalette.cxx                                                  //
 // For the Fast Light Tool Kit (FLTK) - www.fltk.org                    //
 //========================================================================
 //                                                                      //
 //                                                                      //
 //                                                                      //
-// Copyright 2002-2012 by Edmanuel Torres                               //
+// Copyright 2002-2014 by Edmanuel Torres                               //
 // email: eetorres@gmail.com                                            //
 //                                                                      //
 //======================================================================//
 
 #include <cpalette.h>
 
+//#define _SHOW_MESSAGE_ 1
 
 CPalette::CPalette(void){
     _ipalette = 0;
@@ -35,9 +36,12 @@ void CPalette::set(double w){
 
 void CPalette::set_color(unsigned int u){
   _ipalette = u;
-  switch(_ipalette){
+  switch(u){
   case 0:
-    w0 = 1.0;//Linear
+    w0 = 6.0;//Linear
+    break;
+  case 3:
+    w0 = 6.0;//HSV
     break;
   default:
     w0 = 6.0;//HSV
@@ -45,20 +49,20 @@ void CPalette::set_color(unsigned int u){
   }
 };
 
-void CPalette::update_palette_(void){
+void CPalette::update_palette_real(void){
   double lv;
   _color_palette.clear();
-#ifdef _SHOW_MESSAGE_
-  printf("_lvls = %i\n",_lvls);
-  printf("dz = %f\n",dz);
-#endif
-  dz=(zmax-zmin)/_lvls;
-  set(zmax-zmin);
+  //dz=zmax/_lvls;
+  set(zmax);
   _color_palette.resize(_lvls+1);
   m_color_palette.resize(_lvls+1,3);
+#ifdef _SHOW_MESSAGE_
+  printf("_lvls = %i\n",_lvls);
+  //printf("dz = %f\n",dz);
+#endif
   for(unsigned int _p=0; _p<(_lvls+1); _p++){
-    lv = (_p*dz);
-    rgb = palette_selection_(lv);
+    lv = (_p);
+    rgb = palette_color_(lv);
     rgb.r/=255.0;
     rgb.g/=255.0;
     rgb.b/=255.0;
@@ -70,10 +74,51 @@ void CPalette::update_palette_(void){
   }
 }
 
-gm_rgb CPalette::palette_selection_(double _x){
+void CPalette::update_palette_index(void){
+  //double lv;
+  _index_palette.clear();
+  //dz=(zmax-zmin)/_lvls;
+  set(zmax);
+  _index_palette.resize(_lvls+1);
+  //m_color_palette.resize(_lvls+1,3);
+#ifdef _SHOW_MESSAGE_
+  printf("_lvls = %i\n",_lvls);
+  printf("dz = %f\n",dz);
+#endif
+  id_rgb.r=0;
+  id_rgb.g=0;
+  id_rgb.b=0;
+  for(unsigned int _p=0; _p<(_lvls+1); _p++){
+    //lv = (_p);
+    _index_palette[_p] = id_rgb;
+    id_rgb.r++;
+    if(id_rgb.r > 255)
+    {
+        id_rgb.r = 0;
+        id_rgb.g++;
+        if(id_rgb.g > 255){
+          id_rgb.g = 0;
+          id_rgb.b++;
+        }
+    }
+    //rgb = palette_color_(lv);
+    //id_rgb.r = (uint)rgb.r;
+    //id_rgb.g = (uint)rgb.g;
+    //id_rgb.b = (uint)rgb.b;
+    //rgb.g/=255.0;
+    //rgb.b/=255.0;
+    //printf("r=%f, g=%f, b=%f\n",rgb.r,rgb.g,rgb.b);
+    //_index_palette[_p] = id_rgb;
+    //m_color_palette[_p][0] = rgb.r;
+    //m_color_palette[_p][1] = rgb.g;
+    //m_color_palette[_p][2] = rgb.b;
+  }
+}
+
+gm_rgb CPalette::palette_color_(double _x){
   switch(_ipalette){
   case 0:
-    return linear_palette_(_x);
+    return index_palette_(_x);
     break;
   case 1:
     return terrain_palette_(_x);
@@ -91,13 +136,32 @@ gm_rgb CPalette::palette_selection_(double _x){
 
 }
 
-gm_rgb CPalette::get_color(double val){
-  unsigned int c = (unsigned int)(val/dz);
+gm_rgb CPalette::get_color(unsigned int c){
+  //unsigned int c = (unsigned int)(val/dz);
+  //unsigned int c = (unsigned int)val;
   return _color_palette[c];
 }
 
+ui_rgb CPalette::get_index(unsigned int c){
+  return _index_palette[c];
+}
+
+unsigned int CPalette::get_index(ui_rgb u){
+  uint index_=0;
+  if(u.b > 0){
+    index_=256*256;
+  }
+  if(u.g > 0){
+    index_+=u.g*256;
+  }
+  if(u.r > 0){
+    index_+=u.r;
+  }
+  return index_;
+}
+
 TVector<real> CPalette::get_vcolor(double val){
-  unsigned int c = (unsigned int)(val/dz);
+  unsigned int c = (unsigned int)(val);
   return m_color_palette[c];
 }
 
@@ -205,6 +269,9 @@ gm_rgb CPalette::terrain_palette_(double val){
     return rgb;
 }
 
+
+
+
 // RGB palette
 gm_rgb CPalette::rgb_palette_(double val){
     cf1.r=250.0; cf1.g=250.0;  cf1.b=255.0;
@@ -252,6 +319,20 @@ gm_rgb CPalette::linear_palette_(double val){
     rgb.b=cf1.b+color_interpolation_(xdelta1, bydelta1, val);
   }
   return rgb;
+}
+
+// Index palette
+gm_rgb CPalette::index_palette_(double val){
+    if(val >= 0 && val <= x2){ //1
+      rgb.r=color_interpolation_(x5, ydelta1, val);
+      rgb.g=color_interpolation_(x2, ydelta1, val);
+      rgb.b=255.0-color_interpolation_(x5, ydelta1, val);
+    }else if(val > x2 && val <= x5){ // 4
+      rgb.r=color_interpolation_(x5, ydelta1, val);
+      rgb.g=255.0-color_interpolation_(x2, ydelta1, val-x2);
+      rgb.b=255.0-color_interpolation_(x5, ydelta1, val);
+    }
+    return rgb;
 }
 
 
