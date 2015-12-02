@@ -1013,11 +1013,15 @@ void Fl_Gl_Mol_View::draw_scene(void){
   if(is_draw_controls){
     draw_settings(790);
     draw_information(790);
-    if(render_mode==MODE_SELECT)
-      glPushName(20); // the first 100 names are reserved for the menues
+    // Tue Dec  1 18:53:19 EST 2015
+    // deprecated: using color selection
+    //if(render_mode==MODE_SELECT)
+      //glPushName(20); // the first 100 names are reserved for the menues
     draw_controls(790);
-    if(render_mode==MODE_SELECT)
-      glPopName();    // the first 100 names are reserved for the menues
+    // Tue Dec  1 18:53:19 EST 2015
+    // deprecated: using color selection
+    //if(render_mode==MODE_SELECT)
+      //glPopName();    // the first 100 names are reserved for the menues
   }
   // draw the processing message
   if(is_draw_processing)
@@ -1026,28 +1030,27 @@ void Fl_Gl_Mol_View::draw_scene(void){
 }
 
 void Fl_Gl_Mol_View::draw(){
-  if (!valid()){
-    initialize_opengl();
-  }
+  initialize_opengl();
   // restoring the original projection matrix
   glMatrixMode(GL_PROJECTION);
   glPopMatrix();
   glMatrixMode(GL_MODELVIEW);
   glFlush();
-  //init_rot_matrix();
   // Reset the coordinate system before modifying
   glMatrixMode(GL_PROJECTION);
   glPushMatrix();
   glLoadIdentity();
   glFlush();
-  if(render_mode==MODE_SELECT){
-    process_start_picking();
-  }
-    // Set the viewport to be the entire window
-    view_reshape(w(),h());
-    glViewport(0,0,w(),h());
-    //std::cout<<" W="<<w()<<" H="<<h()<<std::endl;
-    if(w() <= h()){
+  // Tue Dec  1 18:53:19 EST 2015
+  // deprecated: using color selection
+  //if(render_mode==MODE_SELECT){
+    //process_start_picking();
+  //}
+  // Set the viewport to be the entire window
+  view_reshape(w(),h());
+  glViewport(0,0,w(),h());
+  //std::cout<<" W="<<w()<<" H="<<h()<<std::endl;
+  if(w() <= h()){
         y_factor=(real)h()/(real)w();
         view_left   = -base_view;
         view_right  =  base_view;
@@ -1056,7 +1059,7 @@ void Fl_Gl_Mol_View::draw(){
         view_axis_x =  view_left+6.0;
         view_axis_y =  view_bottom+6.0;
         glOrtho(view_left, view_right, view_bottom, view_top, view_near, view_far);
-    }else{
+  }else{
         x_factor=(real)w()/(real)h();
         view_left   = -base_view*x_factor;
         view_right  =  base_view*x_factor;
@@ -1065,7 +1068,7 @@ void Fl_Gl_Mol_View::draw(){
         view_axis_x =  view_left+6.0;
         view_axis_y =  view_bottom+6.0;
         glOrtho(view_left, view_right, view_bottom, view_top, view_near, view_far);
-    }
+  }
   set_font_size();
   scaled_light_position[0]=view_left*light_position[0];
   scaled_light_position[1]=view_top*light_position[1];
@@ -1477,22 +1480,15 @@ void Fl_Gl_Mol_View::set_font_size(void){
   font_size_slider_label=8;
   */
 }
-
+// Initialize GL
 void Fl_Gl_Mol_View::initialize_opengl(void){
-  //if(!valid()) {
-    valid(1);
-    //glLoadIdentity();
-    //glViewport(0,0,w(),h());
-    //ortho();
-    // Initialize GL
+  if(!valid()) {
     glClearColor(bgred,bggreen,bgblue,1.0);   // Background Color
     glClearDepth(1.0f);
     //if(gm_depth)
     glEnable(GL_DEPTH_TEST);           // Enable Depth testing
     glDepthFunc(GL_LEQUAL);
     glShadeModel(GL_SMOOTH);           // Use smooth shading
-    //glShadeModel(GL_FLAT);
-    //glDepthFunc(GL_LESS);
     // Set the smooth shaiding to the best we can have
     glHint(GL_SHADE_MODEL, GL_NICEST);
     // Line options
@@ -1527,10 +1523,9 @@ void Fl_Gl_Mol_View::initialize_opengl(void){
     glPointSize(1.1);
     glLineWidth(1.1);
     //initialize_transform_matrix();
-    glColor3f(0.0F,0.0F,0.0F); // text color
-    //gl_font(FL_COURIER|FL_BOLD,font_size_symbol); // text font
-    gl_font(FL_COURIER,14); // text font
-  //}
+    //glColor3f(0.0F,0.0F,0.0F); // text color
+    set_view_yz_front();
+  }
 }
 
 // PICKING HANDLING //////////////////////////////////////////////////////////////
