@@ -1034,13 +1034,28 @@ void Fl_Gl_Mol_View::draw(){
   // restoring the original projection matrix
   glMatrixMode(GL_PROJECTION);
   glPopMatrix();
-  glMatrixMode(GL_MODELVIEW);
-  glFlush();
+  //glMatrixMode(GL_MODELVIEW);
+  //glFlush();
   // Reset the coordinate system before modifying
-  glMatrixMode(GL_PROJECTION);
-  glPushMatrix();
+  //glMatrixMode(GL_PROJECTION);
+  //glPushMatrix();
   glLoadIdentity();
-  glFlush();
+  if(render_mode==MODE_SELECT){
+    //-->process_start_picking();
+    // turn off texturing, lighting and fog during picking
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_FOG);
+    glDisable(GL_LIGHTING);
+    glDisable (GL_BLEND);
+    //glDisable (GL_DITHER);
+    glDisable (GL_LIGHTING);
+    //glDisable (GL_TEXTURE_1D);
+    //glDisable (GL_TEXTURE_2D);
+    //glDisable (GL_TEXTURE_3D);
+    glShadeModel(GL_FLAT);
+    glClearColor(1,1,1,1);   // Background Color
+  }
+  //glFlush();
   // Tue Dec  1 18:53:19 EST 2015
   // deprecated: using color selection
   //if(render_mode==MODE_SELECT){
@@ -1086,8 +1101,16 @@ void Fl_Gl_Mol_View::draw(){
     glFlush();
   }
   //glMultMatrixf(tb_transform);
+  // new picking process using color index
   if(render_mode==MODE_SELECT){
     process_stop_picking();
+    // reenable OpenGL
+    glEnable(GL_LIGHTING);
+    glEnable (GL_BLEND);
+    glEnable (GL_LIGHTING);
+    glShadeModel(GL_SMOOTH);           // Use smooth shading
+    render_mode=MODE_RENDER;
+    glClearColor(bgred,bggreen,bgblue,1.0);   // Background Color
     draw();
   }else{
     redraw();
