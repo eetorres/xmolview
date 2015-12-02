@@ -1042,6 +1042,7 @@ void Fl_Gl_Mol_View::draw(){
   glLoadIdentity();
   if(render_mode==MODE_SELECT){
     //-->process_start_picking();
+    
     // turn off texturing, lighting and fog during picking
     glDisable(GL_TEXTURE_2D);
     glDisable(GL_FOG);
@@ -1049,9 +1050,6 @@ void Fl_Gl_Mol_View::draw(){
     glDisable (GL_BLEND);
     //glDisable (GL_DITHER);
     glDisable (GL_LIGHTING);
-    //glDisable (GL_TEXTURE_1D);
-    //glDisable (GL_TEXTURE_2D);
-    //glDisable (GL_TEXTURE_3D);
     glShadeModel(GL_FLAT);
     glClearColor(1,1,1,1);   // Background Color
   }
@@ -1103,7 +1101,10 @@ void Fl_Gl_Mol_View::draw(){
   //glMultMatrixf(tb_transform);
   // new picking process using color index
   if(render_mode==MODE_SELECT){
-    process_stop_picking();
+    //process_stop_picking();
+    // get color information from frame buffer
+    glGetIntegerv(GL_VIEWPORT, viewport);
+    glReadPixels(cursorX, viewport[3]-cursorY, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, pixel);
     // reenable OpenGL
     glEnable(GL_LIGHTING);
     glEnable (GL_BLEND);
@@ -1547,7 +1548,7 @@ void Fl_Gl_Mol_View::initialize_opengl(void){
     glLineWidth(1.1);
     //initialize_transform_matrix();
     //glColor3f(0.0F,0.0F,0.0F); // text color
-    set_view_yz_front();
+    
   }
 }
 
@@ -3559,6 +3560,7 @@ void Fl_Gl_Mol_View::clear_scene(void){
   }
   update_normal_color=true;
   is_update_mask_rcolor=true;
+  set_view_yz_front();
 }
 
 void Fl_Gl_Mol_View::set_view_xy_front(void){

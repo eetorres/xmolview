@@ -344,6 +344,7 @@ private:
   GLdouble label_menu_pos_x, label_menu_y, label_menu_z;
   //
   uint v_selected_atoms[4];
+  unsigned char pixel[3];
   //
   std::string label;
   std::string legends[6];
