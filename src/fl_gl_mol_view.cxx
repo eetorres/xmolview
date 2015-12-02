@@ -1698,6 +1698,7 @@ void Fl_Gl_Mol_View::process_picking(unsigned char pc[3]){
   }
 }
 
+/* Deprecated Tue Dec  1 19:44:07 EST 2015
 // Fri Jan 13 16:55:51 MST 2012
 // alpha version
 void Fl_Gl_Mol_View::process_start_picking(void){
@@ -1923,6 +1924,7 @@ void Fl_Gl_Mol_View::process_mouse_hits(GLint hits, GLuint buffer[]){
   }
   //std::cout<<"\n";
 }
+*/
 
 // handle funtions on the main menu
 void Fl_Gl_Mol_View::handle_main_menu(void){
