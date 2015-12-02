@@ -30,6 +30,7 @@
 //////////////////////////////////
 // fl_gl_mol_view.cxx
 /////////////////////////////////
+#define _GLMOL_DEBUG_PICKING_
 //#define _GLMOL_DATA_MESSAGES_
 //#define _GLMOL_DEBUG_MESSAGES_
 //#define _GLMOL_DEBUG_BOND_COLORS_

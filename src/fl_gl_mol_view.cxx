@@ -1105,6 +1105,7 @@ void Fl_Gl_Mol_View::draw(){
     // get color information from frame buffer
     glGetIntegerv(GL_VIEWPORT, viewport);
     glReadPixels(cursorX, viewport[3]-cursorY, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, pixel);
+    process_picking(pixel);
     // reenable OpenGL
     glEnable(GL_LIGHTING);
     glEnable (GL_BLEND);
@@ -1112,6 +1113,15 @@ void Fl_Gl_Mol_View::draw(){
     glShadeModel(GL_SMOOTH);           // Use smooth shading
     render_mode=MODE_RENDER;
     glClearColor(bgred,bggreen,bgblue,1.0);   // Background Color
+    draw();
+    if(is_handle_atom_){
+      handle_atom_menu();
+      is_handle_atom_=false;
+    }
+    if(is_handle_main_){
+      handle_main_menu();
+      is_handle_main_=false;
+    }
     draw();
   }else{
     redraw();
@@ -1553,6 +1563,140 @@ void Fl_Gl_Mol_View::initialize_opengl(void){
 }
 
 // PICKING HANDLING //////////////////////////////////////////////////////////////
+
+// Fri Sep  5 11:43:22 EDT 2014
+// alpha version
+void Fl_Gl_Mol_View::process_picking(unsigned char pc[3]){
+  ui_rgb color;
+  std::cout<<" pixel ---> "<<(uint)pc[0]<<"-"<<(uint)pc[1]<<"-"<<(uint)pc[2]<<std::endl;
+  // to keep it safe while the menu picking is not implemented
+  // it does not take care of the axes
+  // all the intesive computation must be out of this function
+  // here only process the picking by the mouse
+  if((uint)pc[2] == 0){
+      color.r = pc[0];
+      color.g = pc[1];
+      color.b = pc[2];
+      uint idx = index_palette.get_index(color);
+#ifdef _GLMOL_DEBUG_PICKING_
+      std::cout<<" color picked ---> "<<color.r<<"-"<<color.g<<"-"<<color.b<<std::endl;
+      std::cout<<" atom picked ---> "<<idx<<std::endl;
+      std::cout<<" !You picked an atom!"<<std::endl;
+#endif
+      if(!is_lock_controls)
+        is_draw_controls=false;
+      set_highlight_atom(idx);
+      if(is_draw_tools_)
+        set_selected_atom(idx);
+      is_atom_picked=true;
+      if(is_draw_pie_menu){
+        u_active_menu=ATOM_MENU;
+        is_lock_dragging=true;
+      }else{
+        is_lock_dragging=false;
+      }
+      is_draw_point=true;
+      is_draw_pie_submenu=false;
+    }else if((uint)pc[2] == 255){ // Pie Menu or Controls
+      is_atom_picked=false;
+      is_lock_dragging=true;
+      if((uint)pc[0] >= 0 && (uint)pc[0] < 6 && !is_draw_pie_submenu){
+        u_menu_index=(uint)pc[0];
+#ifdef _GLMOL_DEBUG_PICKING_
+        std::cout<<" Active menu: "<<u_active_menu<<std::endl;
+        std::cout<<" You picked a menu: "<<u_menu_index<<std::endl;
+        std::cout<<" Label picked: "<<legends[u_menu_index]<<std::endl;
+#endif
+        is_menu_pie_picked=true;
+        if(!is_lock_controls)
+          is_draw_controls=false;
+        switch(u_menu_index){
+          case CLOSE_MENU:
+            is_menu_pie_picked=false;
+            u_active_menu=NOT_MENU;
+            is_draw_pie_menu=false;
+            is_lock_dragging=false;
+            break;
+          default:
+            if(u_active_menu==MAIN_MENU || u_active_menu==CONTROL_MENU){
+              is_draw_pie_submenu=true;
+#ifdef _GLMOL_DEBUG_PICKING_
+              std::cout<<" draw submenu"<<std::endl;
+#endif
+            }else if(u_active_menu==ATOM_MENU){
+              if(u_menu_index!=1){
+                is_draw_pie_submenu=false;
+                is_draw_pie_menu=false;
+                //---->handle_atom_menu();
+                is_handle_atom_ = true;
+              }else{
+                is_draw_pie_submenu=true;
+              }
+            }
+#ifdef _GLMOL_DEBUG_PICKING_
+            if(is_draw_pie_submenu){
+              std::cout<<" [draw submenu]"<<std::endl;
+            }
+#endif
+            break;
+        }
+      }else if((uint)pc[0] >= 6 && (uint)pc[0] < 12){ // Pie Menu
+        u_submenu_index=(uint)pc[0]-6;
+#ifdef _GLMOL_DEBUG_PICKING_
+        std::cout<<"You picked a submenu: "<<u_submenu_index<<std::endl;
+        std::cout<<" label picked: "<<sub_legends[u_submenu_index]<<std::endl;
+#endif
+        //is_menu_pie_picked=true;
+        is_draw_pie_submenu=false;
+        if(!is_lock_controls)
+          is_draw_controls=false;
+        switch(u_active_menu){
+          case MAIN_MENU:
+            //---->handle_main_menu();
+            is_handle_main_ = true;
+          break;
+          case ATOM_MENU:
+            is_handle_atom_ = true;
+            //----> handle_atom_menu();
+          break;
+        }
+      }else{
+#ifdef _GLMOL_DEBUG_PICKING_
+        std::cout<<" [background picked]"<<std::endl;
+#endif
+        if(is_draw_tools_){
+          u_selected_index=0;
+          r_distance1=0.0;
+          r_distance2=0.0;
+          r_distance3=0.0;
+          v_distance1.zero();
+          v_distance2.zero();
+          v_distance3.zero();
+          r_angle1=0.0;
+          r_angle2=0.0;
+          r_dihedral=0.0;
+          update_normal_color=true;
+          is_update_mask_rcolor=true;
+        }
+        is_background_picked=true;
+        if(is_right_click){
+          u_active_menu=MAIN_MENU;
+        }else if(is_left_click){
+          u_active_menu=NOT_MENU;
+          is_menu_pie_picked=false;
+          is_draw_pie_menu=false;
+          is_lock_dragging=false;
+        }
+        if(!is_lock_controls)
+          is_draw_controls=false;
+        is_atom_picked=false;
+        is_lock_dragging=false;
+        is_draw_pie_submenu=false;
+        is_draw_line=false;
+        is_draw_point=false;
+      }
+  }
+}
 
 // Fri Jan 13 16:55:51 MST 2012
 // alpha version
@@ -3560,7 +3704,6 @@ void Fl_Gl_Mol_View::clear_scene(void){
   }
   update_normal_color=true;
   is_update_mask_rcolor=true;
-  set_view_yz_front();
 }
 
 void Fl_Gl_Mol_View::set_view_xy_front(void){

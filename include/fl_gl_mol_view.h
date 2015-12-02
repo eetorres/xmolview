@@ -399,6 +399,9 @@ private:
   //
   bool is_unselected_atom;
   //
+  bool is_handle_atom_;
+  bool is_handle_main_;
+  //
   bool is_control_left_on;
   bool is_slider_active[NUMBER_OF_SLIDERS];
   bool is_radio_active[NUMBER_OF_RADIOS];
@@ -448,9 +451,12 @@ private:
   inline void view_reshape(int width, int height);
   void set_font_size(void);
   void initialize_opengl(void);
+  void process_picking(unsigned char pc[3]);
+  // deprecated begin
   void process_start_picking(void);
   void process_stop_picking(void);
   void process_mouse_hits(GLint, GLuint*);
+  // deprecated end
   //
   void create_sphere_dl(void);
   void delete_sphere_dl(void);
