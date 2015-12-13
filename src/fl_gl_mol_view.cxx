@@ -1549,7 +1549,9 @@ void Fl_Gl_Mol_View::initialize_opengl(void){
 // alpha version
 void Fl_Gl_Mol_View::process_picking(unsigned char pc[3]){
   ui_rgb color;
+#ifdef _GLMOL_DEBUG_PICKING_
   std::cout<<" pixel ---> "<<(uint)pc[0]<<"-"<<(uint)pc[1]<<"-"<<(uint)pc[2]<<std::endl;
+#endif
   // to keep it safe while the menu picking is not implemented
   // it does not take care of the axes
   // all the intesive computation must be out of this function
