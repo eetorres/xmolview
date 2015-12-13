@@ -230,7 +230,7 @@ void Fl_Gl_Mol_View::clear(void){
     //is_radio_active[i]    = false;
   //}
   // default radio
-  //is_radio_active[0]     =true;
+  //is_radio_active[0]      =true;
   //is_slider_active[1]     =false;
   //is_slider_active[2]     =false;
   //is_slider_active[3]     =false;
@@ -993,17 +993,14 @@ void Fl_Gl_Mol_View::draw_scene(void){
   // draw the pie menu
   glPushMatrix();
   glLoadIdentity();
-  // draw the pie menue
+  // draw the pie menu
   //if(is_draw_pie_menu && render_mode!=MODE_SELECT){
   if(is_draw_pie_menu){
-    //if(render_mode==MODE_SELECT)
-      //glPushName(1); // the first 100 names are reseverd for the menues
     draw_pie_menu(cursorX,cursorY, 792,base_view/4.0,100);
-    //if(render_mode==MODE_SELECT)
-      //glPopName();
   }
   // draw the subpie
-  if(is_draw_pie_submenu && render_mode!=MODE_SELECT){
+  //if(is_draw_pie_submenu && render_mode!=MODE_SELECT){
+  if(is_draw_pie_submenu){
     draw_pie_submenu(792,base_view/4.0,100);
   }
   if(is_draw_tools_ && render_mode!=MODE_SELECT){
@@ -1014,15 +1011,7 @@ void Fl_Gl_Mol_View::draw_scene(void){
   if(is_draw_controls && render_mode!=MODE_SELECT){
     draw_settings(790);
     draw_information(790);
-    // Tue Dec  1 18:53:19 EST 2015
-    // deprecated: using color selection
-    //if(render_mode==MODE_SELECT)
-      //glPushName(20); // the first 100 names are reserved for the menues
     draw_controls(790);
-    // Tue Dec  1 18:53:19 EST 2015
-    // deprecated: using color selection
-    //if(render_mode==MODE_SELECT)
-      //glPopName();    // the first 100 names are reserved for the menues
   }
   // draw the processing message
   if(is_draw_processing)
@@ -1042,8 +1031,7 @@ void Fl_Gl_Mol_View::draw(){
   //glPushMatrix();
   glLoadIdentity();
   if(render_mode==MODE_SELECT){
-    //-->process_start_picking();
-    
+    // process start picking
     // turn off texturing, lighting and fog during picking
     glDisable(GL_TEXTURE_2D);
     glDisable(GL_FOG);
@@ -1054,12 +1042,6 @@ void Fl_Gl_Mol_View::draw(){
     glShadeModel(GL_FLAT);
     glClearColor(1,1,1,1);   // Background Color
   }
-  //glFlush();
-  // Tue Dec  1 18:53:19 EST 2015
-  // deprecated: using color selection
-  //if(render_mode==MODE_SELECT){
-    //process_start_picking();
-  //}
   // Set the viewport to be the entire window
   view_reshape(w(),h());
   glViewport(0,0,w(),h());
@@ -1558,7 +1540,6 @@ void Fl_Gl_Mol_View::initialize_opengl(void){
     glPointSize(1.1);
     glLineWidth(1.1);
     //initialize_transform_matrix();
-    //glColor3f(0.0F,0.0F,0.0F); // text color
   }
 }
 
@@ -1697,234 +1678,6 @@ void Fl_Gl_Mol_View::process_picking(unsigned char pc[3]){
       }
   }
 }
-
-/* Deprecated Tue Dec  1 19:44:07 EST 2015
-// Fri Jan 13 16:55:51 MST 2012
-// alpha version
-void Fl_Gl_Mol_View::process_start_picking(void){
-  GLint viewport[4];
-  //float ratio;
-  glGetIntegerv(GL_VIEWPORT,viewport);
-  glSelectBuffer(BUFSIZE,selectBuf);
-  glRenderMode(GL_SELECT);
-  //glMatrixMode(GL_PROJECTION);
-  //glPushMatrix();
-  //glLoadIdentity();
-  //std::cout<<" Coordinates: "<<cursorX<<" "<<cursorY<<std::endl;
-  gluPickMatrix(cursorX,viewport[3]-cursorY,5,5,viewport);
-  //ratio = (viewport[2])/viewport[3];
-  //gluPerspective(45,ratio,0.1,1000);
-  //glMatrixMode(GL_MODELVIEW);
-  glInitNames();
-}
-
-// Fri Jan 13 16:55:51 MST 2012
-// alpha version
-void Fl_Gl_Mol_View::process_stop_picking(void){
-  // restoring the original projection matrix
-  glMatrixMode(GL_PROJECTION);
-  glPopMatrix();
-  glMatrixMode(GL_MODELVIEW);
-  glFlush();
-  // returning to normal rendering mode
-  hits = glRenderMode(GL_RENDER);
-  //
-#ifdef _GLMOL_DEBUG_PICKING_
-  std::cout<<"Hits: "<<hits<<std::endl;
-#endif
-  if (hits != 0){
-    process_mouse_hits(hits,selectBuf);
-  }else{
-#ifdef _GLMOL_DEBUG_PICKING_
-    std::cout<<"You didn't pick an object"<<std::endl;
-#endif
-    if(is_draw_tools_){
-      u_selected_index=0;
-      r_distance1=0.0;
-      r_distance2=0.0;
-      r_distance3=0.0;
-      v_distance1.zero();
-      v_distance2.zero();
-      v_distance3.zero();
-      r_angle1=0.0;
-      r_angle2=0.0;
-      r_dihedral=0.0;
-      update_normal_color=true;
-      //update_bonds_color=true;
-      is_update_mask_rcolor=true;
-    }
-    //update_normal_color=true;
-    //is_update_mask_rcolor=true;
-    //if(is_draw_menu)
-      //is_menu_position=true;
-    //if(is_menu_picked){
-    //if(is_menu_picked){
-      //is_draw_menu=false;
-#ifdef _GLMOL_DEBUG_PICKING_
-      std::cout<<"You picked the background"<<std::endl;
-#endif
-      is_background_picked=true;
-      //if(u_active_menu==NOT_MENU)
-      if(is_right_click){
-        u_active_menu=MAIN_MENU;
-      }else if(is_left_click){
-        u_active_menu=NOT_MENU;
-        is_menu_pie_picked=false;
-        is_draw_pie_menu=false;
-        is_lock_dragging=false;
-      }
-      //is_menu_picked=false;
-      if(!is_lock_controls)
-        is_draw_controls=false;
-      is_atom_picked=false;
-      is_lock_dragging=false;
-      is_draw_pie_submenu=false;
-      is_draw_line=false;
-      is_draw_point=false;
-      //is_draw_controls=false;
-    //}
-    //}
-  }
-  render_mode = MODE_RENDER;
-}
-
-// Fri Jan 13 16:55:51 MST 2012
-// alpha version
-// process all picks on the GL screen
-void Fl_Gl_Mol_View::process_mouse_hits(GLint hits, GLuint buffer[]){
-  GLint i, numberOfNames=0; // j
-  GLuint names, *ptr, minZ,*ptrNames=0;
-  ptr = (GLuint *) buffer;
-  minZ = 0xffffffff;
-  for (i = 0; i < hits; i++) {
-    names = *ptr;
-#ifdef _GLMOL_DEBUG_PICKING_
-    std::cout<<" names: "<<names<<std::endl;
-#endif
-    ptr++;
-    if(*ptr < minZ) {
-      numberOfNames = names;
-      minZ = *ptr;
-      ptrNames = ptr+2;
-    }
-    ptr += names+2;
-  }
-  ptr = ptrNames;
-  if(numberOfNames > 0){
-#ifdef _GLMOL_DEBUG_PICKING_
-    std::cout<<" name: "<<*ptr<<std::endl;
-#endif
-    uint picked = uint(*ptr);
-    if(picked > 99){ // Check is an atoms was picked
-    //if(numberOfNames > 0){
-#ifdef _GLMOL_DEBUG_PICKING_
-      std::cout<<"You picked an atom"<<std::endl;
-#endif
-      //ptr = ptrNames;
-      //for(j = 0; j < numberOfNames; j++,ptr++) {
-      // working here
-      if(!is_lock_controls)
-        is_draw_controls=false;
-      set_highlight_atom(picked-100);
-      if(is_draw_tools_)
-        set_selected_atom(picked-100);
-      is_atom_picked=true;
-      if(is_draw_pie_menu){
-        u_active_menu=ATOM_MENU;
-        is_lock_dragging=true;
-      }else{
-        is_lock_dragging=false;
-      }
-      is_draw_point=true;
-      is_draw_pie_submenu=false;
-      //is_menu_picked=false;
-      //is_background_picked=false;
-      // working here
-      //}
-      //if(is_draw_menu)
-      //is_menu_position=true;
-      //if(is_menu_picked){
-      //is_draw_menu=false;
-      //}
-      //is_lock_dragging=true;
-    }else if(picked > 0 && picked < 100){ // Check is a menu was picked
-      is_atom_picked=false;
-      is_lock_dragging=true;
-      if(picked >= 1 && picked < 7 && !is_draw_pie_submenu){
-        u_menu_index=picked-1;
-#ifdef _GLMOL_DEBUG_PICKING_
-        std::cout<<"You picked a menu: "<<u_menu_index<<std::endl;
-        std::cout<<" label picked: "<<legends[u_menu_index]<<std::endl;
-#endif
-        is_menu_pie_picked=true;
-        if(!is_lock_controls)
-          is_draw_controls=false;
-        //if(u_active_menu==NOT_MENU)
-          //u_active_menu=ATOM_MENU;
-        switch(u_menu_index){
-          case CLOSE_MENU:
-            is_menu_pie_picked=false;
-            u_active_menu=NOT_MENU;
-            is_draw_pie_menu=false;
-            is_lock_dragging=false;
-            break;
-          default:
-            if(u_active_menu==MAIN_MENU || u_active_menu==CONTROL_MENU){
-              is_draw_pie_submenu=true;
-            }else if(u_active_menu==ATOM_MENU){
-              if(u_menu_index!=1 && u_menu_index!=3){
-                is_draw_pie_submenu=false;
-                is_draw_pie_menu=false;
-                handle_atom_menu();
-              }else{
-                is_draw_pie_submenu=true;
-              }
-            }
-            break;
-        }
-      }else if(picked >= 7 && picked < 13){ // Check is a submenu was picked
-        u_submenu_index=picked-7;
-#ifdef _GLMOL_DEBUG_PICKING_
-        std::cout<<"You picked a submenu: "<<u_submenu_index<<std::endl;
-        std::cout<<" label picked: "<<sub_legends[u_submenu_index]<<std::endl;
-#endif
-        //is_menu_pie_picked=true;
-        is_draw_pie_submenu=false;
-        if(!is_lock_controls)
-          is_draw_controls=false;
-        switch(u_active_menu){
-          case MAIN_MENU:
-            handle_main_menu();
-          break;
-          case ATOM_MENU:
-            handle_atom_menu();
-          break;
-        }
-      }else if(picked >= 13){
-#ifdef _GLMOL_DEBUG_PICKING_
-        std::cout<<"You picked a not implemented menu ID"<<std::endl;
-#endif
-        is_menu_picked=true;
-        u_active_menu=NOT_MENU;
-        is_lock_dragging=false;
-        is_draw_pie_submenu=false;
-        //if(u_active_menu==NOT_MENU)
-          //u_active_menu=CONTROL_MENU;
-      }
-      //is_background_picked=false;
-    }else{
-      if(!is_lock_controls)
-        is_draw_controls=false;
-      is_lock_dragging=false;
-      is_atom_picked=false;
-    //if(is_menu_picked)
-      //is_draw_menu=false;
-      //is_background_picked=true;
-    }
-  }
-  //std::cout<<"\n";
-}
-*/
 
 // handle funtions on the main menu
 void Fl_Gl_Mol_View::handle_main_menu(void){
@@ -2655,7 +2408,6 @@ void Fl_Gl_Mol_View::draw_radio_button(GLfloat x1, GLfloat y1, GLfloat y2, GLflo
   glRasterPos3f(side_x2+0.01*base_view, side_y1/*+0.3*(side_y2-side_y1)*/,z);
   //gl_font(FL_COURIER,font_size_slider_label); // text font
   gl_draw(l, strlen(l));
-
 }
 
 // switch output widget
@@ -3046,17 +2798,16 @@ void Fl_Gl_Mol_View::set_pie_labels(const std::string s[], std::string l){
 void Fl_Gl_Mol_View::draw_sub_pie(GLfloat cx, GLfloat cy, GLfloat z, std::string l[], GLint nl, GLfloat r, GLint n){
   float delta_ang, x1, x2, y1, y2;
   float theta;
-  // draw the pie disk
-  draw_pie_disk(submenu_pos_x,submenu_pos_y,z+2,r,n);
-  // draw the labels
-  draw_pie_labels(submenu_pos_cx,submenu_pos_cy,z+2,r,sub_legends,sub_label,nl);
-/* commented for debugging
+  // draw the buttons only
   if(render_mode==MODE_SELECT){
     glNormal3f(0,0,1);
     glColor4f(0.3,0.2,0.6,0.5);
     delta_ang = 2.0f * 3.1415926f / float(nl);//get the current angle
     for(int ii = 0; ii < 6; ii++){
-      glPushName(ii+7); // the first 100 names are reseverd for the menues
+      //glPushName(ii+7); // the first 7 names are reseverd for the main menu
+      ui_rgb color;
+      color = index_palette.get_index(ii+6);
+      glColor3ub(color.r,color.g,color.b);
       glBegin(GL_QUADS);
       theta = delta_ang * float(ii);                   //get the current angle
       x1 = 0.2*r * cosf(theta);                        //calculate the x component
@@ -3073,11 +2824,15 @@ void Fl_Gl_Mol_View::draw_sub_pie(GLfloat cx, GLfloat cy, GLfloat z, std::string
       glVertex3f(x2 + submenu_pos_x, y2 + submenu_pos_y, z+4);//output vertex
       glVertex3f(x1 + submenu_pos_x, y1 + submenu_pos_y, z+4);//output vertex
       glEnd();
-      glPopName();
+      //glPopName();
     }
+  }else{
+    // draw the pie disk
+    draw_pie_disk(submenu_pos_x,submenu_pos_y,z+2,r,n);
+    // draw the labels
+    draw_pie_labels(submenu_pos_cx,submenu_pos_cy,z+2,r,sub_legends,sub_label,nl);
   }
-*/
-//is_menu_pie_picked=false;
+  //is_menu_pie_picked=false;
 }
 
 // pie menu widget handle
