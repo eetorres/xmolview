@@ -50,7 +50,8 @@ public:
     // get
     gm_rgb get_color(unsigned int);
     ui_rgb get_index(unsigned int);
-    unsigned int get_index(ui_rgb);
+    unsigned int get_index_rgb(ui_rgb);
+    unsigned int get_index_rg(ui_rgb);
     TVector<real> get_vcolor(double);
     //
     void initialize(double mn, double mx, unsigned int l){

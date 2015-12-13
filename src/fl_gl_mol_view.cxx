@@ -607,9 +607,9 @@ void Fl_Gl_Mol_View::draw_atoms(void){
     for(int c=0; c<get_total_cells(); c++){ // repetition in z
       for(int i=0; i<__number_of_atoms; i++){
         if(render_mode==MODE_SELECT){
-          glPushName(i+100); // the first 100 names are reserved for the menues
+          //glPushName(i+100); // the first 100 names are reserved for the menues
           ui_rgb color;
-          color = index_palette.get_index(i);
+          color = index_palette.get_index(i+MENU_RESERVED_IDS);
           //std::cout<<" color["<<i<<"]: "<<color.r<<" "<<color.g<<" "<<color.b<<std::endl;
           glColor3ub(color.r,color.g,color.b);
         }else{
@@ -971,7 +971,7 @@ void Fl_Gl_Mol_View::draw_scene(void){
       add_axis(v_axis_position, 5.0, 0.05, __backbone_precession, __backbone_tilt);
     }
   }
-  if(is_draw_symbols_ || is_draw_labels_ || is_draw_numbers_){
+  if((is_draw_symbols_ || is_draw_labels_ || is_draw_numbers_) && render_mode!=MODE_SELECT){
     draw_symbols();
   }
   // draw the bounding box using the lattice vectors
@@ -994,7 +994,7 @@ void Fl_Gl_Mol_View::draw_scene(void){
   glPushMatrix();
   glLoadIdentity();
   // draw the pie menue
-  if(is_draw_pie_menu){
+  if(is_draw_pie_menu && render_mode!=MODE_SELECT){
     //if(render_mode==MODE_SELECT)
       //glPushName(1); // the first 100 names are reseverd for the menues
     draw_pie_menu(cursorX,cursorY, 792,base_view/4.0,100);
@@ -1002,15 +1002,15 @@ void Fl_Gl_Mol_View::draw_scene(void){
       //glPopName();
   }
   // draw the subpie
-  if(is_draw_pie_submenu){
+  if(is_draw_pie_submenu && render_mode!=MODE_SELECT){
     draw_pie_submenu(792,base_view/4.0,100);
   }
-  if(is_draw_tools_){
+  if(is_draw_tools_ && render_mode!=MODE_SELECT){
     draw_tools(790);
     draw_selected_numbers();
   }
   // draw the slide controls
-  if(is_draw_controls){
+  if(is_draw_controls && render_mode!=MODE_SELECT){
     draw_settings(790);
     draw_information(790);
     // Tue Dec  1 18:53:19 EST 2015
@@ -1558,7 +1558,6 @@ void Fl_Gl_Mol_View::initialize_opengl(void){
     glLineWidth(1.1);
     //initialize_transform_matrix();
     //glColor3f(0.0F,0.0F,0.0F); // text color
-    
   }
 }
 
@@ -1577,7 +1576,7 @@ void Fl_Gl_Mol_View::process_picking(unsigned char pc[3]){
       color.r = pc[0];
       color.g = pc[1];
       color.b = pc[2];
-      uint idx = index_palette.get_index(color);
+      uint idx = index_palette.get_index_rgb(color);
 #ifdef _GLMOL_DEBUG_PICKING_
       std::cout<<" color picked ---> "<<color.r<<"-"<<color.g<<"-"<<color.b<<std::endl;
       std::cout<<" atom picked ---> "<<idx<<std::endl;
@@ -3050,6 +3049,7 @@ void Fl_Gl_Mol_View::draw_sub_pie(GLfloat cx, GLfloat cy, GLfloat z, std::string
   draw_pie_disk(submenu_pos_x,submenu_pos_y,z+2,r,n);
   // draw the labels
   draw_pie_labels(submenu_pos_cx,submenu_pos_cy,z+2,r,sub_legends,sub_label,nl);
+/* commented for debugging
   if(render_mode==MODE_SELECT){
     glNormal3f(0,0,1);
     glColor4f(0.3,0.2,0.6,0.5);
@@ -3075,7 +3075,8 @@ void Fl_Gl_Mol_View::draw_sub_pie(GLfloat cx, GLfloat cy, GLfloat z, std::string
       glPopName();
     }
   }
-  //is_menu_pie_picked=false;
+*/
+//is_menu_pie_picked=false;
 }
 
 // pie menu widget handle
@@ -3086,13 +3087,13 @@ void Fl_Gl_Mol_View::draw_pie(GLfloat cx, GLfloat cy, GLfloat z, std::string l[]
   draw_pie_disk(menu_pos_x,menu_pos_y,z,r,n);
   // draw the labels
   draw_pie_labels(menu_pos_cx,menu_pos_cy,z+1,r,legends,label,nl);
-
+/* commented for debugging
   if(render_mode==MODE_SELECT){
     glNormal3f(0,0,1);
-    glColor4f(0.5,0.3,0.1,0.5);
+    //glColor4f(0.5,0.3,0.1,0.5);
     delta_ang = 2.0f * 3.1415926f / float(nl);//get the current angle
     for(int ii = 0; ii < 6; ii++){
-      glPushName(ii+1); // the first 100 names are reseverd for the menues
+      //glPushName(ii+1); // the first 100 names are reseverd for the menues
       glBegin(GL_QUADS);
       theta = delta_ang * float(ii);                   //get the current angle
       x1 = 0.2*r * cosf(theta);                        //calculate the x component
@@ -3112,6 +3113,7 @@ void Fl_Gl_Mol_View::draw_pie(GLfloat cx, GLfloat cy, GLfloat z, std::string l[]
       glPopName();
     }
   }
+*/
 }
 
 // pie disk
@@ -3254,6 +3256,7 @@ void Fl_Gl_Mol_View::draw_pie_labels(GLfloat cx, GLfloat cy, GLfloat z, GLfloat 
   }
   // set the label
   //if(is_atom_picked){
+  //if(render_mode!=MODE_SELECT){
     glColor3f(1.0F,1.0F,0.0F); // text color
     //gl_font(FL_COURIER,12);  // text font
     sprintf(buff,"%s",m.c_str());

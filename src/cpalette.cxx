@@ -84,8 +84,12 @@ void CPalette::update_palette_index(void){
 #endif
   id_rgb.r=0;
   id_rgb.g=0;
-  id_rgb.b=0;
+  id_rgb.b=256;
   for(unsigned int _p=0; _p<(_lvls+1); _p++){
+    if ( _p == 100 ){
+      id_rgb.r=0;
+      id_rgb.b=0;
+    }
     _index_palette[_p] = id_rgb;
     id_rgb.r++;
     if(id_rgb.r > 255)
@@ -131,11 +135,22 @@ ui_rgb CPalette::get_index(unsigned int c){
   return _index_palette[c];
 }
 
-unsigned int CPalette::get_index(ui_rgb u){
+unsigned int CPalette::get_index_rgb(ui_rgb u){
   uint index_=0;
   if(u.b > 0){
-    index_=256*256;
+    index_=u.b*256;
   }
+  if(u.g > 0){
+    index_+=u.g*256;
+  }
+  if(u.r > 0){
+    index_+=u.r;
+  }
+  return index_;
+}
+
+unsigned int CPalette::get_index_rg(ui_rgb u){
+  uint index_=0;
   if(u.g > 0){
     index_+=u.g*256;
   }

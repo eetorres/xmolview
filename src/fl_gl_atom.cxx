@@ -82,10 +82,10 @@ void Fl_Gl_Atom::eval_initial_properties(void){
   TVector<real> _atom_xyz;
   TVector<real> _rcolor(4);
   m_radius_color.resize(__number_of_atoms,4);
-  index_palette.set(__number_of_atoms+MENU_RESERVED_IDS);
+  //index_palette.set(__number_of_atoms+MENU_RESERVED_IDS);
   //index_palette.set(__number_of_atoms);
   index_palette.set_color(0);
-  index_palette.initialize(0,__number_of_atoms,__number_of_atoms);
+  index_palette.initialize(0,__number_of_atoms+MENU_RESERVED_IDS,__number_of_atoms+MENU_RESERVED_IDS);
   index_palette.update_palette_index();
   int i_z=0;
 #ifdef _ATOM_DEBUG_MESSAGES_
