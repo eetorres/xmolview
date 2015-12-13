@@ -17,11 +17,11 @@ class help_xmol {open
   } {
     Fl_Window help_win {
       label {About XMolView} open
-      xywh {1224 655 455 160} type Double
+      xywh {825 636 455 160} type Double
       code3 {o->resizable(NULL);} modal visible
     } {
       Fl_Box {} {
-        label {xmolview is open source and realeased under GNU General Public License (GPLv3) or later. For support contact:
+        label {xmolview is open source and released under GNU General Public License (GPLv3) or later. For support contact:
 support@@xmol.org and bugs@@xmol.org
 www.xmol.org
 Copyright 2002-2015 by Edmanuel Torres} selected
@@ -143,7 +143,7 @@ class fl_xmol_view {open
   update_coordinates=false;} {}
     Fl_Window main_window {
       label {Molecular eXplorer Viewer (XMolView)} open
-      xywh {731 365 948 676} type Double color 8 selection_color 8 labelsize 12 labelcolor 7 align 80 resizable visible
+      xywh {332 120 948 676} type Double color 8 selection_color 8 labelsize 12 labelcolor 7 align 80 resizable visible
     } {
       Fl_Group {} {open
         xywh {-5 -1 955 678} box FLAT_BOX color 8 selection_color 8 labelsize 12
