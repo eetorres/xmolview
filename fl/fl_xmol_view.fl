@@ -11,24 +11,25 @@ decl {\#include <version.h>} {public local
 decl {\#include <fl_gl_mol_view.h>} {public local
 } 
 
-class help_xmol {} {
+class help_xmol {open
+} {
   Function {help_xmol()} {open
   } {
     Fl_Window help_win {
       label {About XMolView} open
-      xywh {1224 627 455 160} type Double
+      xywh {1224 655 455 160} type Double
       code3 {o->resizable(NULL);} modal visible
     } {
       Fl_Box {} {
-        label {Feel free to use XMolView a freeware based on the FLTK library. For support contact:
+        label {xmolview is open source and realeased under GNU General Public License (GPLv3) or later. For support contact:
 support@@xmol.org and bugs@@xmol.org
-Copyright 2002-2015 by Edmanuel Torres
-www.xmol.org}
-        xywh {10 41 330 80} color 55 selection_color 55 align 176
+www.xmol.org
+Copyright 2002-2015 by Edmanuel Torres} selected
+        xywh {10 30 330 101} color 55 selection_color 55 align 176
       }
       Fl_Box {} {
         label {Get FLTK from www.fltk.org.}
-        xywh {88 127 185 22} align 149
+        xywh {84 134 223 22} align 149
       }
       Fl_Button {} {
         label {&Close}
@@ -41,7 +42,7 @@ www.xmol.org}
       }
       Fl_Box version {
         label {xmolview (alpha)}
-        xywh {45 10 265 25} labelfont 1
+        xywh {45 5 265 25} labelfont 1
       }
     }
   }
@@ -61,7 +62,7 @@ class message_xmol {} {
   } {
     Fl_Window message_win {
       label {XMolView Warning Message} open
-      xywh {1192 352 375 90} type Double hide
+      xywh {1192 380 375 90} type Double hide
       code3 {o->resizable(NULL);} modal
     } {
       Fl_Box {} {
@@ -139,8 +140,7 @@ class fl_xmol_view {open
     strcpy(dir_name,str_cmd);
   }
   
-  update_coordinates=false;} {selected
-    }
+  update_coordinates=false;} {}
     Fl_Window main_window {
       label {Molecular eXplorer Viewer (XMolView)} open
       xywh {731 365 948 676} type Double color 8 selection_color 8 labelsize 12 labelcolor 7 align 80 resizable visible

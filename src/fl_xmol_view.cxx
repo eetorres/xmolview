@@ -1267,14 +1267,14 @@ static Fl_RGB_Image image_logo_xmol_header(idata_logo_xmol_header, 99, 100, 4, 0
 help_xmol::help_xmol() {
   { Fl_Double_Window* o = help_win = new Fl_Double_Window(455, 160, "About XMolView");
     help_win->user_data((void*)(this));
-    { Fl_Box* o = new Fl_Box(10, 41, 330, 80, "Feel free to use XMolView a freeware based on the FLTK library. For support c\
-ontact:\nsupport@@xmol.org and bugs@@xmol.org\nCopyright 2002-2015 by Edmanuel\
- Torres\nwww.xmol.org");
+    { Fl_Box* o = new Fl_Box(10, 30, 330, 101, "xmolview is open source and realeased under GNU General Public License (GPLv3\
+) or later. For support contact:\nsupport@@xmol.org and bugs@@xmol.org\nwww.xm\
+ol.org\nCopyright 2002-2015 by Edmanuel Torres");
       o->color((Fl_Color)55);
       o->selection_color((Fl_Color)55);
       o->align(Fl_Align(160|FL_ALIGN_INSIDE));
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(88, 127, 185, 22, "Get FLTK from www.fltk.org.");
+    { Fl_Box* o = new Fl_Box(84, 134, 223, 22, "Get FLTK from www.fltk.org.");
       o->align(Fl_Align(133|FL_ALIGN_INSIDE));
     } // Fl_Box* o
     { Fl_Button* o = new Fl_Button(360, 117, 70, 28, "&Close");
@@ -1287,7 +1287,7 @@ ontact:\nsupport@@xmol.org and bugs@@xmol.org\nCopyright 2002-2015 by Edmanuel\
     { Fl_Box* o = new Fl_Box(340, 10, 99, 100);
       o->image(image_logo_xmol_header);
     } // Fl_Box* o
-    { version = new Fl_Box(45, 10, 265, 25, "xmolview (alpha)");
+    { version = new Fl_Box(45, 5, 265, 25, "xmolview (alpha)");
       version->labelfont(1);
     } // Fl_Box* version
     o->resizable(NULL);
