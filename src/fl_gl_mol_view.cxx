@@ -628,8 +628,8 @@ void Fl_Gl_Mol_View::draw_atoms(void){
         glCallList(v_sphere_list[v_atom_table[i]]);
         glPopMatrix();
         // to be removed
-        if(render_mode==MODE_SELECT)
-          glPopName();
+        //if(render_mode==MODE_SELECT)
+          //glPopName();
         // to be removed
       }
     }
@@ -994,7 +994,8 @@ void Fl_Gl_Mol_View::draw_scene(void){
   glPushMatrix();
   glLoadIdentity();
   // draw the pie menue
-  if(is_draw_pie_menu && render_mode!=MODE_SELECT){
+  //if(is_draw_pie_menu && render_mode!=MODE_SELECT){
+  if(is_draw_pie_menu){
     //if(render_mode==MODE_SELECT)
       //glPushName(1); // the first 100 names are reseverd for the menues
     draw_pie_menu(cursorX,cursorY, 792,base_view/4.0,100);
@@ -3083,16 +3084,15 @@ void Fl_Gl_Mol_View::draw_sub_pie(GLfloat cx, GLfloat cy, GLfloat z, std::string
 void Fl_Gl_Mol_View::draw_pie(GLfloat cx, GLfloat cy, GLfloat z, std::string l[], GLint nl, GLfloat r, GLint n){
   float delta_ang, x1, x2, y1, y2;
   float theta;
-  // draw the pie disk
-  draw_pie_disk(menu_pos_x,menu_pos_y,z,r,n);
-  // draw the labels
-  draw_pie_labels(menu_pos_cx,menu_pos_cy,z+1,r,legends,label,nl);
-/* commented for debugging
+  // draw the buttons
   if(render_mode==MODE_SELECT){
     glNormal3f(0,0,1);
     //glColor4f(0.5,0.3,0.1,0.5);
     delta_ang = 2.0f * 3.1415926f / float(nl);//get the current angle
     for(int ii = 0; ii < 6; ii++){
+      ui_rgb color;
+      color = index_palette.get_index(ii);
+      glColor3ub(color.r,color.g,color.b);
       //glPushName(ii+1); // the first 100 names are reseverd for the menues
       glBegin(GL_QUADS);
       theta = delta_ang * float(ii);                   //get the current angle
@@ -3110,10 +3110,14 @@ void Fl_Gl_Mol_View::draw_pie(GLfloat cx, GLfloat cy, GLfloat z, std::string l[]
       glVertex3f(x2 + menu_pos_x, y2 + menu_pos_y, z+2);//output vertex
       glVertex3f(x1 + menu_pos_x, y1 + menu_pos_y, z+2);//output vertex
       glEnd();
-      glPopName();
+      //glPopName();
     }
+  }else{
+    // draw the pie disk
+    draw_pie_disk(menu_pos_x,menu_pos_y,z,r,n);
+    // draw the labels
+    draw_pie_labels(menu_pos_cx,menu_pos_cy,z+1,r,legends,label,nl);
   }
-*/
 }
 
 // pie disk

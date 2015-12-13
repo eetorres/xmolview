@@ -84,7 +84,7 @@ void CPalette::update_palette_index(void){
 #endif
   id_rgb.r=0;
   id_rgb.g=0;
-  id_rgb.b=256;
+  id_rgb.b=255;
   for(unsigned int _p=0; _p<(_lvls+1); _p++){
     if ( _p == 100 ){
       id_rgb.r=0;
