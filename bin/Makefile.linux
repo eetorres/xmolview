@@ -1,6 +1,6 @@
 # Edmanuel Torres 21/10/2004
 
-include ../makeinclude.linux64
+include ../makeinclude.linux
 
 all:
 	ls

@@ -1,5 +1,5 @@
 
-include makeinclude.linux64
+include makeinclude.linux
 
 DIRS = src bin
 
