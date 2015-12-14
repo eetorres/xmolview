@@ -2,7 +2,7 @@
 CXX = g++
 
 PRGS=xmolview
-EXT=_x64
+EXT=
 
 SCRS=$(PRGS).cxx fl_xmol_view.cxx fl_table.cxx fl_gl_mol_view.cxx fl_gl_atom.cxx \
       cviewmol.cxx cmapcell.cxx csupercell.cxx cfragment.cxx cfile.cxx ctopmol.cxx \
