@@ -3,13 +3,13 @@ include makeinclude.linux
 
 DIRS = src bin
 
-all:   makeinclude.linux64
+all:   makeinclude.linux
 #	if [ -f bin/$(PRGS) ] ; then
 #	  rm bin/$(PRGS)
 #	fi
 	@for dir in $(DIRS); do\
 	    echo "==== Compiling in $$dir ====";\
-	    (cd $$dir; make -f Makefile.linux64 || break);\
+	    (cd $$dir; make -f Makefile.linux || break);\
 	done
 	
 clean: makeinclude
