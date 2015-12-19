@@ -3649,3 +3649,279 @@
 1448739504 source:g:\projects\xmolview\src\xmolview.cxx
 	<fl_xmol_view.h>
 
+1450034776 source:e:\xmolview\src\cdlp.cxx
+	<global.h>
+	<cdlp.h>
+	<ctype.h>
+	<algorithm>
+
+1450034776 e:\xmolview\include\global.h
+	<msmvtl/libdef.h>
+
+1450034776 e:\xmolview\include\cdlp.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<atom_symbol.h>
+	<atom_color.h>
+
+1450034776 e:\xmolview\include\config_debug.h
+
+1450034776 e:\xmolview\include\atom_symbol.h
+	<string>
+
+1450034776 e:\xmolview\include\atom_color.h
+
+1450034776 source:e:\xmolview\src\cfile.cxx
+	<config_debug.h>
+	<cfile.h>
+
+1450034776 e:\xmolview\include\cfile.h
+	<config_debug.h>
+	<global.h>
+	<ctopmol.h>
+	<cpotcar.h>
+	<cposcar.h>
+	<cxyz.h>
+	<cgau.h>
+	<czmat.h>
+	<cpdb.h>
+	<cdlp.h>
+	<czmat.h>
+
+1450034776 e:\xmolview\include\ctopmol.h
+	<config_debug.h>
+	<string.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+
+1450034776 e:\xmolview\include\cpotcar.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<atom_symbol.h>
+
+1450034776 e:\xmolview\include\cposcar.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<global.h>
+
+1450034776 e:\xmolview\include\cxyz.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<atom_symbol.h>
+	<atom_color.h>
+
+1450034776 e:\xmolview\include\cgau.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<atom_symbol.h>
+	<atom_color.h>
+	<global.h>
+
+1450034776 e:\xmolview\include\czmat.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/const.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<msmvtl/linalg.h>
+	<atom_symbol.h>
+	<atom_color.h>
+	<global.h>
+
+1450034776 e:\xmolview\include\cpdb.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/const.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<atom_symbol.h>
+	<atom_color.h>
+
+1450034776 source:e:\xmolview\src\cfragment.cxx
+	<cfragment.h>
+
+1450034776 e:\xmolview\include\cfragment.h
+	<config_debug.h>
+	<string.h>
+	<msmvtl/const.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<msmvtl/linalg.h>
+	<atom_color.h>
+
+1450034776 source:e:\xmolview\src\cgau.cxx
+	<cgau.h>
+	<ctype.h>
+	<algorithm>
+
+1450034776 source:e:\xmolview\src\cmapcell.cxx
+	<cmapcell.h>
+
+1450034776 e:\xmolview\include\cmapcell.h
+	<csupercell.h>
+
+1450034776 e:\xmolview\include\csupercell.h
+	<config_debug.h>
+	<cfragment.h>
+	<cfile.h>
+
+1450034776 source:e:\xmolview\src\cpalette.cxx
+	<cpalette.h>
+
+1450034776 e:\xmolview\include\cpalette.h
+	<msmvtl/tmatrix.h>
+	<msmvtl/tmmath.h>
+
+1450034776 source:e:\xmolview\src\cpdb.cxx
+	<cpdb.h>
+	<ctype.h>
+	<algorithm>
+
+1450034776 source:e:\xmolview\src\cposcar.cxx
+	<config_debug.h>
+	<cposcar.h>
+
+1450034776 source:e:\xmolview\src\cpotcar.cxx
+	<cpotcar.h>
+
+1450034776 source:e:\xmolview\src\csupercell.cxx
+	<config_debug.h>
+	<csupercell.h>
+
+1450034776 source:e:\xmolview\src\ctopmol.cxx
+	<config_debug.h>
+	<ctopmol.h>
+
+1450034776 source:e:\xmolview\src\cviewmol.cxx
+	<cviewmol.h>
+
+1450034776 e:\xmolview\include\cviewmol.h
+	<cmapcell.h>
+
+1450034776 source:e:\xmolview\src\cxyz.cxx
+	<config_debug.h>
+	<global.h>
+	<cxyz.h>
+	<ctype.h>
+	<algorithm>
+
+1450034776 source:e:\xmolview\src\czmat.cxx
+	<czmat.h>
+	<ctype.h>
+	<algorithm>
+
+1450029964 source:e:\xmolview\src\fl_gl_atom.cxx
+	<config_debug.h>
+	<fl_gl_atom.h>
+
+1450034776 e:\xmolview\include\fl_gl_atom.h
+	<config_debug.h>
+	<stdlib.h>
+	<stdio.h>
+	<ctimer.h>
+	<atom_color.h>
+	<atom_symbol.h>
+	<atom_name.h>
+	<msmvtl/const.h>
+	<msmvtl/linalg.h>
+	<assert.h>
+	<FL/Fl.H>
+	<FL/Fl_Gl_Window.H>
+	<FL/gl.h>
+	<FL/glu.h>
+	<FL/Fl_Box.H>
+	<cpalette.h>
+	<cviewmol.h>
+	<sphere.h>
+
+1450049498 e:\xmolview\include\ctimer.h
+	<ctime>
+	<iostream>
+
+1450034776 e:\xmolview\include\atom_name.h
+	<string>
+
+1450034776 e:\xmolview\include\sphere.h
+	<msmvtl/libdef.h>
+
+1448739504 source:e:\xmolview\src\fl_table.cxx
+	<FL/fl_draw.H>
+	<stdarg.h>
+	<stdlib.h>
+	<string.h>
+	<string>
+	<fl_table.h>
+
+1450034776 e:\xmolview\include\fl_table.h
+	<FL/Fl.H>
+	<FL/Fl_Box.H>
+	<FL/Fl_Group.H>
+	<FL/Fl_Menu_Item.H>
+	<FL/Fl_Scrollbar.H>
+	<FL/Fl_Widget.H>
+	<vector>
+
+1450049604 source:e:\xmolview\src\fl_xmol_view.cxx
+	"../include/fl_xmol_view.h"
+	<FL/Fl_Image.H>
+
+1450049604 e:\xmolview\include\fl_xmol_view.h
+	<FL/Fl.H>
+	<version.h>
+	<fl_gl_mol_view.h>
+	<FL/Fl_Double_Window.H>
+	<FL/Fl_Box.H>
+	<FL/Fl_Button.H>
+	<FL/Fl_Group.H>
+	<FL/Fl_Menu_Bar.H>
+	<msmvtl/tmatrix.h>
+	<string.h>
+	<FL/Fl_File_Chooser.H>
+	<FL/Fl_Choice.H>
+	<FL/Fl_Check_Button.H>
+	<FL/Fl_Value_Input.H>
+
+1450033460 e:\xmolview\include\version.h
+
+1450034776 e:\xmolview\include\fl_gl_mol_view.h
+	<stdlib.h>
+	<stdio.h>
+	<atom_color.h>
+	<atom_symbol.h>
+	<atom_name.h>
+	<msmvtl/const.h>
+	<msmvtl/linalg.h>
+	<assert.h>
+	<FL/Fl.H>
+	<fl_gl_atom.h>
+	<FL/Fl_Box.H>
+
+1450034776 source:e:\xmolview\src\sphere.cxx
+	<sphere.h>
+
+1450034776 source:e:\xmolview\src\xmolview.cxx
+	<fl_xmol_view.h>
+
+1450121348 source:e:\xmolview\src\fl_gl_mol_view.cxx
+	<fl_gl_mol_view.h>
+	<config_xmv.h>
+
+1450034776 e:\xmolview\include\config_xmv.h
+

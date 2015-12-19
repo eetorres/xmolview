@@ -79,7 +79,6 @@
 		<Unit filename="../../include/fl_xmol_view.h" />
 		<Unit filename="../../include/global.h" />
 		<Unit filename="../../include/sphere.h" />
-		<Unit filename="../../include/stroke.h" />
 		<Unit filename="../../include/version.h" />
 		<Unit filename="../../src/cdlp.cxx" />
 		<Unit filename="../../src/cfile.cxx" />
