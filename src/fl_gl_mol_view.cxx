@@ -776,7 +776,7 @@ void Fl_Gl_Mol_View::draw_symbols(void){
   glColor3f(0.0F,1.0F,0.0F); // text color
   //gl_font(FL_COURIER|FL_BOLD,font_size_symbol); // text font
   //gl_font(1,GLint(f_atom_radius_scale*24)); // text font
-  gl_font(FL_COURIER,14); // text font
+  gl_font(FL_COURIER,12); // text font
   //gl_font(FL_COURIER,font_size_symbol); // text font
   glPushMatrix();
   GLboolean boolval;
@@ -829,7 +829,7 @@ void Fl_Gl_Mol_View::draw_symbols(void){
 void Fl_Gl_Mol_View::draw_selected_numbers(void){
   TVector<real> _xyz;
   glColor3f(0.0F,0.0F,0.0F); // text color
-  gl_font(FL_COURIER,14);
+  gl_font(FL_COURIER,12);
   //gl_font(FL_COURIER,font_size_symbol); // text font
   //gl_font(1,GLint(f_atom_radius_scale*24)); // text font
   glPushMatrix();
@@ -1080,7 +1080,7 @@ void Fl_Gl_Mol_View::draw(){
         view_axis_y =  view_bottom+6.0;
         glOrtho(view_left, view_right, view_bottom, view_top, view_near, view_far);
   }
-  set_font_size();
+  //set_font_size();
   scaled_light_position[0]=view_left*light_position[0];
   scaled_light_position[1]=view_top*light_position[1];
   scaled_light_position[2]=view_far*light_position[2];
@@ -1124,6 +1124,7 @@ void Fl_Gl_Mol_View::draw(){
   }else{
     redraw();
   }
+  //redraw();
 }
 
 void Fl_Gl_Mol_View::resize(int X,int Y,int W,int H) {
@@ -1511,6 +1512,7 @@ void Fl_Gl_Mol_View::set_font_size(void){
   font_size_panel_label=10;
   font_size_slider_label=8;
   */
+  //gl_font(FL_COURIER,12);  // text font
 }
 // Initialize GL
 void Fl_Gl_Mol_View::initialize_opengl(void){
@@ -2036,8 +2038,9 @@ void Fl_Gl_Mol_View::draw_controls(GLfloat z){
   // draw the control box
   // solid border for the control menu
   //
-  gl_font(FL_COURIER,14); // text font
+  //gl_font(FL_COURIER,12); // text font
   //gl_font(FL_SYMBOL,12);
+  gl_font(FL_COURIER,12); // text font
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   glColor4f(0.0,1.0,0.0,1.0); // text color
   sprintf(buff,"%s","Controls");
@@ -2156,7 +2159,7 @@ void Fl_Gl_Mol_View::draw_tools(GLfloat z){
   //glEnd();
   // draw the tool box
   // solid border for the control menu
-  gl_font(FL_COURIER,14); // text font
+  gl_font(FL_COURIER,12); // text font
 #ifdef PLATFORM_MAC
     //gl_font(FL_HELVETICA,font_size_pie_label); // text font
     //gl_font(FL_HELVETICA,font_size_panel_label); // text font
@@ -2309,6 +2312,7 @@ void Fl_Gl_Mol_View::draw_information(GLfloat z){
   //glEnd();
   // draw the tool box
   // solid border for the control menu
+  gl_font(FL_COURIER,12); // text font
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   glColor4f(0.0,1.0,0.0,1.0); // text color
   sprintf(buff,"%s","Information");
