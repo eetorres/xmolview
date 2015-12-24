@@ -1,0 +1,9 @@
+#Put Keywords Here, check Charge and Multiplicity.
+
+Two water molecules
+
+0  1
+C
+O  1  1.35
+H  1  1.1   2  122.0
+H  1  1.1   2  122.0  3  180.0
