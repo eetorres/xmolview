@@ -12,7 +12,7 @@ all:   makeinclude.linux
 	    (cd $$dir; make -f Makefile.linux || break);\
 	done
 	
-clean: makeinclude
+clean: makeinclude.linux
 	@for dir in $(DIRS); do\
 	    echo "==== Cleaning in $$dir ====";\
 	    (cd $$dir; make clean || break);\
