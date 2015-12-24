@@ -11,27 +11,19 @@ SCRS=$(PRGS).cxx fl_xmol_view.cxx fl_table.cxx fl_gl_mol_view.cxx fl_gl_atom.cxx
 
 OBJS=$(SCRS:.cxx=.o)
 
-#RDIR=/home/etorres
 RDIR=$(shell echo $(HOME))
-#FLTK=$(RDIR)/src/svn/fltk/fltk-1.3-gleam-4.3-x86_64
-
 MDIR=$(shell sh -c pwd)
 IDIR=$(MDIR)/../include
 SDIR=$(MDIR)/../src/
 XDIR=$(MDIR)/../bin/
 
 OPTIM = -O2 -Wall
-LX11R = -lGLU -lGL -lXft -lfontconfig -lXinerama -lpthread -lm -lX11 -ldl -lXext
-
-LDLIBS = -lXrender -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm  -lX11.
-GLDLIBS = -lGLU -lGL -lXrender -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm  -lX11
-
-#LX11R =
-LFLTK = $(GLDLIBS) $(shell fltk-config  --cxxflags --use-forms --use-glut --use-gl --ldstaticflags )
+XLIBS =
+LFLTK = $(XLIBS) $(shell fltk-config  --cxxflags --use-forms --use-glut --use-gl --ldstaticflags)
 IFLAGS = -I ../ -I $(RDIR)/src/include -I $(IDIR)
 
 CFLAGS = $(OPTIM) -c
-LFLAGS = $(OPTIM) -Wl,--start-group  $(LFLTK)  $(LX11R) -Wl,--end-group
+LFLAGS = $(OPTIM) -Wl,--start-group  $(LFLTK) -Wl,--end-group
 
 .SUFFIXES:	.cxx .o .h
 
