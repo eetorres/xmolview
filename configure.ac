@@ -45,6 +45,5 @@ AC_FUNC_MALLOC
 AC_CHECK_FUNCS([sqrt strcspn strdup strpbrk strrchr strstr strtol])
 
 AC_CONFIG_FILES([Makefile
-                 bin/Makefile
                  src/Makefile])
 AC_OUTPUT
