@@ -9,7 +9,16 @@ Get the GPL open source MSMVTL template library from: https://github.com/eetorre
 
 Get the GPL open source FLTK library from: http://www.fltk.org.
 
-You may need to edit the makeinclude file.
+compile with:
+
+$ ./configure
+$ make
+
+run the executable
+
+$ ./src/xmolview
+
+You may also use the OS dependent Makefiles. Edit the makeinclude file according to your system.
 
 =====
 
