@@ -17,6 +17,7 @@
 #define _GLOBAL_H_
 
 #include <msmvtl/libdef.h>
+#include "config.h"
 
 //
 

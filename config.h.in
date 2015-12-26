@@ -1,5 +1,14 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* use Linux components */
+#undef BUILD_FOR_LINUX
+
+/* use Mac OS X components */
+#undef BUILD_FOR_MACOS
+
+/* use Windows OS components */
+#undef BUILD_FOR_WINDOWS
+
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 

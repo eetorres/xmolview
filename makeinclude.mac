@@ -21,7 +21,7 @@ XDIR=$(MDIR)/../bin/
 
 OPTIM = -O2 -Wall
 LX11R = 
-LFLTK = $(shell fltk-config --ldstaticflags --use-gl ) -framework GLKit
+LFLTK = $(shell fltk-config --ldstaticflags --use-gl )
 IFLAGS = -I ../ -I$(RDIR)/src/include -I $(FLTK) -I $(IDIR)
 
 CFLAGS = $(OPTIM) -c

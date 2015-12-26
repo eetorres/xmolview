@@ -1600,7 +1600,8 @@ void Fl_Gl_Mol_View::process_picking(unsigned char pc[3]){
     }else if((uint)pc[2] == 255){ // Pie Menu or Controls
       is_atom_picked=false;
       is_lock_dragging=true;
-      if((uint)pc[0] >= 0 && (uint)pc[0] < 6 && !is_draw_pie_submenu){
+      //if((uint)pc[0] >= 0 && (uint)pc[0] < 6 && !is_draw_pie_submenu){
+      if((uint)pc[0] < 6 && !is_draw_pie_submenu){
         u_menu_index=(uint)pc[0];
 #ifdef _GLMOL_DEBUG_PICKING_
         std::cout<<" Active menu: "<<u_active_menu<<std::endl;
@@ -2667,7 +2668,12 @@ void Fl_Gl_Mol_View::draw_pie_menu(GLfloat cx, GLfloat cy, GLfloat z, GLfloat r,
     // zFar plane. You can obtain any window space Z value by reading the depth buffer with glReadPixels().
     //
     //gluUnProject( winX, winY, winZ, modelview, projection, viewport, &menu_pos_x, &menu_pos_y, &menu_pos_z);
+#ifdef BUILD_FOR_MACOS
+    std::cout<<"Mac OS X code here"<<std::endl;
     gluUnProject( winX, winY, 1, modelview, projection, viewport, &menu_pos_x, &menu_pos_y, &menu_pos_z);
+#else
+    gluUnProject( winX, winY, 1, modelview, projection, viewport, &menu_pos_x, &menu_pos_y, &menu_pos_z);
+#endif
     //is_menu_position=false;
   }
   //
@@ -2679,7 +2685,12 @@ void Fl_Gl_Mol_View::draw_pie_menu(GLfloat cx, GLfloat cy, GLfloat z, GLfloat r,
     //glReadPixels( cx, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
     //gluProject( winX, winY, 800, modelview, projection, viewport, &tmpX, &tmpY, &tmpZ);
     //gluUnProject( winX, winY, winZ, modelview, projection, viewport, &click_pos_x, &click_pos_y, &posZ);
+#ifdef BUILD_FOR_MACOS
+    std::cout<<"Mac OS X code here"<<std::endl;
     gluUnProject( winX, winY, 1, modelview, projection, viewport, &click_pos_x, &click_pos_y, &posZ);
+#else
+    gluUnProject( winX, winY, 1, modelview, projection, viewport, &click_pos_x, &click_pos_y, &posZ);
+#endif
     GLfloat dist=(click_pos_x-menu_pos_x)*(click_pos_x-menu_pos_x)+(click_pos_y-menu_pos_y)*(click_pos_y-menu_pos_y);
     if(dist > r){
       //std::cout<<" distance :"<<dist<<std::endl;
@@ -2996,7 +3007,12 @@ void Fl_Gl_Mol_View::draw_pie_disk(GLfloat x, GLfloat y, GLfloat z, GLfloat r, G
     //winY = viewport[3]-submenu_pos_cy;
     winY = submenu_pos_y;
     //glReadPixels( int(winX), int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
+#ifdef BUILD_FOR_MACOS
     gluProject( winX, winY, z+2, modelview, projection, viewport, &submenu_pos_cx, &submenu_pos_cy, &winZ);
+    std::cout<<"Mac OS X code here"<<std::endl;
+#else
+    gluProject( winX, winY, z+2, modelview, projection, viewport, &submenu_pos_cx, &submenu_pos_cy, &winZ);
+#endif
     submenu_pos_cy = viewport[3]-submenu_pos_cy;
   }
 }
@@ -3030,7 +3046,12 @@ void Fl_Gl_Mol_View::draw_pie_labels(GLfloat cx, GLfloat cy, GLfloat z, GLfloat 
     str_length = strlen(buff);
     str_width = gl_width(buff);
     winX = cx-0.5*str_width;
+#ifdef BUILD_FOR_MACOS
     gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
+    std::cout<<"Mac OS X code here"<<std::endl;
+#else
+    gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
+#endif
     glRasterPos3f(posX+x1,posY+y1,z);
     gl_draw(buff, str_length);
   }
@@ -3044,7 +3065,12 @@ void Fl_Gl_Mol_View::draw_pie_labels(GLfloat cx, GLfloat cy, GLfloat z, GLfloat 
     str_width = gl_width(buff);
     //winX = menu_pos_cx-0.5*str_width;
     winX = cx-0.5*str_width;
+#ifdef BUILD_FOR_MACOS
     gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
+    std::cout<<"Mac OS X code here"<<std::endl;
+#else
+    gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
+#endif
     glRasterPos3f(posX,posY+0.4*r,z);
     gl_draw(buff, str_length);
   //}
