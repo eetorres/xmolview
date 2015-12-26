@@ -9,9 +9,20 @@ Get the GPL open source MSMVTL template library from: https://github.com/eetorre
 
 Get the GPL open source FLTK library from: http://www.fltk.org.
 
-compile with:
+On Linux compile with:
 
 $ ./configure
+
+On Mac OS X
+
+$ ./configure --enable-macos=yes
+
+On Windows
+
+$ ./configure  --enable-windows=yes
+
+Then build the binary
+
 $ make
 
 run the executable
