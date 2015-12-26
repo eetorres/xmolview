@@ -2669,7 +2669,7 @@ void Fl_Gl_Mol_View::draw_pie_menu(GLfloat cx, GLfloat cy, GLfloat z, GLfloat r,
     //
     //gluUnProject( winX, winY, winZ, modelview, projection, viewport, &menu_pos_x, &menu_pos_y, &menu_pos_z);
 #ifdef BUILD_FOR_MACOS
-    std::cout<<"Mac OS X code here"<<std::endl;
+    //std::cout<<"Mac OS X code here"<<std::endl;
     gluUnProject( winX, winY, 1, modelview, projection, viewport, &menu_pos_x, &menu_pos_y, &menu_pos_z);
 #else
     gluUnProject( winX, winY, 1, modelview, projection, viewport, &menu_pos_x, &menu_pos_y, &menu_pos_z);
@@ -2686,7 +2686,7 @@ void Fl_Gl_Mol_View::draw_pie_menu(GLfloat cx, GLfloat cy, GLfloat z, GLfloat r,
     //gluProject( winX, winY, 800, modelview, projection, viewport, &tmpX, &tmpY, &tmpZ);
     //gluUnProject( winX, winY, winZ, modelview, projection, viewport, &click_pos_x, &click_pos_y, &posZ);
 #ifdef BUILD_FOR_MACOS
-    std::cout<<"Mac OS X code here"<<std::endl;
+    //std::cout<<"Mac OS X code here"<<std::endl;
     gluUnProject( winX, winY, 1, modelview, projection, viewport, &click_pos_x, &click_pos_y, &posZ);
 #else
     gluUnProject( winX, winY, 1, modelview, projection, viewport, &click_pos_x, &click_pos_y, &posZ);
@@ -3009,7 +3009,7 @@ void Fl_Gl_Mol_View::draw_pie_disk(GLfloat x, GLfloat y, GLfloat z, GLfloat r, G
     //glReadPixels( int(winX), int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
 #ifdef BUILD_FOR_MACOS
     gluProject( winX, winY, z+2, modelview, projection, viewport, &submenu_pos_cx, &submenu_pos_cy, &winZ);
-    std::cout<<"Mac OS X code here"<<std::endl;
+    //std::cout<<"Mac OS X code here"<<std::endl;
 #else
     gluProject( winX, winY, z+2, modelview, projection, viewport, &submenu_pos_cx, &submenu_pos_cy, &winZ);
 #endif
@@ -3048,7 +3048,7 @@ void Fl_Gl_Mol_View::draw_pie_labels(GLfloat cx, GLfloat cy, GLfloat z, GLfloat 
     winX = cx-0.5*str_width;
 #ifdef BUILD_FOR_MACOS
     gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
-    std::cout<<"Mac OS X code here"<<std::endl;
+    //std::cout<<"Mac OS X code here"<<std::endl;
 #else
     gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
 #endif
@@ -3067,7 +3067,7 @@ void Fl_Gl_Mol_View::draw_pie_labels(GLfloat cx, GLfloat cy, GLfloat z, GLfloat 
     winX = cx-0.5*str_width;
 #ifdef BUILD_FOR_MACOS
     gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
-    std::cout<<"Mac OS X code here"<<std::endl;
+    //std::cout<<"Mac OS X code here"<<std::endl;
 #else
     gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
 #endif
