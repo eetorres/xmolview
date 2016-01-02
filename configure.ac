@@ -88,6 +88,7 @@ if test "$BUILD_FOR_MACOS" = "yes" ; then
    BUILD_FOR_LINUX="no"
    BUILD_FOR_WINDOWS="no"
    OS="macos"
+#   LIBS=["$LIBS -framework GLKit"]
    AC_DEFINE([BUILD_FOR_MACOS],[1],[use Mac OS X components])
 fi
 
