@@ -5,10 +5,10 @@
 //                                                                      //
 // OpenGL 3D visualization widget to display atomic structures.         //
 //                                                                      //
-// Copyright 2002-2015 by Edmanuel Torres                               //
+// Copyright 2002-2016 by Edmanuel Torres                               //
 // email: eetorres@gmail.com                                            //
 //                                                                      //
-// Lastest update: 10/07/2015                                           //
+// Lastest update: 01/03/2016                                           //
 //======================================================================//
 //  This file is part of xmolview                                       //
 //                                                                      //
@@ -776,7 +776,11 @@ void Fl_Gl_Mol_View::draw_symbols(void){
   glColor3f(0.0F,1.0F,0.0F); // text color
   //gl_font(FL_COURIER|FL_BOLD,font_size_symbol); // text font
   //gl_font(1,GLint(f_atom_radius_scale*24)); // text font
+#ifdef BUILD_FOR_MACOS
+  gl_font(FL_COURIER|FL_BOLD,14);  // text font
+#else
   gl_font(FL_COURIER,12); // text font
+#endif
   //gl_font(FL_COURIER,font_size_symbol); // text font
   glPushMatrix();
   GLboolean boolval;
@@ -2041,7 +2045,11 @@ void Fl_Gl_Mol_View::draw_controls(GLfloat z){
   //
   //gl_font(FL_COURIER,12); // text font
   //gl_font(FL_SYMBOL,12);
-  gl_font(FL_COURIER,12); // text font
+#ifdef BUILD_FOR_MACOS
+    gl_font(FL_HELVETICA,12); // text font
+#else
+    gl_font(FL_COURIER,12); // text font
+#endif
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   glColor4f(0.0,1.0,0.0,1.0); // text color
   sprintf(buff,"%s","Controls");
@@ -2160,12 +2168,10 @@ void Fl_Gl_Mol_View::draw_tools(GLfloat z){
   //glEnd();
   // draw the tool box
   // solid border for the control menu
-  gl_font(FL_COURIER,12); // text font
-#ifdef PLATFORM_MAC
-    //gl_font(FL_HELVETICA,font_size_pie_label); // text font
-    //gl_font(FL_HELVETICA,font_size_panel_label); // text font
-    //gl_font(FL_HELVETICA,font_size_pie_label); // text font
-    gl_font(FL_COURIER,14); // text font
+#ifdef BUILD_FOR_MACOS
+    gl_font(FL_HELVETICA,12); // text font
+#else
+    gl_font(FL_COURIER,12); // text font
 #endif
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   glColor4f(0.0,1.0,0.0,1.0); // text color
@@ -2234,12 +2240,12 @@ void Fl_Gl_Mol_View::draw_settings(GLfloat z){
   // draw the tool box
   // solid border for the control menu
   //gl_font(FL_COURIER,font_size_panel_label); // text font
-  gl_font(FL_COURIER,14); // text font
-#ifdef PLATFORM_MAC
-    //gl_font(FL_HELVETICA,font_size_pie_label); // text font
-    //gl_font(FL_HELVETICA,font_size_panel_label); // text font
-    gl_font(FL_HELVETICA,font_size_pie_label); // text font
+#ifdef BUILD_FOR_MACOS
+  gl_font(FL_HELVETICA,12); // text font
+#else
+  gl_font(FL_COURIER,12); // text font
 #endif
+  //gl_font(FL_HELVETICA,font_size_pie_label); // text font
   glColor4f(0.5,1.0,0.5,1.0); // text color
   sprintf(buff,"%s","Settings");
   glRasterPos3f(x_pos, y_pos,z);
@@ -2313,7 +2319,11 @@ void Fl_Gl_Mol_View::draw_information(GLfloat z){
   //glEnd();
   // draw the tool box
   // solid border for the control menu
-  gl_font(FL_COURIER,12); // text font
+#ifdef BUILD_FOR_MACOS
+    gl_font(FL_HELVETICA,12); // text font
+#else
+    gl_font(FL_COURIER,12); // text font
+#endif
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   glColor4f(0.0,1.0,0.0,1.0); // text color
   sprintf(buff,"%s","Information");
