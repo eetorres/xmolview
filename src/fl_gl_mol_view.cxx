@@ -1894,8 +1894,8 @@ void Fl_Gl_Mol_View::handle_atom_menu(void){
             set_active_fragment(__highlight_atom);
             set_update_active_fragment();
             //redraw();
-            cell.set_fragment_axis(0,__highlight_atom);
-            cell.set_fragment_axis(2,__highlight_atom);
+            supercell.set_fragment_axis(0,__highlight_atom);
+            supercell.set_fragment_axis(2,__highlight_atom);
             set_active_fragment(__highlight_atom);
             set_update_active_fragment();
             render_mode=MODE_RENDER;
@@ -1905,7 +1905,7 @@ void Fl_Gl_Mol_View::handle_atom_menu(void){
           case AXIS_TAIL_BUTTON:
             set_active_fragment(__highlight_atom);
             set_update_active_fragment();
-            cell.set_fragment_axis(1,__highlight_atom);
+            supercell.set_fragment_axis(1,__highlight_atom);
             set_active_fragment(__highlight_atom);
             set_update_active_fragment();
             render_mode=MODE_RENDER;
@@ -1915,7 +1915,7 @@ void Fl_Gl_Mol_View::handle_atom_menu(void){
           case AXIS_PLANE_BUTTON:
             set_active_fragment(__highlight_atom);
             set_update_active_fragment();
-            cell.set_fragment_axis(3,__highlight_atom);
+            supercell.set_fragment_axis(3,__highlight_atom);
             set_active_fragment(__highlight_atom);
             set_update_active_fragment();
             render_mode=MODE_RENDER;
@@ -3202,19 +3202,19 @@ void Fl_Gl_Mol_View::set_selected_atom(uint u){
       //std::cout<<" selected: "<<u<<std::endl;
       u_selected_index++;
       if(u_selected_index==2){
-        v_distance1=cell.get_vector_diff(v_selected_atoms[0],v_selected_atoms[1]);
+        v_distance1=supercell.get_vector_diff(v_selected_atoms[0],v_selected_atoms[1]);
         r_distance1=v_distance1.magnitude();  //get_distance(v_selected_atoms[0],v_selected_atoms[1]);
         //std::cout<<" distance = "<<r_distance1<<std::endl;
       }else if(u_selected_index==3){
-        v_distance2=cell.get_vector_diff(v_selected_atoms[1],v_selected_atoms[2]);
+        v_distance2=supercell.get_vector_diff(v_selected_atoms[1],v_selected_atoms[2]);
         r_distance2=v_distance2.magnitude();  //get_distance(v_selected_atoms[1],v_selected_atoms[2]);
-        r_angle1=cell.get_angle(v_selected_atoms[0],v_selected_atoms[1],v_selected_atoms[2]);
+        r_angle1=supercell.get_angle(v_selected_atoms[0],v_selected_atoms[1],v_selected_atoms[2]);
         //std::cout<<" angle = "<<r_angle1<<std::endl;
       }else if(u_selected_index==4){
-        v_distance3=cell.get_vector_diff(v_selected_atoms[2],v_selected_atoms[3]);
+        v_distance3=supercell.get_vector_diff(v_selected_atoms[2],v_selected_atoms[3]);
         r_distance3=v_distance3.magnitude();  //get_distance(v_selected_atoms[2],v_selected_atoms[3]);
-        r_angle2=cell.get_angle(v_selected_atoms[1],v_selected_atoms[2],v_selected_atoms[3]);
-        r_dihedral=cell.get_dihedral(v_selected_atoms[0],v_selected_atoms[1],v_selected_atoms[2],v_selected_atoms[3]);
+        r_angle2=supercell.get_angle(v_selected_atoms[1],v_selected_atoms[2],v_selected_atoms[3]);
+        r_dihedral=supercell.get_dihedral(v_selected_atoms[0],v_selected_atoms[1],v_selected_atoms[2],v_selected_atoms[3]);
         //std::cout<<" dihedral = "<<r_dihedral<<std::endl;
       }
       update_selected_atoms=true;
@@ -3225,19 +3225,19 @@ void Fl_Gl_Mol_View::set_selected_atom(uint u){
 void Fl_Gl_Mol_View::eval_tool_parameters(void){
   for(uint uindex=0; uindex<=u_selected_index; uindex++){
     if(uindex==2){
-        v_distance1=cell.get_vector_diff(v_selected_atoms[0],v_selected_atoms[1]);
+        v_distance1=supercell.get_vector_diff(v_selected_atoms[0],v_selected_atoms[1]);
         r_distance1=v_distance1.magnitude();  //get_distance(v_selected_atoms[0],v_selected_atoms[1]);
         //std::cout<<" distance = "<<r_distance1<<std::endl;
     }else if(uindex==3){
-        v_distance2=cell.get_vector_diff(v_selected_atoms[1],v_selected_atoms[2]);
+        v_distance2=supercell.get_vector_diff(v_selected_atoms[1],v_selected_atoms[2]);
         r_distance2=v_distance2.magnitude();  //get_distance(v_selected_atoms[1],v_selected_atoms[2]);
-        r_angle1=cell.get_angle(v_selected_atoms[0],v_selected_atoms[1],v_selected_atoms[2]);
+        r_angle1=supercell.get_angle(v_selected_atoms[0],v_selected_atoms[1],v_selected_atoms[2]);
         //std::cout<<" angle = "<<r_angle1<<std::endl;
     }else if(uindex==4){
-        v_distance3=cell.get_vector_diff(v_selected_atoms[2],v_selected_atoms[3]);
+        v_distance3=supercell.get_vector_diff(v_selected_atoms[2],v_selected_atoms[3]);
         r_distance3=v_distance3.magnitude();  //get_distance(v_selected_atoms[2],v_selected_atoms[3]);
-        r_angle2=cell.get_angle(v_selected_atoms[1],v_selected_atoms[2],v_selected_atoms[3]);
-        r_dihedral=cell.get_dihedral(v_selected_atoms[0],v_selected_atoms[1],v_selected_atoms[2],v_selected_atoms[3]);
+        r_angle2=supercell.get_angle(v_selected_atoms[1],v_selected_atoms[2],v_selected_atoms[3]);
+        r_dihedral=supercell.get_dihedral(v_selected_atoms[0],v_selected_atoms[1],v_selected_atoms[2],v_selected_atoms[3]);
         //std::cout<<" dihedral = "<<r_dihedral<<std::endl;
     }
   }

@@ -114,7 +114,7 @@ public:
   TMatrix<real> get_view_cartesian(void);
   TMatrix<real> get_view_direct(void);
   // Conditionals
-  bool is_view_periodic(void){ return cell.is_periodic();};
+  bool is_view_periodic(void){ return supercell.is_periodic();};
   //
   // pure virtual functions
   //virtual void view_redraw(void)=0;

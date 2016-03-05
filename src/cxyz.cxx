@@ -404,6 +404,69 @@ bool CXyz::read_file(std::string d, std::string f){
   }
 }
 
+void CXyz::write_file(void){
+  write_file(__filename);
+}
+
+void CXyz::write_file(std::string d, std::string f){
+  std::string _f=d+'/'+f;
+  write_file(_f);
+}
+
+//  save the XYZ file
+void CXyz::write_file(std::string _fn){
+  std::string symbol;
+  real data;
+  TVector<real> v_scale(3);
+  std::ofstream oxyz;
+  oxyz.open(_fn.c_str());
+  //oxyz.width(17);
+  if(oxyz.bad())
+    std::cout<<" CXYZ: The file was not created"<<std::endl;
+#ifdef _XYZ_INFO_MESSAGES_
+  std::cout<<" CXYZ: file format: "<<__export_format<<std::endl;
+#endif
+  if(__export_format==OUTPUT_FORMAT_ATM_NFR || __export_format==OUTPUT_FORMAT_ATM_FRG){
+    oxyz<<__total_cells*__total_atoms;
+    oxyz<<std::endl;
+    oxyz<<std::endl;
+  }
+#ifdef _XYZ_INFO_MESSAGES_
+  std::cout<<"CXYZ: total atoms: "<<__total_cells*__total_atoms<<std::endl;
+#endif
+  oxyz.precision(16);
+#ifdef _XYZ_INFO_MESSAGES_
+  std::cout<<"CXYZ: v_fragment_table "<<v_fragment_table;
+  std::cout<<"CXYZ: m_xyz "<<m_xyz;
+#endif
+  for(uint cell=0; cell<__total_cells; cell++){ // repetition cells
+    for(uint f=0;f<__total_atoms;f++){
+      symbol=v_atomic_symbols[f];
+      if(strcmp(symbol.c_str(),"X") || __is_dummy){
+        oxyz.width(3);
+        oxyz<<std::fixed<<std::left<<symbol;
+        for(uint c=0;c<3;c++){
+          data=m_xyz[f+cell*__total_atoms][c];
+          oxyz.width(22);
+          oxyz<<std::fixed<<std::right<<data;
+        }
+        // include fragments
+        if(__export_format==OUTPUT_FORMAT_ATM_FRG || __export_format==OUTPUT_FORMAT_NAT_FRG){
+#ifdef _XYZ_INFO_MESSAGES_
+        std::cout<<"CXYZ: include fragments"<<std::endl;
+#endif
+          oxyz.width(5);
+          oxyz<<std::fixed<<std::right<<v_fragment_table[f];
+        }
+        oxyz<<std::endl;
+      }
+    }
+  }
+  //if(__export_format==0)
+  //write_copyright(oxyz);
+  oxyz.close();
+}
+
 void CXyz::eval_atomic_composition(void){
   std::string _tstr, tmp_symbol;
   size_t _sw;
@@ -470,70 +533,7 @@ void CXyz::eval_atomic_composition(void){
   }
 }
 
-void CXyz::write_file(void){
-  write_file(__filename);
-}
-
-void CXyz::write_file(std::string d, std::string f){
-  std::string _f=d+'/'+f;
-  write_file(_f);
-}
-
-//  save the XYZ file
-void CXyz::write_file(std::string _fn){
-  std::string symbol;
-  real data;
-  TVector<real> v_scale(3);
-  std::ofstream oxyz;
-  oxyz.open(_fn.c_str());
-  //oxyz.width(17);
-  if(oxyz.bad())
-    std::cout<<" CXYZ: The file was not created"<<std::endl;
-#ifdef _XYZ_INFO_MESSAGES_
-  std::cout<<" CXYZ: file format: "<<__export_format<<std::endl;
-#endif
-  if(__export_format==OUTPUT_FORMAT_ATM_NFR || __export_format==OUTPUT_FORMAT_ATM_FRG){
-    oxyz<<__total_cells*__total_atoms;
-    oxyz<<std::endl;
-    oxyz<<std::endl;
-  }
-#ifdef _XYZ_INFO_MESSAGES_
-   std::cout<<"CXYZ: total atoms: "<<__total_cells*__total_atoms<<std::endl;
-#endif
-  oxyz.precision(16);
-#ifdef _XYZ_INFO_MESSAGES_
-        std::cout<<"CXYZ: v_fragment_table "<<v_fragment_table<<std::endl;
-#endif
-  for(uint cell=0; cell<__total_cells; cell++){ // repetition cells
-    for(uint f=0;f<__total_atoms;f++){
-      symbol=v_atomic_symbols[f];
-      if(strcmp(symbol.c_str(),"X") || __is_dummy){
-        oxyz.width(3);
-        oxyz<<std::fixed<<std::left<<symbol;
-        for(uint c=0;c<3;c++){
-          data=m_xyz[f+cell*__total_atoms][c];
-          oxyz.width(22);
-          oxyz<<std::fixed<<std::right<<data;
-        }
-        // include fragments
-        if(__export_format==OUTPUT_FORMAT_ATM_FRG || __export_format==OUTPUT_FORMAT_NAT_FRG){
-#ifdef _XYZ_INFO_MESSAGES_
-        std::cout<<"CXYZ: include fragments"<<std::endl;
-#endif
-          oxyz.width(5);
-          oxyz<<std::fixed<<std::right<<v_fragment_table[f];
-        }
-        oxyz<<std::endl;
-      }
-    }
-  }
-  //if(__export_format==0)
-  //write_copyright(oxyz);
-  oxyz.close();
-}
-
 // SET FUNCTIONS
-
 void CXyz::set_file_format(const uint u){
   __file_format=u;
 }

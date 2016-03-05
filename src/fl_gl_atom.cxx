@@ -324,6 +324,7 @@ void Fl_Gl_Atom::set_x_cells(int i){
     neg_x_cells = i;
   }
   set_xyz_cells();
+  supercell.set_gsf_modified(true);
 }
 
 void Fl_Gl_Atom::set_y_cells(int i){
@@ -335,6 +336,7 @@ void Fl_Gl_Atom::set_y_cells(int i){
     neg_y_cells = i;
   }
   set_xyz_cells();
+  supercell.set_gsf_modified(true);
 }
 
 void Fl_Gl_Atom::set_z_cells(int i){
@@ -346,6 +348,7 @@ void Fl_Gl_Atom::set_z_cells(int i){
     neg_z_cells = i;
   }
   set_xyz_cells();
+  supercell.set_gsf_modified(true);
 }
 
 void Fl_Gl_Atom::set_sphere_resolution(uint u){
@@ -388,36 +391,42 @@ void Fl_Gl_Atom::set_xyz_cells(void){
 
 void Fl_Gl_Atom::save_wysiwyg_as(std::string _p, std::string _f){
   // in case the bonds have not been evaluated
-  if(((cell.get_output_file_format() == OUTPUT_FORMAT_ATM_NFR) || (cell.get_output_file_format() == OUTPUT_FORMAT_ATM_FRG)) && (cell.get_output_file_type() == OUTPUT_FILE_TYPE_DLP)){
+  if(((supercell.get_output_file_format() == OUTPUT_FORMAT_ATM_NFR) || (supercell.get_output_file_format() == OUTPUT_FORMAT_ATM_FRG)) && (supercell.get_output_file_type() == OUTPUT_FILE_TYPE_DLP)){
     //std::cout<<"bonds have not been evaluated"<<std::endl;
     if(is_eval_bonds){
       eval_atomic_bonds();  // <----------
       is_eval_bonds=false;
     }
-    cell.eval_connections(m_bond_indices,i_number_of_bonds);
+    supercell.eval_connections(m_bond_indices,i_number_of_bonds);
   }
-  cell.save_as_file(_p,_f,is_draw_symbols_,is_draw_numbers_,m_atom_position,x_cells,y_cells,z_cells,total_cells,is_draw_bbox_);
-  //std::cout<<"done save_wysiwyg_as"<<std::endl;
+#ifdef _ATOM_DEBUG_MESSAGES_
+  std::cout<<" ATOM: do save_wysiwyg_as (1)"<<std::endl;
+  std::cout<<" ATOM: m_atom_position = "<<m_atom_position;
+#endif
+  supercell.save_as_file(_p,_f,is_draw_symbols_,is_draw_numbers_,m_atom_position,x_cells,y_cells,z_cells,total_cells,is_draw_bbox_);
 }
 
 void Fl_Gl_Atom::save_wysiwyg_as(std::string _f){
   //if((get_output_file_format() == OUTPUT_FORMAT_ATM_NFR) || (get_output_file_format() == OUTPUT_FORMAT_ATM_FRG))
     //std::cout<<"hola";
-  cell.save_as_file(_f,is_draw_symbols_,is_draw_numbers_,m_atom_position,x_cells,y_cells,z_cells,total_cells,is_draw_bbox_);
+#ifdef _ATOM_DEBUG_MESSAGES_
+  std::cout<<" ATOM: do save_wysiwyg_as (2)"<<std::endl;
+#endif
+  supercell.save_as_file(_f,is_draw_symbols_,is_draw_numbers_,m_atom_position,x_cells,y_cells,z_cells,total_cells,is_draw_bbox_);
 }
 
 void Fl_Gl_Atom::save_wysiwyg_extension(std::string _f){
   std::string _fext;
-  switch(cell.get_output_file_type()){
-	case OUTPUT_FILE_TYPE_VSP:
-	  _fext = _f + ".vsp";
-	break;
+  switch(supercell.get_output_file_type()){
+    case OUTPUT_FILE_TYPE_VSP:
+      _fext = _f + ".vsp";
+    break;
     case OUTPUT_FILE_TYPE_XYZ:
       _fext = _f + ".xyz";
     break;
     case OUTPUT_FILE_TYPE_GAU:
       _fext = _f + ".gau";
-	break;
+    break;
     case OUTPUT_FILE_TYPE_PDB:  // reserved for xmatrix
       _fext = _f + ".pdb";
     break;
@@ -425,7 +434,7 @@ void Fl_Gl_Atom::save_wysiwyg_extension(std::string _f){
       _fext = _f + ".dlp";
     break;
   }
-  cell.save_as_file(_fext,is_draw_symbols_,is_draw_numbers_,m_atom_position,x_cells,y_cells,z_cells,total_cells,is_draw_bbox_);
+  supercell.save_as_file(_fext,is_draw_symbols_,is_draw_numbers_,m_atom_position,x_cells,y_cells,z_cells,total_cells,is_draw_bbox_);
 }
 
 void Fl_Gl_Atom::set_bounding_box(const TMatrix<real>& m){
@@ -448,7 +457,7 @@ void Fl_Gl_Atom::set_bounding_box(const TMatrix<real>& m){
   //u_bbox[0] = _vu/_vu.magnitude();
   //u_bbox[1] = _vv/_vv.magnitude();
   //u_bbox[2] = _vw/_vw.magnitude();
-  u_bbox=cell.get_unit_uvw_to_xyz();
+  u_bbox=supercell.get_unit_uvw_to_xyz();
   //m_bbox.transpose();
   u_inv_bbox=u_bbox.inverse();
   // set view size
@@ -732,7 +741,7 @@ void Fl_Gl_Atom::eval_atomic_bonds(void){
   TVector<real> vi, vj, vij, vang(2);
   TVector<real> vi_uvw, vj_uvw, vij_uvw;
   TVector<uint> v_ft;
-  v_ft = cell.get_fragmol_fragment_table();
+  v_ft = supercell.get_fragmol_fragment_table();
   //
   int u_icell;
   uint k;
@@ -1059,27 +1068,27 @@ void Fl_Gl_Atom::update_fragments(uint _u, bool _sw){
 }
 
 void Fl_Gl_Atom::compute_atom_fragment(const uint _u){
-  //cell.eval_atom_fragment(_u);
-  cell.eval_scaled_fragment(_u,0.1);
+  //supercell.eval_atom_fragment(_u);
+  supercell.eval_scaled_fragment(_u,0.1);
   // Use fragment table
   update_fragments(_u,true);
 }
 
 void Fl_Gl_Atom::compute_radial_fragment(const uint _u, const real _r){
-  cell.eval_radial_fragment(_u,true,_r);
+  supercell.eval_radial_fragment(_u,true,_r);
   // Use fragment table
   update_fragments(_u,true);
 }
 
 void Fl_Gl_Atom::compute_vdw_fragment(const uint _u){
-  //cell.eval_vdw_fragment(_u);
-  cell.eval_scaled_fragment(_u,1.1);
+  //supercell.eval_vdw_fragment(_u);
+  supercell.eval_scaled_fragment(_u,1.1);
   update_fragments(_u,true);
 }
 
 void Fl_Gl_Atom::compute_atom_fragments(void){
   //unsigned int _n;
-  cell.eval_scaled_fragments(0.1);
+  supercell.eval_scaled_fragments(0.1);
   // Use fragment number
   update_fragments(1,false);
   //set_fragment_total(get_view_total_fragments());
@@ -1091,7 +1100,7 @@ void Fl_Gl_Atom::compute_atom_fragments(void){
 
 void Fl_Gl_Atom::compute_vdw_fragments(void){
   //unsigned int _n;
-  cell.eval_scaled_fragments(1.1);
+  supercell.eval_scaled_fragments(1.1);
   // Use fragment number
   update_fragments(1,false);
   //set_fragment_total(get_view_total_fragments());
@@ -1102,8 +1111,8 @@ void Fl_Gl_Atom::compute_vdw_fragments(void){
 }
 
 void Fl_Gl_Atom::compute_merge_fragments(const uint _u){
-  //cell.eval_atom_fragment(_u);
-  cell.eval_merge_fragment(_u,false);
+  //supercell.eval_atom_fragment(_u);
+  supercell.eval_merge_fragment(_u,false);
   // Use fragment table
   update_fragments(_u,true);
 }

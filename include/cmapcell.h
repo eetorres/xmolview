@@ -36,7 +36,7 @@ public:
   CMapcell();
   ~CMapcell(){};
   //
-  CSupercell cell;
+  CSupercell supercell;
   //
   void initialize_map(void);
   //

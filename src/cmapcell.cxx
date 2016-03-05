@@ -44,7 +44,7 @@ void CMapcell::initialize_map(void){
 #ifdef _debugging_messages_
   std::cout<<"MAPMOL: initialize_map [begin]"<<std::endl;
 #endif
-  cell.initialize_fragments();
+  supercell.initialize_fragments();
   eval_map_cartesian();
   eval_map_direct();
   eval_map_properties();
@@ -74,32 +74,32 @@ TVector<real> CMapcell::get_map_position_uvw2(uint u){
 }
 
 void CMapcell::eval_map_cartesian(void){
-  cell.update_fragmol_cartesian();
+  supercell.update_fragmol_cartesian();
 }
 
 void CMapcell::eval_map_direct(void){
-  cell.update_fragmol_direct();
+  supercell.update_fragmol_direct();
 }
 
 void CMapcell::eval_map_properties(void){
   TVector<real> _v;
   TVector<unsigned int> v_l;
   unsigned int _n, _s, _a;
-  _a = cell.get_fragmol_total_atoms();
+  _a = supercell.get_fragmol_total_atoms();
   v_atomic_labels.resize(_a);
   v_atomic_symbols.resize(_a);
   v_atomic_numbers.resize(_a);
-  _n = cell.get_fragmol_number_of_fragments();
+  _n = supercell.get_fragmol_number_of_fragments();
 #ifdef _debugging_messages
   std::cout<<"MAPMOL: total atoms: "<<_a<<std::endl;
 #endif
   for(unsigned int i=0; i<_n; i++){
-    _s = cell.get_fragment_size(i);
-    v_l = cell.gsf.get_topology_atoms(i);
+    _s = supercell.get_fragment_size(i);
+    v_l = supercell.gsf.get_topology_atoms(i);
     for(unsigned int j=0;j<_s;j++){
-      v_atomic_labels[v_l[j]] = cell.get_fragment_atomic_label(i,j);
-      v_atomic_symbols[v_l[j]] = cell.get_fragment_atomic_symbol(i,j);
-      v_atomic_numbers[v_l[j]] = cell.get_fragment_atomic_number(i,j);
+      v_atomic_labels[v_l[j]] = supercell.get_fragment_atomic_label(i,j);
+      v_atomic_symbols[v_l[j]] = supercell.get_fragment_atomic_symbol(i,j);
+      v_atomic_numbers[v_l[j]] = supercell.get_fragment_atomic_number(i,j);
     }
   }
 #ifdef _debugging_messages
@@ -115,27 +115,27 @@ void CMapcell::set_map_active_fragment(const unsigned int i){
 #ifdef _debugging_messages_
   std::cout<<"MAPMOL: active fragment ="<<__active_fragment<<std::endl;
 #endif
-  cell.set_fragmol_active_fragment(i);
-  if(!cell.is_fragmol_initialized()){
+  supercell.set_fragmol_active_fragment(i);
+  if(!supercell.is_fragmol_initialized()){
 #ifdef _debugging_messages_
     std::cout<<"MAPMOL: initializing the fragment"<<std::endl;
 #endif
-    cell.eval_fragmol_initial_position();
+    supercell.eval_fragmol_initial_position();
     // this is now done inside cfragment
     // compute_fragmol_axis_angles();
-    cell.eval_fragmol_initial_orientation();
-    cell.is_fragmol_initialized(true);
+    supercell.eval_fragmol_initial_orientation();
+    supercell.is_fragmol_initialized(true);
 #ifdef _debugging_messages_
     std::cout<<"MAPMOL: fragment initialized"<<std::endl;
 #endif
   }
-  cell.compute_fragmol_position_cartesian();
+  supercell.compute_fragmol_position_cartesian();
   eval_map_cartesian();
   eval_map_direct();
 }
 
 void CMapcell::map_update_active_fragment(void){
-  cell.compute_fragmol_position_cartesian();
+  supercell.compute_fragmol_position_cartesian();
   eval_map_cartesian();
   eval_map_direct();
 }
@@ -195,33 +195,33 @@ void CMapcell::set_map_precession_steps(const unsigned int i){
 }
 
 void CMapcell::set_map_fragment_twist(const real r){
-  cell.set_gsf_modified(true);
-  cell.set_fragmol_fragment_twist(r);
+  supercell.set_gsf_modified(true);
+  supercell.set_fragmol_fragment_twist(r);
 }
 
 void CMapcell::set_map_fragment_precession(const real r){
-  cell.set_gsf_modified(true);
-  cell.set_fragmol_fragment_precession(r);
+  supercell.set_gsf_modified(true);
+  supercell.set_fragmol_fragment_precession(r);
 }
 
 void CMapcell::set_map_fragment_tilt(const real r){
-  cell.set_gsf_modified(true);
-  cell.set_fragmol_fragment_tilt(r);
+  supercell.set_gsf_modified(true);
+  supercell.set_fragmol_fragment_tilt(r);
 }
 
 void CMapcell::set_map_fragment_position_u(const real r){
-  cell.set_gsf_modified(true);
-  cell.set_fragmol_fragment_position_u(r);
+  supercell.set_gsf_modified(true);
+  supercell.set_fragmol_fragment_position_u(r);
 }
 
 void CMapcell::set_map_fragment_position_v(const real r){
-  cell.set_gsf_modified(true);
-  cell.set_fragmol_fragment_position_v(r);
+  supercell.set_gsf_modified(true);
+  supercell.set_fragmol_fragment_position_v(r);
 }
 
 void CMapcell::set_map_fragment_position_w(const real r){
-  cell.set_gsf_modified(true);
-  cell.set_fragmol_fragment_position_w(r);
+  supercell.set_gsf_modified(true);
+  supercell.set_fragmol_fragment_position_w(r);
 }
 
 void CMapcell::set_map_twist1(const real r){
@@ -249,10 +249,10 @@ void CMapcell::set_map_precession2(const real r){
 }
 
 void CMapcell::set_map_fragment_position_uvw(const TVector<real>& _v){
-  cell.set_gsf_modified(true);
-  cell.set_fragmol_fragment_position_u(_v[0]);
-  cell.set_fragmol_fragment_position_v(_v[1]);
-  cell.set_fragmol_fragment_position_w(_v[2]);
+  supercell.set_gsf_modified(true);
+  supercell.set_fragmol_fragment_position_u(_v[0]);
+  supercell.set_fragmol_fragment_position_v(_v[1]);
+  supercell.set_fragmol_fragment_position_w(_v[2]);
 }
 
 void CMapcell::set_map_position_uvw1(const TVector<real>& _v){
@@ -284,7 +284,7 @@ void CMapcell::set_scan_title(const std::string s){
 }
 
 unsigned int CMapcell::get_map_total_atoms(void){
-  return cell.get_fragmol_total_atoms() ;
+  return supercell.get_fragmol_total_atoms() ;
 }
 
 real CMapcell::get_translation_distance(void){
@@ -316,19 +316,19 @@ real CMapcell::get_precession_step(void){
 }
 
 real CMapcell::get_map_axis_precession(void){
-  return cell.get_fragmol_axis_precession();
+  return supercell.get_fragmol_axis_precession();
 }
 
 real CMapcell::get_map_axis_tilt(void){
-  return cell.get_fragmol_axis_tilt();
+  return supercell.get_fragmol_axis_tilt();
 }
 
 real CMapcell::get_map_backbone_precession(void){
-  return cell.get_fragmol_backbone_precession();
+  return supercell.get_fragmol_backbone_precession();
 }
 
 real CMapcell::get_map_backbone_tilt(void){
-  return cell.get_fragmol_backbone_tilt();
+  return supercell.get_fragmol_backbone_tilt();
 }
 
 TVector<std::string> CMapcell::get_map_atomic_labels(void){
@@ -348,36 +348,36 @@ TVector<unsigned int> CMapcell::get_map_atomic_table(void){
 }
 
 TVector<real> CMapcell::get_map_axis_angles(void){
-  return cell.get_fragmol_axis_angles();
+  return supercell.get_fragmol_axis_angles();
 }
 
 TVector<real> CMapcell::get_map_basis_direct(void){
-  return cell.get_fragmol_basis_direct();
+  return supercell.get_fragmol_basis_direct();
 }
 
 TVector<real> CMapcell::get_map_position_direct(void){
-  return cell.get_fragmol_position_direct();
+  return supercell.get_fragmol_position_direct();
 }
 
 TVector<real> CMapcell::get_map_position_uvw(void){
-  return cell.get_fragmol_position_uvw();
+  return supercell.get_fragmol_position_uvw();
 }
 
 TVector<real> CMapcell::get_map_position_cartesian(void){
-  return cell.get_fragmol_position_cartesian();
+  return supercell.get_fragmol_position_cartesian();
 }
 
 TVector<real> CMapcell::get_map_centered_position_cartesian(void){
-  return cell.get_fragmol_centered_position_cartesian();
+  return supercell.get_fragmol_centered_position_cartesian();
 }
 
 TMatrix<real> CMapcell::get_map_cartesian(void){
   //return m_cartesian;
-  return cell.get_cartesian();
+  return supercell.get_cartesian();
 }
 
 TMatrix<real> CMapcell::get_map_direct(void){
   //return m_direct;
-  return cell.get_direct();
+  return supercell.get_direct();
 }
 

@@ -1,15 +1,15 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0303 
-header_name {../include/fl_xmol_view.h} 
+version 1.0304
+header_name {../include/fl_xmol_view.h}
 code_name {../src/fl_xmol_view.cxx}
 decl {//\#define __FL_MOL_VIEW__} {private local
-} 
+}
 
 decl {\#include <version.h>} {public local
-} 
+}
 
 decl {\#include <fl_gl_mol_view.h>} {public local
-} 
+}
 
 class help_xmol {open
 } {
@@ -17,14 +17,14 @@ class help_xmol {open
   } {
     Fl_Window help_win {
       label {About XMolView} open
-      xywh {825 636 455 160} type Double
-      code3 {o->resizable(NULL);} modal visible
+      xywh {825 692 455 160} type Double hide
+      code3 {o->resizable(NULL);} modal
     } {
       Fl_Box {} {
         label {xmolview is open source and released under GNU General Public License (GPLv3) or later. For support contact:
 support@@xmol.org and bugs@@xmol.org
 www.xmol.org
-Copyright 2002-2015 by Edmanuel Torres} selected
+Copyright 2002-2015 by Edmanuel Torres}
         xywh {10 30 330 101} color 55 selection_color 55 align 176
       }
       Fl_Box {} {
@@ -55,7 +55,7 @@ Copyright 2002-2015 by Edmanuel Torres} selected
   version->label((const char*) buff);
   help_win->show();} {}
   }
-} 
+}
 
 class message_xmol {} {
   Function {message_xmol()} {open
@@ -83,7 +83,7 @@ class message_xmol {} {
   //create_mol->position(5,102);
   message_win->show();} {}
   }
-} 
+}
 
 class fl_xmol_view {open
 } {
@@ -143,7 +143,7 @@ class fl_xmol_view {open
   update_coordinates=false;} {}
     Fl_Window main_window {
       label {Molecular eXplorer Viewer (XMolView)} open
-      xywh {332 120 948 676} type Double color 8 selection_color 8 labelsize 12 labelcolor 7 align 80 resizable visible
+      xywh {677 347 948 676} type Double color 8 selection_color 8 labelsize 12 labelcolor 7 align 80 hide resizable
     } {
       Fl_Group {} {open
         xywh {-5 -1 955 678} box FLAT_BOX color 8 selection_color 8 labelsize 12
@@ -362,7 +362,7 @@ exit(0);}
               code1 {o->value(2);}
             } {}
             Fl_Group {} {
-              label {periodic images}
+              label {periodic images} open
               xywh {19 310 101 65} box FLAT_BOX color 8 selection_color 38 labelsize 12 labelcolor 7 align 5
             } {
               Fl_Value_Input xcells {
@@ -376,7 +376,7 @@ exit(0);}
   int val = (int)xcells->value();
   xcells->value(val-1);
   mol3d->set_x_cells((int)xcells->value());
-  view_redraw();}
+  view_redraw();} selected
                 xywh {79 317 20 15} box GTK_THIN_UP_BOX color 27 selection_color 27 labelsize 12 labelcolor 7
               }
               Fl_Button {} {
@@ -441,7 +441,8 @@ exit(0);}
     }
     code {//} {}
   }
-  Function {open_file()} {} {
+  Function {open_file()} {open
+  } {
     code {//
   ffmt=0;
   save_as_file_button->deactivate();
@@ -463,7 +464,7 @@ exit(0);}
     std::cout<<" filename: "<<p_filename<<std::endl;
 \#endif
     //
-    mol3d->cell.set_input_file(p_filename);
+    mol3d->supercell.set_input_file(p_filename);
     ffmt = mol3d->get_view_file_type(p_filename);
     if(ffmt !=INPUT_FILE_TYPE_UNKNOWN ){
       //input_file_type->deactivate();
@@ -518,7 +519,8 @@ exit(0);}
     }
   }} {}
   }
-  Function {open_file(const char *df)} {} {
+  Function {open_file(const char *df)} {open
+  } {
     code {//
   ffmt=0;
   save_as_file_button->deactivate();
@@ -539,7 +541,7 @@ exit(0);}
     std::cout<<" dir: "<<p_dir<<std::endl;
     std::cout<<" filename: "<<p_filename<<std::endl;
     //
-    mol3d->cell.set_input_file(p_filename);
+    mol3d->supercell.set_input_file(p_filename);
     ffmt = mol3d->get_view_file_type(p_filename);
     if(ffmt !=INPUT_FILE_TYPE_UNKNOWN ){
       input_file_type->value(ffmt);
@@ -666,14 +668,14 @@ exit(0);}
   TMatrix<real> _m;
   
   mol3d->clear();
-  mol3d->cell.set_dir(p_dir);
-  mol3d->cell.set_topmol_directory(p_dir);
+  mol3d->supercell.set_dir(p_dir);
+  mol3d->supercell.set_topmol_directory(p_dir);
 
   if(ffmt == INPUT_FILE_TYPE_UNKNOWN){
     std::cout<<"!!! UNKNOWN FILE TYPE !!!"<<std::endl;
   }else{
-    mol3d->cell.set_input_file_type((unsigned int)input_file_type->value());
-    mol3d->cell.set_input_file_units((unsigned int)input_file_units->value());
+    mol3d->supercell.set_input_file_type((unsigned int)input_file_type->value());
+    mol3d->supercell.set_input_file_units((unsigned int)input_file_units->value());
 \#ifdef __FL_MOL_VIEW__
     std::cout<<" VIEW: load structure"<<std::endl;
 \#endif
@@ -751,31 +753,25 @@ exit(0);}
     }
   }} {}
   }
-  Function {save_as_file()} {} {
+  Function {save_as_file()} {open
+  } {
     code {//
-  //char path_buffer[1024];
-  //char * pchr;
   uint ofmt=0, otyp, atm=0, frg=0, top=0;
   //
-  //char fname[256];
   otyp = (uint)output_file_type->value();
-
   Fl_File_Chooser *p = new Fl_File_Chooser(p_path_filename,"*",2,"Save file as");
   p->directory(dir_name);
   p->show();
   //
   while( p->visible())
     Fl::wait();
-    //
+  //
   if(p->value())\{
     p_path_filename = (char*)p->value();
     p_dir  = (char*)p->directory();
     p_filename = fl_filename_name(p->value());
-    //mol3d->set_output_file_name(p_filename);
-    //mol3d->set_output_file_format(ofmt);
-    mol3d->cell.set_dir(p_dir);
-    mol3d->cell.set_topmol_directory(p_dir);
-    //mol3d->save_as_file(p_path_filename);
+    mol3d->supercell.set_dir(p_dir);
+    mol3d->supercell.set_topmol_directory(p_dir);
     atm=(int)output_file_atoms->value();
     frg=(int)output_file_frags->value();
     top=(int)output_topology->value();
@@ -790,12 +786,10 @@ exit(0);}
     \}else\{                          // standard format
       ofmt=OUTPUT_FORMAT_STD;
     \}
-    mol3d->cell.set_output_file_format(ofmt);
-    mol3d->cell.set_output_file_type(otyp);
-    
+    mol3d->supercell.set_output_file_format(ofmt);
+    mol3d->supercell.set_output_file_type(otyp);
     mol3d->save_wysiwyg_as(p_dir,p_filename);
-    if(top) mol3d->cell.save_topmol_file(p_dir,p_filename);
-
+    if(top) mol3d->supercell.save_topmol_file(p_dir,p_filename);
     strcpy(dir_name,p_dir);
     strcpy(file_name,p_filename);
     //filename_box->value(p_filename);
@@ -934,4 +928,4 @@ exit(0);}
     code {//
   resize(x, y, w, h);} {}
   }
-} 
+}

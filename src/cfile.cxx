@@ -275,14 +275,14 @@ bool CFile::read_xyz(void){
 #endif
     is_direct=file_xyz.is_direct();
     if(file_xyz.is_charges()){
-	  is_charges=true;
-	  v_atomic_charges=file_xyz.get_charges();
-	}else{
-	  is_charges=false;
-	}
-	//if(file_xyz.is_fragments()){
-	  //v_fragment_table=file_xyz.get_fragment_table();
-	//}
+      is_charges=true;
+      v_atomic_charges=file_xyz.get_charges();
+    }else{
+      is_charges=false;
+    }
+    //if(file_xyz.is_fragments()){
+    //v_fragment_table=file_xyz.get_fragment_table();
+    //}
     is_periodic=file_xyz.is_periodic();
     //// adding format autodetection
     u_input_format=file_xyz.get_format();
@@ -484,7 +484,7 @@ void CFile::save_xyz_as(std::string _p, std::string _f, uint u){
   //std::cout<<"u_export_format="<<u<<std::endl;
   //std::cout<<"v_fragment_table"<<v_fragment_table;
   if(u==OUTPUT_FORMAT_ATM_FRG || u==OUTPUT_FORMAT_NAT_FRG){
-	//std::cout<<"v_fragment_table"<<v_fragment_table;
+    //std::cout<<"v_fragment_table"<<v_fragment_table;
     file_xyz.set_fragments(v_fragment_table);
   }
   file_xyz.set_total_cells(x_cells,y_cells,z_cells,total_cells);

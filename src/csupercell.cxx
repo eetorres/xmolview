@@ -371,7 +371,7 @@ bool CSupercell::eval_scaled_fragment(uint _u, bool _sw, real _scale){
 #endif
   }
 #ifdef _FRAGMOL_DEBUG_MESSAGES_
-  new_fragment_atoms=get_topology_atoms(__active_fragment);
+  new_fragment_atoms=gsf.get_topology_atoms(__active_fragment);
   std::cout<<" FRAGMOL: new active topology atoms = "<<new_fragment_atoms;
 #endif
   return res;
@@ -411,7 +411,7 @@ bool CSupercell::eval_radial_fragment(uint _u, bool _sw, real _scale){
 #endif
   }
 #ifdef _FRAGMOL_DEBUG_MESSAGES_
-  new_fragment_atoms=get_topology_atoms(__active_fragment);
+  new_fragment_atoms=gsf.get_topology_atoms(__active_fragment);
   std::cout<<" FRAGMOL: new active topology atoms = "<<new_fragment_atoms;
 #endif
   return res;
@@ -557,7 +557,7 @@ bool CSupercell::eval_merge_fragment(uint u, bool sw){
     if( __active_fragment >= __number_of_fragments )
       __active_fragment=atom_fragment;
 #ifdef _FRAGMOL_DEBUG_MESSAGES_
-    fragment_atoms=get_topology_atoms(__active_fragment);
+    fragment_atoms=gsf.get_topology_atoms(__active_fragment);
     std::cout<<" FRAGMOL: new active topology atoms = "<<fragment_atoms;
 #endif
     return true;
@@ -748,6 +748,9 @@ void CSupercell::apply_pbc(bool b){
 }
 
 void CSupercell::set_gsf_modified(const bool b){
+#ifdef _FRAGMOL_DEBUG_MESSAGES_
+  std::cout<<" FRAGMOL: the gsf was modified"<<std::endl;
+#endif
   gsf.set_modified(b);
 }
 

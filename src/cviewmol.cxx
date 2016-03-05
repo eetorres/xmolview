@@ -28,8 +28,8 @@
 #include<cviewmol.h>
 
 bool CViewmol::read_files_view(void){
-  cell.gsf.read_topmol();
-  return cell.read_input_file();
+  supercell.gsf.read_topmol();
+  return supercell.read_input_file();
 }
 
 void CViewmol::initialize_view(void){
@@ -40,10 +40,10 @@ void CViewmol::initialize_view(void){
 
 // this the function in charge of coordinates actualization
 void CViewmol::update_view(void){
-  //+++cell.compute_fragmol_position_cartesian();
-  //---cell.update_fragmol_cartesian();
+  //+++supercell.compute_fragmol_position_cartesian();
+  //---supercell.update_fragmol_cartesian();
   //+++eval_map_cartesian();
-  //---cell.update_fragmol_direct();
+  //---supercell.update_fragmol_direct();
   //+++eval_map_direct();
 }
 
@@ -52,7 +52,7 @@ void CViewmol::set_view_active_fragment(const unsigned int ui){
 }
 
 void CViewmol::set_view_bounding_box(void){
-  m_view_bbox = cell.get_uvw_to_xyz();
+  m_view_bbox = supercell.get_uvw_to_xyz();
 }
 
 void CViewmol::set_view_translation_map_1d(void){
@@ -177,19 +177,19 @@ uint CViewmol::get_view_total_atoms(void){
 }
 
 uint CViewmol::get_view_total_fragments(void){
-  return cell.get_fragmol_number_of_fragments();
+  return supercell.get_fragmol_number_of_fragments();
 }
 
 uint CViewmol::get_view_active_fragment(void){
-  return cell.get_fragmol_active_fragment();
+  return supercell.get_fragmol_active_fragment();
 }
 
 uint CViewmol::get_view_tilt_axis_begin(unsigned int i){
-  return cell.gsf.get_topology_axis_index_origin(i);
+  return supercell.gsf.get_topology_axis_index_origin(i);
 }
 
 uint CViewmol::get_view_tilt_axis_end(unsigned int i){
-  return cell.gsf.get_topology_axis_index_direction(i);
+  return supercell.gsf.get_topology_axis_index_direction(i);
 }
 
 uint CViewmol::get_view_file_type(std::string s){
@@ -256,19 +256,19 @@ TVector<std::string> CViewmol::get_view_atomic_symbols(void){
 }
 
 TVector<std::string> CViewmol::get_view_atomic_symbol_table(void){
-   return cell.get_fragmol_atomic_symbol_table();
+   return supercell.get_fragmol_atomic_symbol_table();
 }
 
 TVector<uint> CViewmol::get_view_atom_table(void){
-  return cell.get_fragmol_atom_table();
+  return supercell.get_fragmol_atom_table();
 }
 
 TVector<uint> CViewmol::get_view_atomic_composition_table(void){
-   return cell.get_fragmol_atomic_composition_table();
+   return supercell.get_fragmol_atomic_composition_table();
 }
 
 TVector<uint> CViewmol::get_view_atomic_number_table(void){
-   return cell.get_fragmol_atomic_number_table();
+   return supercell.get_fragmol_atomic_number_table();
 }
 
 TVector<uint> CViewmol::get_view_atomic_numbers(void){
@@ -276,7 +276,7 @@ TVector<uint> CViewmol::get_view_atomic_numbers(void){
 }
 
 TVector<uint> CViewmol::get_view_fragment_table(void){
-  return cell.get_fragmol_fragment_table();
+  return supercell.get_fragmol_fragment_table();
 }
 
 TVector<real> CViewmol::get_view_axis_angles(void){
@@ -285,7 +285,7 @@ TVector<real> CViewmol::get_view_axis_angles(void){
 
 TVector<real> CViewmol::get_view_basis_direct(void){
   //return get_map_basis_direct();
-  return cell.get_fragmol_basis_direct();
+  return supercell.get_fragmol_basis_direct();
 }
 
 TVector<real> CViewmol::get_view_position_direct(void){
