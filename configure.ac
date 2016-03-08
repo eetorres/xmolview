@@ -88,18 +88,20 @@ if test "$BUILD_FOR_MACOS" = "yes" ; then
    BUILD_FOR_LINUX="no"
    BUILD_FOR_WINDOWS="no"
    OS="macos"
-#   LIBS=["$LIBS -framework GLKit"]
+#  LIBS=["$LIBS -framework GLKit"]
    AC_DEFINE([BUILD_FOR_MACOS],[1],[use Mac OS X components])
 fi
 
 # Conditional setup for Linux build
 if test "$BUILD_FOR_LINUX" = "yes" ; then
    OS="linux"
+#  SYS=$(hostname)
    AC_DEFINE([BUILD_FOR_LINUX],[1],[use Linux components])
 fi
 
 # Make all the proper substitutions
 AC_SUBST(OS)
+#AC_SUBST(SYS)
 
 # Generating files
 AC_CONFIG_FILES([Makefile

@@ -5071,7 +5071,7 @@ if test "$BUILD_FOR_MACOS" = "yes" ; then
    BUILD_FOR_LINUX="no"
    BUILD_FOR_WINDOWS="no"
    OS="macos"
-#   LIBS=["$LIBS -framework GLKit"]
+#  LIBS=["$LIBS -framework GLKit"]
 
 $as_echo "#define BUILD_FOR_MACOS 1" >>confdefs.h
 
@@ -5080,6 +5080,7 @@ fi
 # Conditional setup for Linux build
 if test "$BUILD_FOR_LINUX" = "yes" ; then
    OS="linux"
+#  SYS=$(hostname)
 
 $as_echo "#define BUILD_FOR_LINUX 1" >>confdefs.h
 
@@ -5087,6 +5088,7 @@ fi
 
 # Make all the proper substitutions
 
+#AC_SUBST(SYS)
 
 # Generating files
 ac_config_files="$ac_config_files Makefile src/Makefile"
