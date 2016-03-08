@@ -6,6 +6,10 @@ VER="${version_yy}.${version_month}"
 SYS=`uname -m`
 COD=`lsb_release -c | cut -f2`
 
+if [ ! -d ./release ] ; then
+  mkdir ./release
+fi
+
 NAME="xmv_${VER}_${COD}_${SYS}"
 DIR=release/$NAME
 
