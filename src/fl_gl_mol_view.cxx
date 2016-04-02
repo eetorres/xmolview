@@ -776,8 +776,10 @@ void Fl_Gl_Mol_View::draw_symbols(void){
   glColor3f(0.0F,1.0F,0.0F); // text color
   //gl_font(FL_COURIER|FL_BOLD,font_size_symbol); // text font
   //gl_font(1,GLint(f_atom_radius_scale*24)); // text font
-#ifdef BUILD_FOR_MACOS
-  gl_font(FL_COURIER|FL_BOLD,14);  // text font
+#if defined (BUILD_FOR_MACOS)
+    gl_font(FL_HELVETICA,12); // text font
+#elif defined (BUILD_FOR_WINDOWS)
+    //gl_font(FL_HELVETICA,14); // text font
 #else
   gl_font(FL_COURIER,12); // text font
 #endif
@@ -894,7 +896,7 @@ void Fl_Gl_Mol_View::draw_box(void){
   _p8 = -_vu+_vv+_vw;
   //
 #ifdef _GLMOL_DEBUG_BBOX_
-  std::cout<<"p1="<<_p1;
+  std::cout<<"p1="<<_p1;FL_HELVETICA
   std::cout<<"p2="<<_p2;
   std::cout<<"p3="<<_p3;
   std::cout<<"p4="<<_p4;
@@ -996,7 +998,7 @@ void Fl_Gl_Mol_View::draw_scene(void){
   // draw the bounding box using the lattice vectors
   if(is_draw_bbox_ && render_mode!=MODE_SELECT)
     draw_box();
-  // Molecular axis
+  // Molecular axisFL_HELVETICA
   // 1) rotate y axis, second angle, tilt
   // 2) rotate z axis, first angle, precession
   if(is_draw_world_axes_ && render_mode!=MODE_SELECT){
@@ -1164,7 +1166,7 @@ int Fl_Gl_Mol_View::handle(int event){
     return 1;
   case FL_UNFOCUS:
     //... Return 1 if you want keyboard events, 0 otherwise
-    //redraw();
+    //redraw();FL_HELVETICA
     return 1;
   case FL_PUSH:
     //... mouse down event ...
@@ -2045,10 +2047,13 @@ void Fl_Gl_Mol_View::draw_controls(GLfloat z){
   //
   //gl_font(FL_COURIER,12); // text font
   //gl_font(FL_SYMBOL,12);
-#ifdef BUILD_FOR_MACOS
+#if defined (BUILD_FOR_MACOS)
     gl_font(FL_HELVETICA,12); // text font
-#else
+#elif defined (BUILD_FOR_WINDOWS)
     gl_font(FL_COURIER,12); // text font
+    //gl_font(FL_HELVETICA,14); // text font
+#else
+    gl_font(FL_COURIER,14); // text font
 #endif
   //gl_font(FL_COURIER,font_size_panel_label); // text font
   glColor4f(0.0,1.0,0.0,1.0); // text color
@@ -2168,8 +2173,10 @@ void Fl_Gl_Mol_View::draw_tools(GLfloat z){
   //glEnd();
   // draw the tool box
   // solid border for the control menu
-#ifdef BUILD_FOR_MACOS
+#if defined (BUILD_FOR_MACOS)
     gl_font(FL_HELVETICA,12); // text font
+#elif defined (BUILD_FOR_WINDOWS)
+    //gl_font(FL_HELVETICA,14); // text font
 #else
     gl_font(FL_COURIER,12); // text font
 #endif
@@ -2240,8 +2247,10 @@ void Fl_Gl_Mol_View::draw_settings(GLfloat z){
   // draw the tool box
   // solid border for the control menu
   //gl_font(FL_COURIER,font_size_panel_label); // text font
-#ifdef BUILD_FOR_MACOS
-  gl_font(FL_HELVETICA,12); // text font
+#if defined (BUILD_FOR_MACOS)
+    gl_font(FL_HELVETICA,12); // text font
+#elif defined (BUILD_FOR_WINDOWS)
+    gl_font(FL_HELVETICA,14); // text font
 #else
   gl_font(FL_COURIER,12); // text font
 #endif
@@ -2319,8 +2328,10 @@ void Fl_Gl_Mol_View::draw_information(GLfloat z){
   //glEnd();
   // draw the tool box
   // solid border for the control menu
-#ifdef BUILD_FOR_MACOS
+#if defined (BUILD_FOR_MACOS)
     gl_font(FL_HELVETICA,12); // text font
+#elif defined (BUILD_FOR_WINDOWS)
+    gl_font(FL_HELVETICA,14); // text font
 #else
     gl_font(FL_COURIER,12); // text font
 #endif
@@ -2678,7 +2689,7 @@ void Fl_Gl_Mol_View::draw_pie_menu(GLfloat cx, GLfloat cy, GLfloat z, GLfloat r,
     // zFar plane. You can obtain any window space Z value by reading the depth buffer with glReadPixels().
     //
     //gluUnProject( winX, winY, winZ, modelview, projection, viewport, &menu_pos_x, &menu_pos_y, &menu_pos_z);
-#ifdef BUILD_FOR_MACOS
+#if defined (BUILD_FOR_MACOS)
     //std::cout<<"Mac OS X code here"<<std::endl;
     gluUnProject( winX, winY, 1, modelview, projection, viewport, &menu_pos_x, &menu_pos_y, &menu_pos_z);
 #else
@@ -2695,7 +2706,8 @@ void Fl_Gl_Mol_View::draw_pie_menu(GLfloat cx, GLfloat cy, GLfloat z, GLfloat r,
     //glReadPixels( cx, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
     //gluProject( winX, winY, 800, modelview, projection, viewport, &tmpX, &tmpY, &tmpZ);
     //gluUnProject( winX, winY, winZ, modelview, projection, viewport, &click_pos_x, &click_pos_y, &posZ);
-#ifdef BUILD_FOR_MACOS
+
+#if defined (BUILD_FOR_MACOS)
     //std::cout<<"Mac OS X code here"<<std::endl;
     gluUnProject( winX, winY, 1, modelview, projection, viewport, &click_pos_x, &click_pos_y, &posZ);
 #else
@@ -3017,7 +3029,7 @@ void Fl_Gl_Mol_View::draw_pie_disk(GLfloat x, GLfloat y, GLfloat z, GLfloat r, G
     //winY = viewport[3]-submenu_pos_cy;
     winY = submenu_pos_y;
     //glReadPixels( int(winX), int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
-#ifdef BUILD_FOR_MACOS
+#if defined (BUILD_FOR_MACOS)
     gluProject( winX, winY, z+2, modelview, projection, viewport, &submenu_pos_cx, &submenu_pos_cy, &winZ);
     //std::cout<<"Mac OS X code here"<<std::endl;
 #else
@@ -3056,7 +3068,7 @@ void Fl_Gl_Mol_View::draw_pie_labels(GLfloat cx, GLfloat cy, GLfloat z, GLfloat 
     str_length = strlen(buff);
     str_width = gl_width(buff);
     winX = cx-0.5*str_width;
-#ifdef BUILD_FOR_MACOS
+#if defined (BUILD_FOR_MACOS)
     gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
     //std::cout<<"Mac OS X code here"<<std::endl;
 #else
@@ -3075,7 +3087,7 @@ void Fl_Gl_Mol_View::draw_pie_labels(GLfloat cx, GLfloat cy, GLfloat z, GLfloat 
     str_width = gl_width(buff);
     //winX = menu_pos_cx-0.5*str_width;
     winX = cx-0.5*str_width;
-#ifdef BUILD_FOR_MACOS
+#if defined (BUILD_FOR_MACOS)
     gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
     //std::cout<<"Mac OS X code here"<<std::endl;
 #else

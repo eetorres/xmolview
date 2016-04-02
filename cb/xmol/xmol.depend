@@ -3925,3 +3925,553 @@
 
 1450034776 e:\xmolview\include\config_xmv.h
 
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\cdlp.cxx
+	<global.h>
+	<cdlp.h>
+	<ctype.h>
+	<algorithm>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\global.h
+	<msmvtl/libdef.h>
+	"config.h"
+
+1457881361 d:\users\etorres\programing\include\msmvtl\libdef.h
+	<float.h>
+	<math.h>
+	<fstream>
+	<iostream>
+	<string.h>
+	<string>
+	<time.h>
+
+1459624886 d:\users\etorres\programing\xmolview-64\config.h
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\cdlp.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<atom_symbol.h>
+	<atom_color.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\config_debug.h
+
+1457881361 d:\users\etorres\programing\include\msmvtl\tmatrix.h
+	<msmvtl/tvector.h>
+
+1457881361 d:\users\etorres\programing\include\msmvtl\tvector.h
+	<msmvtl/libdef.h>
+	<valarray>
+	<vector>
+
+1457881361 d:\users\etorres\programing\include\msmvtl\tvmath.h
+	<msmvtl/tvector.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\atom_symbol.h
+	<string>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\atom_color.h
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\cfile.cxx
+	<config_debug.h>
+	<cfile.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\cfile.h
+	<config_debug.h>
+	<global.h>
+	<ctopmol.h>
+	<cpotcar.h>
+	<cposcar.h>
+	<cxyz.h>
+	<cgau.h>
+	<czmat.h>
+	<cpdb.h>
+	<cdlp.h>
+	<czmat.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\ctopmol.h
+	<config_debug.h>
+	<string.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\cpotcar.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<atom_symbol.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\cposcar.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<global.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\cxyz.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<atom_symbol.h>
+	<atom_color.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\cgau.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<atom_symbol.h>
+	<atom_color.h>
+	<global.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\czmat.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/const.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<msmvtl/linalg.h>
+	<atom_symbol.h>
+	<atom_color.h>
+	<global.h>
+
+1457881361 d:\users\etorres\programing\include\msmvtl\const.h
+
+1457881361 d:\users\etorres\programing\include\msmvtl\linalg.h
+	<msmvtl/tvector.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/laext.h>
+
+1457881361 d:\users\etorres\programing\include\msmvtl\laext.h
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\cpdb.h
+	<config_debug.h>
+	<time.h>
+	<string.h>
+	<msmvtl/const.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<atom_symbol.h>
+	<atom_color.h>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\cfragment.cxx
+	<cfragment.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\cfragment.h
+	<config_debug.h>
+	<string.h>
+	<msmvtl/const.h>
+	<msmvtl/tmatrix.h>
+	<msmvtl/tvmath.h>
+	<msmvtl/linalg.h>
+	<atom_color.h>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\cgau.cxx
+	<cgau.h>
+	<ctype.h>
+	<algorithm>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\cmapcell.cxx
+	<cmapcell.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\cmapcell.h
+	<csupercell.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\csupercell.h
+	<config_debug.h>
+	<cfragment.h>
+	<cfile.h>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\cpalette.cxx
+	<cpalette.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\cpalette.h
+	<msmvtl/tmatrix.h>
+	<msmvtl/tmmath.h>
+
+1457881361 d:\users\etorres\programing\include\msmvtl\tmmath.h
+	<msmvtl/tvmath.h>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\cpdb.cxx
+	<cpdb.h>
+	<ctype.h>
+	<algorithm>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\cposcar.cxx
+	<config_debug.h>
+	<cposcar.h>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\cpotcar.cxx
+	<cpotcar.h>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\csupercell.cxx
+	<config_debug.h>
+	<csupercell.h>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\ctopmol.cxx
+	<config_debug.h>
+	<ctopmol.h>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\cviewmol.cxx
+	<cviewmol.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\cviewmol.h
+	<cmapcell.h>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\cxyz.cxx
+	<config_debug.h>
+	<global.h>
+	<cxyz.h>
+	<ctype.h>
+	<algorithm>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\czmat.cxx
+	<czmat.h>
+	<ctype.h>
+	<algorithm>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\fl_gl_atom.cxx
+	<config_debug.h>
+	<fl_gl_atom.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\fl_gl_atom.h
+	<config_debug.h>
+	<stdlib.h>
+	<stdio.h>
+	<ctimer.h>
+	<atom_color.h>
+	<atom_symbol.h>
+	<atom_name.h>
+	<msmvtl/const.h>
+	<msmvtl/linalg.h>
+	<assert.h>
+	<FL/Fl.H>
+	<FL/Fl_Gl_Window.H>
+	<FL/gl.h>
+	<FL/glu.h>
+	<FL/Fl_Box.H>
+	<cpalette.h>
+	<cviewmol.h>
+	<sphere.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\ctimer.h
+	<ctime>
+	<iostream>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\atom_name.h
+	<string>
+
+1414685122 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl.h
+	<FL/Fl_Cairo.H>
+	"fl_utf8.h"
+	"Enumerations.H"
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_cairo.h
+	<FL/Fl_Export.H>
+	<cairo-xlib.h>
+	<cairo-win32.h>
+	<cairo-quartz.h>
+
+1408624188 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_export.h
+
+1409218448 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_utf8.h
+	"Fl_Export.H"
+	"fl_types.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<locale.h>
+	<ctype.h>
+	<wchar.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<X11/Xlocale.h>
+	<X11/Xlib.h>
+	<locale.h>
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_types.h
+
+1413406820 d:\users\etorres\programing\lib\fltk-1.3.3\fl\enumerations.h
+	"Fl_Export.H"
+	"fl_types.h"
+
+1389890286 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_gl_window.h
+	"Fl_Window.H"
+
+1414592468 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_window.h
+	<windows.h>
+	"Fl_Group.H"
+	"Fl_Bitmap.H"
+	<stdlib.h>
+
+1409314212 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_group.h
+	"Fl_Widget.H"
+
+1410166550 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_widget.h
+	"Enumerations.H"
+	<stdint.h>
+	<stddef.h>
+
+1393084310 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_bitmap.h
+	"Fl_Image.H"
+
+1413293580 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_image.h
+	"Enumerations.H"
+	<stdlib.h>
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\gl.h
+	"Enumerations.H"
+	<windows.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\glu.h
+	"Enumerations.H"
+	<windows.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1345195086 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_box.h
+	"Fl_Widget.H"
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\sphere.h
+	<msmvtl/libdef.h>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\fl_gl_mol_view.cxx
+	<fl_gl_mol_view.h>
+	<config_xmv.h>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\fl_gl_mol_view.h
+	<stdlib.h>
+	<stdio.h>
+	<atom_color.h>
+	<atom_symbol.h>
+	<atom_name.h>
+	<msmvtl/const.h>
+	<msmvtl/linalg.h>
+	<assert.h>
+	<FL/Fl.H>
+	<fl_gl_atom.h>
+	<FL/Fl_Box.H>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\config_xmv.h
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\fl_table.cxx
+	<FL/fl_draw.H>
+	<stdarg.h>
+	<stdlib.h>
+	<string.h>
+	<string>
+	<fl_table.h>
+
+1411053956 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_draw.h
+	<FL/x.H>
+	<FL/Enumerations.H>
+	<FL/Fl_Window.H>
+	<FL/Fl_Device.H>
+
+1414614346 d:\users\etorres\programing\lib\fltk-1.3.3\fl\x.h
+	"Enumerations.H"
+	"win32.H"
+	"mac.H"
+	<X11/Xlib.h>
+	<X11/Xutil.h>
+	<X11/Xatom.h>
+	"Fl_Window.H"
+
+1410773706 d:\users\etorres\programing\lib\fltk-1.3.3\fl\win32.h
+	<windows.h>
+	<FL/Fl_Window.H>
+
+1410618594 d:\users\etorres\programing\lib\fltk-1.3.3\fl\mac.h
+	<FL/Fl_Widget.H>
+	<ApplicationServices/ApplicationServices.h>
+	"Fl_Window.H"
+	"../src/Fl_Font.H"
+
+1408783318 d:\users\etorres\programing\lib\fltk-1.3.3\src\fl_font.h
+	<config.h>
+	"Xutf8.h"
+
+1408783318 d:\users\etorres\programing\lib\fltk-1.3.3\src\xutf8.h
+	<X11/X.h>
+	<X11/Xlib.h>
+	<X11/Xlocale.h>
+	<X11/Xutil.h>
+
+1414613462 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_device.h
+	<FL/x.H>
+	<FL/Fl_Plugin.H>
+	<FL/Fl_Image.H>
+	<FL/Fl_Bitmap.H>
+	<FL/Fl_Pixmap.H>
+	<FL/Fl_RGB_Image.H>
+	<stdlib.h>
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_plugin.h
+	"Fl_Preferences.H"
+
+1379363114 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_preferences.h
+	<stdio.h>
+	"Fl_Export.H"
+
+1352238374 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_pixmap.h
+	"Fl_Image.H"
+	"x.H"
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_rgb_image.h
+	"Fl_Image.H"
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\fl_table.h
+	<FL/Fl.H>
+	<FL/Fl_Box.H>
+	<FL/Fl_Group.H>
+	<FL/Fl_Menu_Item.H>
+	<FL/Fl_Scrollbar.H>
+	<FL/Fl_Widget.H>
+	<vector>
+
+1410030224 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_menu_item.h
+	"Fl_Widget.H"
+	"Fl_Image.H"
+
+1317536714 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_scrollbar.h
+	"Fl_Slider.H"
+
+1338219552 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_slider.h
+	"Fl_Valuator.H"
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_valuator.h
+	"Fl_Widget.H"
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\fl_xmol_view.cxx
+	"../include/fl_xmol_view.h"
+	<FL/Fl_Image.H>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\fl_xmol_view.h
+	<FL/Fl.H>
+	<version.h>
+	<fl_gl_mol_view.h>
+	<FL/Fl_Double_Window.H>
+	<FL/Fl_Box.H>
+	<FL/Fl_Button.H>
+	<FL/Fl_Group.H>
+	<FL/Fl_Menu_Bar.H>
+	<msmvtl/tmatrix.h>
+	<string.h>
+	<FL/Fl_File_Chooser.H>
+	<FL/Fl_Choice.H>
+	<FL/Fl_Check_Button.H>
+	<FL/Fl_Value_Input.H>
+
+1457884724 d:\users\etorres\programing\xmolview-64\include\version.h
+
+1343104642 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_double_window.h
+	"Fl_Window.H"
+
+1413749838 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_button.h
+	"Fl_Widget.H"
+
+1343104642 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_menu_bar.h
+	"Fl_Menu_.H"
+
+1323367812 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_menu_.h
+	"Fl_Widget.H"
+	"Fl_Menu_Item.H"
+
+1412508510 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_file_chooser.h
+	<FL/Fl.H>
+	<FL/Fl_Double_Window.H>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<FL/Fl_Group.H>
+	<FL/Fl_Choice.H>
+	<FL/Fl_Menu_Button.H>
+	<FL/Fl_Button.H>
+	<FL/Fl_Preferences.H>
+	<FL/Fl_Tile.H>
+	<FL/Fl_File_Browser.H>
+	<FL/Fl_Box.H>
+	<FL/Fl_Check_Button.H>
+	<FL/Fl_File_Input.H>
+	<FL/Fl_Return_Button.H>
+	<FL/fl_ask.H>
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_choice.h
+	"Fl_Menu_.H"
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_menu_button.h
+	"Fl_Menu_.H"
+
+1413728268 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_tile.h
+	"Fl_Group.H"
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_file_browser.h
+	"Fl_Browser.H"
+	"Fl_File_Icon.H"
+	"filename.H"
+
+1347921894 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_browser.h
+	"Fl_Browser_.H"
+	"Fl_Image.H"
+
+1364073858 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_browser_.h
+	"Fl_Group.H"
+	"Fl_Scrollbar.H"
+	<FL/Fl.H>
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_file_icon.h
+	"Fl.H"
+
+1350645832 d:\users\etorres\programing\lib\fltk-1.3.3\fl\filename.h
+	"/usr/include/dirent.h"
+	"Fl_Export.H"
+	<FL/filename.H>
+	<sys/types.h>
+	<direct.h>
+	<sys/types.h>
+	<dirent.h>
+
+1413749838 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_check_button.h
+	"Fl_Light_Button.H"
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_light_button.h
+	"Fl_Button.H"
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_file_input.h
+	<FL/Fl_Input.H>
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_input.h
+	"Fl_Input_.H"
+
+1398740194 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_input_.h
+	"Fl_Widget.H"
+
+1343104642 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_return_button.h
+	"Fl_Button.H"
+
+1355249202 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_ask.h
+	"Enumerations.H"
+
+1311050970 d:\users\etorres\programing\lib\fltk-1.3.3\fl\fl_value_input.h
+	"Fl_Valuator.H"
+	"Fl_Input.H"
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\sphere.cxx
+	<sphere.h>
+
+1457884724 source:d:\users\etorres\programing\xmolview-64\src\xmolview.cxx
+	<fl_xmol_view.h>
+
