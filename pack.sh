@@ -16,7 +16,10 @@ DIR=release/$NAME
 mkdir ./$DIR
 cp src/xmolview $DIR/$NAME
 
-lsb_release -a > $DIR/README
+date > $DIR/README
+uname -a >> $DIR/README
+lsb_release -a >> $DIR/README
+
 
 cd release
   zip $NAME".zip" ./$NAME/*
