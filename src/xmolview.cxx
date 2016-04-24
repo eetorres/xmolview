@@ -34,17 +34,23 @@
 #include<fl_xmol_view.h>
 
 int main(int argc, char* argv[]){
-  //std::string dir_file;
-  //char full_dir_file[256];
+#if defined (BUILD_FOR_LINUX) || defined (BUILD_FOR_MACOS)
+  std::string dir_file;
+  char full_dir_file[256];
+#endif
   fl_xmol_view * mv = new fl_xmol_view();
-  /*if ( argc > 1){
-    std::cout<<" argument :"<<argv[1]<<std::endl;
-    dir_file = argv[1];
+#if defined (BUILD_FOR_LINUX) || defined (BUILD_FOR_MACOS)
+  //if ( argc > 1){
+    //std::cout<<" argument :"<<argv[1]<<std::endl;
+    //dir_file = argv[1];
+    dir_file = "";
     fl_filename_absolute(full_dir_file, sizeof(full_dir_file), dir_file.c_str());
-    mv->open_file(full_dir_file);
     std::cout<<" directory :"<<full_dir_file<<std::endl;
-  }*/
+    mv->open_file(full_dir_file);
+  //}
+#endif
   mv->show();
+  //mv->show_view(full_dir_file);
   Fl::run();
   return 0;
 }
