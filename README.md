@@ -5,6 +5,8 @@ http://www.molecular-explorer.com
 
 ```Check the new XMolVis project https://github.com/eetorres/xmolvis```
 
+https://github.com/eetorres/xmolvis
+
 To compile xmolview the following two dependencies are needed:
 
 Get the GPL open source MSMVTL template library from: https://github.com/eetorres/msmvtl, and add it to the include directory.
