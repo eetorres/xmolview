@@ -9,7 +9,7 @@ xmolview will be replaced by xmolvis a complete code update and optimization.
 
 https://github.com/eetorres/xmolvis
 
-To compile xmolview the following two dependencies are needed:
+To compile xmolview or xmolvis the following two dependencies are required:
 
 Get the GPL open source MSMVTL template library from: https://github.com/eetorres/msmvtl, and add it to the include directory.
 
