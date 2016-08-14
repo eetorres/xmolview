@@ -35,7 +35,7 @@ run the executable
 
 $ ./src/xmolview
 
-You may also use the OS dependent Makefiles. Edit the makeinclude file according to your system.
+Have fun.
 
 =====
 
