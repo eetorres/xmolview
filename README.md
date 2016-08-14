@@ -3,6 +3,8 @@ A graphical editor for molecular dynamics and ab-initio simulations
 
 http://www.molecular-explorer.com
 
+xmolview will be replaced by xmolvis a complete code update and optimization.
+
 ```Check the new XMolVis project https://github.com/eetorres/xmolvis```
 
 https://github.com/eetorres/xmolvis
