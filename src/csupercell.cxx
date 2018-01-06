@@ -340,46 +340,6 @@ bool CSupercell::eval_new_fragment(const TVector<uint>& _iv){
 // param u: initial selected atom
 // param sw: atom list switch
 // param _s: distance scaling factor
-bool CSupercell::eval_scaled_fragment(uint _u, bool _sw, real _scale){
-  bool res=false;
-  TVector<uint> new_fragment_atoms;
-  uint atom_seed;
-  if(_sw) // the atom number given by the fragment table
-    atom_seed=v_atom_cell_table[_u];
-  else   // the atom number in the fragment
-    atom_seed=_u;
-  // check if the structure is splited due PBC
-  v_fragments[__active_fragment].eval_scaled_bond_integrity(atom_seed,_scale);
-  // get the linked list of atoms
-  new_fragment_atoms=v_fragments[__active_fragment].compute_vdw_fragment(atom_seed,_scale);
-  // Create the new fragment
-  res = eval_new_fragment(new_fragment_atoms); //<--------------------------
-  // (1) direct, (0) cartesian
-  if(is_direct()){
-    //compute_fragmol_all_cartesian();
-    compute_fragmol_cartesian(__active_fragment);
-    compute_fragmol_cartesian(__number_of_fragments-1);
-#ifdef _FRAGMOL_DEBUG_MESSAGES_
-    std::cout<<" FRAGMOL: the cartesian were computed"<<std::endl;
-#endif
-  }else{
-    // It is needed when the input structure is given in cartesian coordinates
-    compute_fragmol_direct(__active_fragment);
-    compute_fragmol_direct(__number_of_fragments-1);
-#ifdef _FRAGMOL_DEBUG_MESSAGES_
-    std::cout<<" FRAGMOL: the direct were computed"<<std::endl;
-#endif
-  }
-#ifdef _FRAGMOL_DEBUG_MESSAGES_
-  new_fragment_atoms=gsf.get_topology_atoms(__active_fragment);
-  std::cout<<" FRAGMOL: new active topology atoms = "<<new_fragment_atoms;
-#endif
-  return res;
-}
-
-// param u: initial selected atom
-// param sw: atom list switch
-// param _s: distance scaling factor
 bool CSupercell::eval_radial_fragment(uint _u, bool _sw, real _scale){
   bool res=false;
   TVector<uint> new_fragment_atoms;
@@ -417,21 +377,44 @@ bool CSupercell::eval_radial_fragment(uint _u, bool _sw, real _scale){
   return res;
 }
 
-bool CSupercell::eval_scaled_fragment(uint u, real _s){
-  //std::cout<<" FRAGMOL: m_cartesian: "<<m_xyz;
-#ifdef _FRAGMOL_DATA_MESSAGES_
-  v_fragments[__active_fragment].show_information();
+// param u: initial selected atom
+// param sw: atom list switch
+// param _s: distance scaling factor
+bool CSupercell::eval_scaled_fragment(uint _u, bool _sw, real _scale){
+  bool res=false;
+  TVector<uint> new_fragment_atoms;
+  uint atom_seed;
+  if(_sw) // the atom number given by the fragment table
+    atom_seed=v_atom_cell_table[_u];
+  else   // the atom number in the fragment
+    atom_seed=_u;
+  // check if the structure is splited due PBC
+  v_fragments[__active_fragment].eval_scaled_bond_integrity(atom_seed,_scale);
+  // get the linked list of atoms
+  new_fragment_atoms=v_fragments[__active_fragment].compute_vdw_fragment(atom_seed,_scale);
+  // Create the new fragment
+  res = eval_new_fragment(new_fragment_atoms); //<--------------------------
+  // (1) direct, (0) cartesian
+  if(is_direct()){
+    //compute_fragmol_all_cartesian();
+    compute_fragmol_cartesian(__active_fragment);
+    compute_fragmol_cartesian(__number_of_fragments-1);
+#ifdef _FRAGMOL_DEBUG_MESSAGES_
+    std::cout<<" FRAGMOL: the cartesian were computed"<<std::endl;
 #endif
-  bool is_new_frag=true;
-  // Use the atom number
-  is_new_frag=eval_scaled_fragment(u,true,_s);
-  /////////////////////////set_map_active_fragment(__active_fragment);
-  eval_cell_table();
-  update_fragmol_cartesian();
-  update_fragmol_direct();
-  /////////////////////initialize_map();
-  //std::cout<<" FRAGMOL: m_cartesian: "<<m_xyz;
-  return is_new_frag;
+  }else{
+    // It is needed when the input structure is given in cartesian coordinates
+    compute_fragmol_direct(__active_fragment);
+    compute_fragmol_direct(__number_of_fragments-1);
+#ifdef _FRAGMOL_DEBUG_MESSAGES_
+    std::cout<<" FRAGMOL: the direct were computed"<<std::endl;
+#endif
+  }
+#ifdef _FRAGMOL_DEBUG_MESSAGES_
+  new_fragment_atoms=gsf.get_topology_atoms(__active_fragment);
+  std::cout<<" FRAGMOL: new active topology atoms = "<<new_fragment_atoms;
+#endif
+  return res;
 }
 
 // auto search for fragments separated by van der Waals radius distances
@@ -460,6 +443,23 @@ void CSupercell::eval_scaled_fragments(real _s){
   update_fragmol_direct();
   //////////////initialize_map();
   //std::cout<<" FRAGMOL: m_cartesian: "<<m_xyz;
+}
+
+bool CSupercell::eval_scaled_fragment(uint u, real _s){
+  //std::cout<<" FRAGMOL: m_cartesian: "<<m_xyz;
+#ifdef _FRAGMOL_DATA_MESSAGES_
+  v_fragments[__active_fragment].show_information();
+#endif
+  bool is_new_frag=true;
+  // Use the atom number
+  is_new_frag=eval_scaled_fragment(u,true,_s);
+  /////////////////////////set_map_active_fragment(__active_fragment);
+  eval_cell_table();
+  update_fragmol_cartesian();
+  update_fragmol_direct();
+  /////////////////////initialize_map();
+  //std::cout<<" FRAGMOL: m_cartesian: "<<m_xyz;
+  return is_new_frag;
 }
 
 // auto search for fragments separated by van der Waals radius distances
