@@ -27,6 +27,11 @@ On Windows
 
 $ ./configure  --enable-windows=yes
 
+You need MSYS and mingw-w64 intalled from:
+
+http://www.mingw.org/wiki/msys
+https://mingw-w64.org
+
 Then build the binary
 
 $ make
