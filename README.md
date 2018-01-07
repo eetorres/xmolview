@@ -27,7 +27,7 @@ On Windows
 
 $ ./configure  --enable-windows=yes
 
-You need MSYS and mingw-w64 intalled from:
+You may need MSYS and mingw-w64 from:
 
 http://www.mingw.org/wiki/msys
 
