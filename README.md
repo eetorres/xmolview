@@ -1,7 +1,7 @@
 # xmolview
 A graphical editor for molecular dynamics and ab-initio simulations
 
-http://www.molecular-explorer.com
+http://www.xmol.org/
 
 xmolview will be replaced by xmolvis a complete code update and optimization.
 
